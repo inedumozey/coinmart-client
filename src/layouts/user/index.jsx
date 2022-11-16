@@ -8,8 +8,8 @@ import apiClass from '../../utils/api';
 const api = new apiClass()
 
 const headerHeight = '63px'
-const expandedAside = '200px'
-const shrinkedAside = '60px'
+const expandedAside = '240px'
+const shrinkedAside = '75px'
 
 export default function User({ children }) {
     const [isExpanded, setExpanded] = useState(true);

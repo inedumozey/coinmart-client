@@ -6,6 +6,7 @@ import { ScrollBar } from '../../../styles/globalStyles';
 import Spinner_ from '../../../components/spinner/Spinner';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import ChangeProfileImage from '../../../components/user/ChangeProfileImage';
+import AsideLinks from './AsideLinks';
 
 const asideHeaderheight = '70px';
 
@@ -62,6 +63,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                 headerHeight={headerHeight}
                 asideHeaderheight={asideHeaderheight}
             >
+                <AsideLinks isExpanded={isExpanded} />
             </Content>
             <Footer headerHeight={headerHeight}>
 
@@ -72,7 +74,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
 
 const Wrapper = styled.div`
     width: ${({ isExpanded, shrinkedAside, expandedAside }) => isExpanded ? expandedAside : shrinkedAside};
-    padding: 0 5px;
+    padding: 0 1px;
     height: 100%;
 
     @media (max-width: ${({ theme }) => theme.md_screen}){

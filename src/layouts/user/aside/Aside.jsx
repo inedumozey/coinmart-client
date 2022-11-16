@@ -25,15 +25,12 @@ export default function Aside({ headerHeight, expandedAside, shrinkedAside, isEx
 
 const AsideStyle = styled.div`
     position: fixed;
-    // padding: 5px 20px 0 15px;
-    // padding: 5px;
     top: ${({ headerHeight }) => headerHeight};
     transition: ${({ theme }) => theme.transition};
     width: ${({ shrinkedAside }) => shrinkedAside};
     width: ${({ isExpanded, expandedAside, shrinkedAside }) => isExpanded ? expandedAside : shrinkedAside};
     display: flex;
     flex-direction: column;
-    border: 1px solid teal;
 
     align-items: center;
     background: #fff;
