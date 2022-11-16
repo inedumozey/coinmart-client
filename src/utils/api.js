@@ -90,15 +90,15 @@ class apiClass {
                 Cookies.remove('accesstoken')
                 Cookies.remove('refreshtoken')
                 Cookies.remove('role')
-
-                // logout
-                this.logout()
             }
             else {
                 setFetchProfileMsg(err.message);
                 setFetchProfileSuccess(true)
                 setProfileLoading(false)
             }
+
+            // logout
+            // this.logout()
         }
     }
 

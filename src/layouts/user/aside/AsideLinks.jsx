@@ -50,7 +50,9 @@ export default function AsideLinks({ isExpanded }) {
         { url: '/dashboard/referral-contest', name: 'Referral Contest', icon: SportsKabaddiIcon },
     ]
 
-    const isActive = location.pathname.includes('update-account') || location.pathname.includes('security') || location.pathname.includes('verify-account');
+    const isProfileActive = location.pathname.includes('update-account') || location.pathname.includes('security') || location.pathname.includes('verify-account');
+
+    const isReferralActive = location.pathname.includes('downlines') || location.pathname.includes('referral-history') || location.pathname.includes('referral-contest');
 
     return (
         <Wrapper
@@ -60,7 +62,7 @@ export default function AsideLinks({ isExpanded }) {
         >
             {/* My profile */}
             <div className='linkWrapper' onClick={() => setExpandProfile(!expandProfile)}>
-                <Link className={isActive ? 'link activeLink' : 'link'}>
+                <Link className={isProfileActive ? 'link activeLink' : 'link'}>
                     <div className="icon1">
                         <PersonIcon className='icon' />
                     </div>
@@ -104,7 +106,7 @@ export default function AsideLinks({ isExpanded }) {
                 })
             }
             <div className='linkWrapper' onClick={() => setExpandReferral(!expandReferral)}>
-                <Link className={isActive ? 'link activeLink' : 'link'}>
+                <Link className={isReferralActive ? 'link activeLink' : 'link'}>
                     <div className="icon1">
                         <PersonIcon className='icon' />
                     </div>

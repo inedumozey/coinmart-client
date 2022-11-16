@@ -6,6 +6,9 @@ import staticData from '../utils/staticData';
 const Context = createContext()
 
 function ContextApi() {
+    // modal
+    const [show, setShow] = useState(false);
+
     const [profileData, setProfileData] = useState({});
     const [profileLoading, setProfileLoading] = useState(true);
     const [fetchProfileSuccess, setFetchProfileSuccess] = useState(false);
@@ -35,6 +38,10 @@ function ContextApi() {
             }
         },
         admin: {},
+        modal: {
+            show,
+            setShow
+        }
     }
 
     return (

@@ -7,20 +7,18 @@ import Spinner_ from '../../../components/spinner/Spinner';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import ChangeProfileImage from '../../../components/user/ChangeProfileImage';
 import AsideLinks from './AsideLinks';
+import Modal from '../../../components/Modal';
 
 const asideHeaderheight = '70px';
 
 export default function AsideContent({ expandedAside, shrinkedAside, isExpanded, headerHeight }) {
-    const { user } = useContext(Context)
+    const { user, modal } = useContext(Context);
+    const [showAdminLoginModal, setShowAdminLoginModal] = useState(false);
+    console.log(showAdminLoginModal)
 
     const {
         profileData,
         profileLoading,
-        fetchProfileSuccess,
-        fetchProfileMsg,
-        setProfileLoading,
-        setFetchProfileSuccess,
-        setFetchProfileMsg,
     } = user.profile
 
     const {
@@ -59,7 +57,10 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                 <div className="email">{profileData.email}</div>
                             </>
                     }
+                    <Link onClick={() => modal.setShow(true)} className='admin-login'>Admin Login</Link>
+                    <Modal title="Admin Login" showActionButton={false}>Login Form Here</Modal>
                 </div>
+
             </Header>
             <Content
                 headerHeight={headerHeight}
@@ -134,6 +135,12 @@ const Header = styled.div`
         }
         .email {
             font-weight: 600;
+        }
+
+        .admin-login{
+            color: var(--yellow);
+            cursor: pointer;
+            font-size: .75rem;
         }
     }
 `
