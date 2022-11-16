@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Image from 'react-bootstrap/Image';
 
 // landing pages
-import Plans from './landing/Plans';
+import LandingPagePlans from './landing/Plans';
 import RealEstate from './landing/RealEstate';
 import AboutUs from './landing/AboutUs';
 import Contacts from './landing/Contacts';
@@ -21,15 +21,19 @@ import VerifyEmail from './auth/VerifyEmail';
 // user dashboard pages
 import UserDashboard from "./users/UserDashboard";
 import Deposit from './users/Deposit';
-import Downlines from './users/Downlines';
-import InvestmentPackages from './users/InvestmentPackages';
-import Messages from './users/Messages';
+import Plans from './users/Plans';
+import Plan from './users/Plan';
+import Notifications from './users/Notifications';
+import Notification from './users/Notification';
 import UpdateAccount from './users/UpdateAccount';
 import Ticket from './users/Ticket';
 import Transactions from './users/Transactions';
 import Withdrawal from './users/Withdrawal';
-import TwoFa from './users/2Fa';
 import Security from './users/Security';
+import VerifyAccount from './users/VerifyAccount';
+import Downlines from './users/Downlines';
+import ReferralHistory from './users/ReferralHistory';
+import ReferralContest from './users/ReferralContest';
 
 //admin pages
 import AdminDashboard from "./admin/AdminDashboard";
@@ -56,7 +60,7 @@ export default function Pages() {
         <Routes>
             <Route path="/">
                 <Route index element={<Home />} />
-                <Route path="plans" element={<Plans />} />
+                <Route path="plans" element={<LandingPagePlans />} />
                 <Route path="real-estate" element={<RealEstate />} />
                 <Route path="about-us" element={<AboutUs />} />
                 <Route path="contact" element={<Contacts />} />
@@ -78,13 +82,17 @@ export default function Pages() {
                 <Route path="deposit" element={<Deposit />} />
                 <Route path="withdrawal" element={<Withdrawal />} />
                 <Route path="downlines" element={<Downlines />} />
-                <Route path="plans" element={<InvestmentPackages />} />
-                <Route path="messages" element={<Messages />} />
+                <Route path="plans" element={<Plans />} />
+                <Route path="plan/:id" element={<Plan />} />
+                <Route path="notifications" element={<Notifications />} />
+                <Route path="notification/:id" element={<Notification />} />
                 <Route path="update-account" element={<UpdateAccount />} />
-                <Route path="ticket" element={<Ticket />} />
+                <Route path="tickets" element={<Ticket />} />
                 <Route path="transactions" element={<Transactions />} />
                 <Route path="security" element={<Security />} />
-                <Route path="two-Factor-auth" element={<TwoFa />} />
+                <Route path="verify-account" element={<VerifyAccount />} />
+                <Route path="referral-history" element={<ReferralHistory />} />
+                <Route path="referral-contest" element={<ReferralContest />} />
             </Route>
 
             <Route path="/admin">

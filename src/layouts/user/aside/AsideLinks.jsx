@@ -25,13 +25,14 @@ export default function AsideLinks({ isExpanded }) {
     const location = useLocation()
     const [expandProfile, setExpandProfile] = useState(false)
     const [expandReferral, setExpandReferral] = useState(false)
-    const [newNotifications, setNewNotifications] = useState(false)
+    const [newNotifications, setNewNotifications] = useState(true)
+    const [newNotificationCounts, setNewNotificationCounts] = useState(5)
 
     const links = [
-        { url: '/dashboard/withdawal', name: 'Withdrawal', icon: PaidIcon },
+        { url: '/dashboard', name: 'My Packages', icon: DashboardIcon },
+        { url: '/dashboard/withdrawal', name: 'Withdrawal', icon: PaidIcon },
         { url: '/dashboard/deposit', name: 'Deposit', icon: SavingsIcon },
         { url: '/dashboard/transactions', name: 'Transactions', icon: CurrencyExchangeIcon },
-        { url: '/dashboard', name: 'My Packages', icon: DashboardIcon },
         { url: '/dashboard/plans', name: 'Plans', icon: CreditScoreIcon },
         { url: '/dashboard/notifications', name: 'Notifications', icon: newNotifications ? NotificationsActiveIcon : NotificationsIcon },
         { url: '/dashboard/tickets', name: 'Ticket', icon: SendIcon },
@@ -75,7 +76,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="profile-dropdwon-menu">
                     {
                         profileLinks?.map((link, i) => {
-                            return <Link to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -88,11 +89,16 @@ export default function AsideLinks({ isExpanded }) {
             {
                 links?.map((link, i) => {
                     return <div key={i} className='linkWrapper'>
-                        <Link to={link.url} className={location.pathname === link.url ? 'link activeLink' : 'link'}>
+                        <Link
+                            style={{
+                                color: link.name === 'Notifications' && newNotifications ? '#a50d0d' : '#fff'
+                            }}
+                            to={link.url}
+                            className={location.pathname === link.url ? 'link activeLink' : 'link'}>
                             <div className="icon1">
                                 <link.icon className='icon' />
                             </div>
-                            <div className="name">{link.name}</div>
+                            <div className="name">{link.name} {link.name === 'Notifications' && newNotifications ? <span style={{ color: '#fff' }}>{`(${newNotificationCounts})`}</span> : ''}</div>
                         </Link>
                     </div>
                 })
@@ -114,7 +120,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="referral-dropdwon-menu">
                     {
                         referralLinks?.map((link, i) => {
-                            return <Link to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -215,10 +221,10 @@ const Wrapper = styled.div`
                 &:hover {
                     background: #ddd;
                 }
+            }
 
-                .active-link {
-                    background: #ddd;
-                }
+            .active-link {
+                background: #ddd;
             }
 
             .icon {
@@ -251,10 +257,10 @@ const Wrapper = styled.div`
                 &:hover {
                     background: #ddd;
                 }
+            }
 
-                .active-link {
-                    background: #ddd;
-                }
+            .active-link {
+                background: #ddd;
             }
 
             .icon {

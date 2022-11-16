@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 
-export default function TwoFa() {
+export default function Plans() {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -11,6 +11,6 @@ export default function TwoFa() {
         }
     }, [])
     return (
-        <div>2fa</div>
+        <div>Plans</div>
     )
 }

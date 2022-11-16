@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 
-export default function Messages() {
+export default function ReferralContest() {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -11,6 +11,6 @@ export default function Messages() {
         }
     }, [])
     return (
-        <div>Messages</div>
+        <div>Referral Contest</div>
     )
 }

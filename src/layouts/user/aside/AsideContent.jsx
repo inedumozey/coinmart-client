@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Context } from '../../../context/Context';
 import { ScrollBar } from '../../../styles/globalStyles';
 import Spinner_ from '../../../components/spinner/Spinner';
@@ -43,16 +43,18 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                     {
                         profileLoading ? <div className="center"><Spinner_ size="sm" /></div> :
                             <>
-                                <div className="img">
-                                    {
-                                        profileImageLoading ? <div className="changeProfile center"><Spinner_ size="sm" /></div> :
-                                            <label htmlFor='file' className="changeProfile">
-                                                <AddAPhotoIcon style={{ fontSize: '1.2rem', color: '#888' }} />
-                                            </label>
-                                    }
-                                    <ChangeProfileImage />
-                                    <img src={profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile" />
-                                </div>
+                                <Link to="/dashboard/update-account">
+                                    <div className="img">
+                                        {
+                                            profileImageLoading ? <div className="changeProfile center"><Spinner_ size="sm" /></div> :
+                                                <label htmlFor='file' className="changeProfile">
+                                                    <AddAPhotoIcon style={{ fontSize: '1.2rem', color: '#888' }} />
+                                                </label>
+                                        }
+                                        <ChangeProfileImage />
+                                        <img src={profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile" />
+                                    </div>
+                                </Link>
                                 <div className="username">{`${profileData.username} (${profileData.role})`}</div>
                                 <div className="email">{profileData.email}</div>
                             </>
