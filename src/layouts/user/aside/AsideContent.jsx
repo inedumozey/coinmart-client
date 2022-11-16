@@ -42,7 +42,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                             <>
                                 <div className="img">
                                     <label htmlFor='file' className="changeProfile">
-                                        <AddAPhotoIcon style={{ fontSize: '.9rem', color: '#ddd' }} />
+                                        <AddAPhotoIcon style={{ fontSize: '1.2rem', color: '#888' }} />
                                     </label>
                                     <ChangeProfileImage />
                                     <img src={profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile" />
@@ -99,8 +99,8 @@ const Header = styled.div`
 
             .changeProfile {
                 position: absolute;
-                bottom: 5px;
-                right: 5px;
+                bottom: -8px;
+                right: -10px;
             }
             
             @media (max-width: ${({ theme }) => theme.md_screen}){
