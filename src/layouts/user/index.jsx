@@ -5,6 +5,7 @@ import Aside from './aside/Aside';
 import Cookies from 'js-cookie';
 import { Context } from '../../context/Context';
 import apiClass from '../../utils/api';
+import Copyright from '../../components/Copyright';
 const api = new apiClass()
 
 const headerHeight = '63px'
@@ -60,7 +61,9 @@ export default function User({ children }) {
                 <MainContent headerHeight={headerHeight}>
                     {children}
                 </MainContent>
-                <FooterStyle headerHeight={headerHeight}>Footer</FooterStyle>
+                <FooterStyle headerHeight={headerHeight}>
+                    <Copyright height='100%' bg="transparent" />
+                </FooterStyle>
             </MainStyle>
         </Wrapper>
     )

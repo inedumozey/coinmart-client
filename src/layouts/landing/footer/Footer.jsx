@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from "react-router-dom";
 import { Context } from '../../../context/Context';
+import Copyright from '../../../components/Copyright';
 
 export default function Footer() {
     const location = useLocation();
@@ -61,9 +62,7 @@ export default function Footer() {
                     }
                 </div>
             </div>
-            <div className="bottom">
-                &copy; {(new Date()).getFullYear() > 2022 ? `2022 - ${(new Date()).getFullYear()}` : (new Date()).getFullYear()} &nbsp; <span style={{ color: 'var(--yellow)' }}>{contact.name} </span>  &nbsp; All Right Reserved
-            </div>
+            <Copyright />
         </FooterStyle>
     )
 }
@@ -183,24 +182,6 @@ const FooterStyle = styled.div`
             @media (max-width: ${({ theme }) => theme.sm_screen}){
                 width: 100%;     
             }
-        }
-    }
-
-    .bottom {
-        height: 98px;
-        width: 100%;
-        background: var(--gray-light);
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: .9rem;
-        padding: 0 ${({ theme }) => theme.lg_padding};
-        @media (max-width: ${({ theme }) => theme.md_screen}){
-            padding: 0 ${({ theme }) => theme.md_padding};
-        }
-        @media (max-width: ${({ theme }) => theme.sm_screen}){
-            padding: 0 ${({ theme }) => theme.sm_padding};
         }
     }
 `
