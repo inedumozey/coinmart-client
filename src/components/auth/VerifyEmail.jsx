@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from '../../context/Context';
-import setCookies from '../../utils/setCookies';
+import apiClass from '../../utils/api';
 import axios from 'axios'
+
+const api = new apiClass()
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
 
@@ -35,7 +37,7 @@ export default function VerifyEmail_C() {
             const { data } = await axios.get(`${BASE_URL}/auth/verify-email/?token=${token}`);
 
             // log the user in
-            setCookies(data.accesstoken, data.refreshtoken, data.data.role)
+            api.setCookies(data.accesstoken, data.refreshtoken, data.data.role)
 
             setFetched({
                 status: true,

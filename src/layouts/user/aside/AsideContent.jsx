@@ -22,7 +22,9 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
         setFetchProfileMsg,
     } = user.profile
 
-    // console.log(selectedImage.files)
+    const {
+        profileImageLoading,
+    } = user.profileImage;
 
     return (
         <Wrapper
@@ -41,9 +43,12 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                         profileLoading ? <div className="center"><Spinner_ size="sm" /></div> :
                             <>
                                 <div className="img">
-                                    <label htmlFor='file' className="changeProfile">
-                                        <AddAPhotoIcon style={{ fontSize: '1.2rem', color: '#888' }} />
-                                    </label>
+                                    {
+                                        profileImageLoading ? <div className="changeProfile center"><Spinner_ size="sm" /></div> :
+                                            <label htmlFor='file' className="changeProfile">
+                                                <AddAPhotoIcon style={{ fontSize: '1.2rem', color: '#888' }} />
+                                            </label>
+                                    }
                                     <ChangeProfileImage />
                                     <img src={profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile" />
                                 </div>
@@ -90,16 +95,22 @@ const Header = styled.div`
         .img {
             margin: auto;
             border-radius: 50%;
-            border: 1px solid teal;
+            border: 1px solid #ddd;
             cursor: pointer;
             margin: auto;
             height: ${({ isExpanded }) => isExpanded ? '55px' : '30px'};
             width: ${({ isExpanded }) => isExpanded ? '55px' : '30px'};
             position: relative;
 
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+
             .changeProfile {
                 position: absolute;
-                bottom: -8px;
+                bottom: -2px;
                 right: -10px;
             }
             
@@ -109,6 +120,7 @@ const Header = styled.div`
             }
         }
         .username, .email {
+            font-size: .7.5rem;
             text-align: center;
             display: ${({ isExpanded }) => isExpanded ? 'block' : 'none'};
 

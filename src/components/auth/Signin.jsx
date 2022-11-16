@@ -10,8 +10,11 @@ import Btn from '../Btn/Btn';
 import Spinner_ from '../spinner/Spinner';
 import axios from 'axios'
 import { toast } from 'react-toastify';
-import setCookies from '../../utils/setCookies';
+import apiClass from '../../utils/api';
 import Cookies from 'js-cookie';
+
+const api = new apiClass()
+
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 export default function Signin_C() {
@@ -54,7 +57,7 @@ export default function Signin_C() {
             setVerifyMsg('')
 
             // log the user in
-            setCookies(data.accesstoken, data.refreshtoken, data.data.role)
+            api.setCookies(data.accesstoken, data.refreshtoken, data.data.role)
 
             // redirect the user home after some time (at home, he will be redirected to dashboard if refreshtoken exist in cookies)
             navigate('/')

@@ -3,7 +3,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import Header from './header/Header';
 import Aside from './aside/Aside';
 import Cookies from 'js-cookie';
-import refreshToken from '../../utils/refreshToken';
 import { Context } from '../../context/Context';
 import apiClass from '../../utils/api';
 const api = new apiClass()
@@ -26,7 +25,7 @@ export default function User({ children }) {
     useEffect(() => {
         // if accesstoken not there, refresh it before proceeding to get profile, otherwise, get profile straight up
         if (!Cookies.get('accesstoken')) {
-            refreshToken()
+            api.refreshToken()
             setTimeout(() => {
                 api.fetchProfile(setProfileData, setProfileLoading, setFetchProfileSuccess, setFetchProfileMsg)
             }, 2000);

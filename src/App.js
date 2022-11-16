@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
 import { ContextApi } from './context/Context';
 import Cookies from "js-cookie";
-import fetchConfig from './utils/fetchConfig';
+
+import apiClass from './utils/api';
+const api = new apiClass()
 
 
 function App() {
   const preloader = document.getElementById('preloader')
   const [preloading, setPreloading] = useState(true);
-  const location = useLocation()
 
 
   // page preloader
@@ -23,7 +23,7 @@ function App() {
     Cookies.remove("access")
 
     // fetch website configurations
-    fetchConfig()
+    api.fetchConfig()
   })
 
   return preloading ? "" : <ContextApi />
