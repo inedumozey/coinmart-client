@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import Pages from './pages';
 import { useLocation } from "react-router-dom";
-import Layout from './layouts';
-import { Context, state } from './context/Context';
+import { ContextApi } from './context/Context';
 import Cookies from "js-cookie";
 import fetchConfig from './utils/fetchConfig';
 
@@ -28,14 +26,7 @@ function App() {
     fetchConfig()
   })
 
-  return (
-    preloading ? "" :
-      <Context.Provider value={state}>
-        <Layout>
-          <Pages />
-        </Layout>
-      </Context.Provider>
-  )
+  return preloading ? "" : <ContextApi />
 }
 
 export default App;

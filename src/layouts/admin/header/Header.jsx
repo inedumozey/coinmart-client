@@ -66,15 +66,16 @@ const HeaderStyle = styled.div`
         border-radius: 50%;
         font-size: .9rem;
         position: absolute;
-        left: -20px;
+        left: 10px;
         top: 50%;
         transform: translateY(-50%);
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
         cursor: pointer;
         
         .icon {
-            color: #fff;
+            color: #ffffffb5;
+            font-size: 2rem;
         }
 
         .expand {

@@ -1,32 +1,51 @@
-import react, { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, createContext } from 'react';
+import Pages from '../pages';
+import Layout from '../layouts';
+import staticData from '../utils/staticData';
 
 const Context = createContext()
 
-const state = {
-    contact: {
-        email: 'drmo@developer.api',
-        mobile: '08036000347',
-        // mobile: '+1(918) 280-8396',
-        address: '9Co Meath C15 T26E 14 Mullaghaboy Industrial Estate, Plymouth, Indiana',
-        name: 'DrMo',
-        investment: 'Dolor---'
+function ContextApi() {
+    const [profileData, setProfileData] = useState({});
+    const [profileLoading, setProfileLoading] = useState(true);
+    const [fetchProfileSuccess, setFetchProfileSuccess] = useState(false);
+    const [fetchProfileMsg, setFetchProfileMsg] = useState("");
 
-        // email: 'admin@extractcoinmart.com',
-        // mobile: '+1(918) 280-8396',
-        // address: '9Co Meath C15 T26E 14 Mullaghaboy Industrial Estate, Plymouth, Indiana',
-        // name: 'Extratcoinmart',
-        // investment: 'Investment'
-    },
-    info: {
-        footerWord: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, reprehenderit? Doloremque, nemo similique dicta unde animi commodi temporibus? Natus mollitia labore amet harum soluta ratione voluptates blanditiis ut quas sit.',
-        secure: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, cum?`,
-        invest: 'Dolor',
+    const [profileImageLoading, setProfileImageLoading] = useState(false);
+    const [profileImageSuccess, setProfileImageSuccess] = useState(false);
 
-        // footerWord: 'We are the only Company offering accessible and secure Cloud-Mining solutions to everyone. We strive to ensure that Cryptocurrency remains decentralized by contributing to the network whilst sharing most of the gained mining incentives with our customers.',
-        // secure: `Secure and Easy way to`,
-        // invest: 'Invest'
-    },
-    countryUrl: "https://restcountries.eu/rest/v2/all",
+    const state = {
+        ...staticData,
+        user: {
+            profile: {
+                profileData,
+                setProfileData,
+                setProfileLoading,
+                setFetchProfileSuccess,
+                setFetchProfileMsg,
+                profileLoading,
+                fetchProfileSuccess,
+                fetchProfileMsg,
+            },
+            profileImage: {
+                setProfileImageLoading,
+                setProfileImageSuccess,
+                profileImageLoading,
+                profileImageSuccess,
+            }
+        },
+        admin: {},
+    }
+
+    return (
+        <Context.Provider value={state}>
+            <Layout>
+                <Pages />
+            </Layout>
+        </Context.Provider>
+    )
 }
 
-export { Context, state }
+
+
+export { ContextApi, Context }

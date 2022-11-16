@@ -5,7 +5,7 @@ import Aside from './aside/Aside';
 
 const headerHeight = '63px'
 const expandedAside = '200px'
-const shrinkedAside = '40px'
+const shrinkedAside = '60px'
 
 export default function Admin({ children }) {
     const [isExpanded, setExpanded] = useState(true)
@@ -51,7 +51,6 @@ const MainStyle = styled.div`;
     align-items: center;
     background: var(--gray-pale);
     left: ${({ isExpanded }) => isExpanded ? `calc(${expandedAside} - 5px)` : `calc(${shrinkedAside} - 5px)`};
-    min-height: ${({ headerHeight }) => `calc(100vh - ${headerHeight} + 5px)`};
 
     @media (max-width: ${({ theme }) => theme.md_screen}){
         left: ${({ isExpanded }) => isExpanded ? `0` : `calc(${expandedAside} - 5px)`};
@@ -60,7 +59,7 @@ const MainStyle = styled.div`;
 
 const MainContent = styled.div`
     width: 100%;
-    min-height: ${({ headerHeight }) => `calc(100vh - ${headerHeight} - ${headerHeight})`};
+    min-height: ${({ headerHeight }) => `calc(100vh - ${headerHeight} - ${headerHeight} + 5px)`};
     background: var(--gray-pale);
     padding: 15px ${({ theme }) => theme.lg_padding};
     @media (max-width: ${({ theme }) => theme.md_screen}){

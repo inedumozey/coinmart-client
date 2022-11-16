@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { test } from './test';
+import { getProfile } from './slice/users';
 
 
 
 // redux store
 export const store = configureStore({
-    reducer: { test}
+    reducer: { getProfile }
 });
 

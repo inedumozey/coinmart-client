@@ -76,6 +76,12 @@ const GlobalStyle = createGlobalStyle`
           padding: 0;
           margin: 0;
         }
+
+        .center {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
     
 
         ${ScrollBar()}
