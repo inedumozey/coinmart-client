@@ -43,18 +43,18 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                     {
                         profileLoading ? <div className="center"><Spinner_ size="sm" /></div> :
                             <>
-                                <Link to="/dashboard/update-account">
-                                    <div className="img">
-                                        {
-                                            profileImageLoading ? <div className="changeProfile center"><Spinner_ size="sm" /></div> :
-                                                <label htmlFor='file' className="changeProfile">
-                                                    <AddAPhotoIcon style={{ fontSize: '1.2rem', color: '#888' }} />
-                                                </label>
-                                        }
-                                        <ChangeProfileImage />
+                                <div className="img">
+                                    {
+                                        profileImageLoading ? <div className="changeProfile center"><Spinner_ size="sm" /></div> :
+                                            <label htmlFor='file' className="changeProfile">
+                                                <AddAPhotoIcon style={{ fontSize: '1.2rem', color: '#888' }} />
+                                            </label>
+                                    }
+                                    <ChangeProfileImage />
+                                    <Link to="/dashboard/update-account">
                                         <img src={profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile" />
-                                    </div>
-                                </Link>
+                                    </Link>
+                                </div>
                                 <div className="username">{`${profileData.username} (${profileData.role})`}</div>
                                 <div className="email">{profileData.email}</div>
                             </>
