@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components'
 import apiClass from '../../../utils/api';
@@ -18,6 +18,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
+import { Context } from '../../../context/Context';
 
 const api = new apiClass()
 
@@ -27,61 +28,16 @@ export default function AsideLinks({ isExpanded }) {
     const [expandDeposit, setExpandDeposit] = useState(false)
     const [expandWithdrawal, setExpandWithdrawal] = useState(false)
     const [expandReferral, setExpandReferral] = useState(false)
+    const { admin } = useContext(Context);
+    const { links } = admin
 
-    const links = [
-        { url: '/admin', name: 'Home', icon: DashboardIcon },
-        { url: '/admin/users', name: 'Users', icon: PersonIcon },
-        { url: '/admin/notifications', name: 'Notifications', icon: NotificationsIcon },
-    ]
-
-    const investmentLinks = [
-        { url: '/admin/investment/plans', name: 'Plans', icon: CreditScoreIcon },
-        { url: '/admin/investment/history', name: 'History', icon: CreditScoreIcon },
-    ]
     const isVestmentActive = location.pathname.includes('/admin/investment/plans') || location.pathname.includes('/admin/investment/history')
 
-    const depositLinks = [
-        { url: '/admin/deposit/new', name: 'New', icon: SavingsIcon },
-        { url: '/admin/deposit/confirmed', name: 'Confimred', icon: CreditScoreIcon },
-    ]
     const isDepositActive = location.pathname.includes('/admin/deposit/new') || location.pathname.includes('/admin/deposit/confiremed');
 
-    const withdrawalLinks = [
-        { url: '/admin/withdrawal/request', name: 'Request', icon: SavingsIcon },
-        { url: '/admin/withdrawal/confirmed', name: 'Confimred', icon: CreditScoreIcon },
-        { url: '/admin/withdrawal/rejected', name: 'Rejected', icon: CreditScoreIcon },
-    ]
     const isWithdrawalActive = location.pathname.includes('/admin/withdrawal/request') || location.pathname.includes('/admin/withdrawal/confirmed') || location.pathname.includes('/admin/withdrawal/rejected');
 
-    const referralLinks = [
-        { url: '/admin/referral/history', name: 'History', icon: SavingsIcon },
-        { url: '/admin/referral/config', name: 'Config', icon: CreditScoreIcon },
-        { url: '/admin/referral/contest', name: 'Contest', icon: CreditScoreIcon },
-    ]
     const isReferralActive = location.pathname.includes('/admin/referral/') || location.pathname.includes('/admin/referral/config') || location.pathname.includes('/admin/referral/contest');
-
-
-    // const depositLinks = [
-    //     { url: '/dashboard', name: 'My Packages', icon: DashboardIcon },
-    //     { url: '/dashboard/withdrawal', name: 'Withdrawal', icon: PaidIcon },
-    //     { url: '/dashboard/deposit', name: 'Deposit', icon: SavingsIcon },
-    //     { url: '/dashboard/transactions', name: 'Transactions', icon: CurrencyExchangeIcon },
-    //     { url: '/dashboard/plans', name: 'Plans', icon: CreditScoreIcon },
-    //     { url: '/dashboard/notifications', name: 'Notifications', icon: newNotifications ? NotificationsActiveIcon : NotificationsIcon },
-    //     { url: '/dashboard/tickets', name: 'Ticket', icon: SendIcon },
-    // ]
-
-    // const profileLinks = [
-    //     { url: '/dashboard/update-account', name: 'Update Account', icon: PersonIcon },
-    //     { url: '/dashboard/security', name: 'Security', icon: LockIcon },
-    //     { url: '/dashboard/verify-account', name: 'Verify Account', icon: VerifiedIcon },
-    // ]
-
-    // const referralLinks = [
-    //     { url: '/dashboard/downlines', name: 'Downlines', icon: GroupAddIcon },
-    //     { url: '/dashboard/referral-history', name: 'Referral History', icon: ManageHistoryIcon },
-    //     { url: '/dashboard/referral-contest', name: 'Referral Contest', icon: SportsKabaddiIcon },
-    // ]
 
 
     return (
@@ -93,7 +49,7 @@ export default function AsideLinks({ isExpanded }) {
             expandReferral={expandReferral}
         >
             {
-                links?.map((link, i) => {
+                links.links?.map((link, i) => {
                     return <div key={i} className='linkWrapper'>
                         <Link
                             style={{
@@ -127,7 +83,7 @@ export default function AsideLinks({ isExpanded }) {
                 </Link>
                 <div className="investment-dropdwon-menu">
                     {
-                        investmentLinks?.map((link, i) => {
+                        links.investmentLinks?.map((link, i) => {
                             return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
@@ -156,7 +112,7 @@ export default function AsideLinks({ isExpanded }) {
                 </Link>
                 <div className="deposit-dropdwon-menu">
                     {
-                        depositLinks?.map((link, i) => {
+                        links.depositLinks?.map((link, i) => {
                             return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
@@ -185,7 +141,7 @@ export default function AsideLinks({ isExpanded }) {
                 </Link>
                 <div className="withdrawal-dropdwon-menu">
                     {
-                        withdrawalLinks?.map((link, i) => {
+                        links.withdrawalLinks?.map((link, i) => {
                             return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
@@ -212,9 +168,10 @@ export default function AsideLinks({ isExpanded }) {
                         </div>
                     </div>
                 </Link>
+
                 <div className="referral-dropdwon-menu">
                     {
-                        referralLinks?.map((link, i) => {
+                        links.referralLinks?.map((link, i) => {
                             return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />

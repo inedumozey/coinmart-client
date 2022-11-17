@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Security_C from '../../components/user/profile/Security';
 
 export default function Security() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function Security() {
             navigate("/auth/signin")
         }
     }, [])
-    return (
-        <div>Security</div>
-    )
+    return <Security_C />
 }

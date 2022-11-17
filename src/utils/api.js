@@ -66,12 +66,7 @@ class apiClass {
                 this.setCookies(data.accesstoken, data.refreshtoken, data.data.role)
             }
             catch (err) {
-                if (err.response) {
-                    toast(err.response.data.msg, { type: 'error' })
-                }
-                else {
-                    toast(err.message, { type: 'error' })
-                }
+                return
             }
         }
 
@@ -82,7 +77,6 @@ class apiClass {
     }
 
     fetchProfile = async (setProfileData, setProfileLoading, setFetchProfileSuccess, setFetchProfileMsg) => {
-
         try {
             const { data } = await axios.get(`${BASE_URL}/auth/get-profile`, {
                 headers: {
@@ -97,7 +91,7 @@ class apiClass {
         catch (err) {
             if (err.response) {
                 setFetchProfileMsg(err.response.data.msg);
-                setFetchProfileSuccess(true)
+                setFetchProfileSuccess(false)
                 setProfileLoading(false)
 
                 //clear cookies if there is error
@@ -107,7 +101,7 @@ class apiClass {
             }
             else {
                 setFetchProfileMsg(err.message);
-                setFetchProfileSuccess(true)
+                setFetchProfileSuccess(false)
                 setProfileLoading(false)
             }
 

@@ -59,6 +59,7 @@ export default function User({ children }) {
                 isExpanded={isExpanded}
             >
                 <MainContent headerHeight={headerHeight}>
+                    main header
                     {children}
                 </MainContent>
                 <FooterStyle headerHeight={headerHeight}>

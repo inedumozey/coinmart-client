@@ -25,7 +25,7 @@ import Plans from './users/Plans';
 import Plan from './users/Plan';
 import Notifications from './users/Notifications';
 import Notification from './users/Notification';
-import UpdateAccount from './users/UpdateAccount';
+import Account from './users/Account';
 import Ticket from './users/Ticket';
 import Transactions from './users/Transactions';
 import Withdrawal from './users/Withdrawal';
@@ -94,7 +94,7 @@ export default function Pages() {
                 <Route path="plans/:id" element={<Plan />} />
                 <Route path="notifications" element={<Notifications />} />
                 <Route path="notifications/:id" element={<Notification />} />
-                <Route path="update-account" element={<UpdateAccount />} />
+                <Route path="account" element={<Account />} />
                 <Route path="tickets" element={<Ticket />} />
                 <Route path="transactions" element={<Transactions />} />
                 <Route path="security" element={<Security />} />

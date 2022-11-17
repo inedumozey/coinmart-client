@@ -16,7 +16,7 @@ import AdminLogin from './AdminLogin';
 const api = new apiClass()
 const asideHeaderheight = '85px';
 
-export default function AsideContent({ expandedAside, shrinkedAside, isExpanded, headerHeight }) {
+export default function AsideContent({ expandedAside, shrinkedAside, isExpanded, headerHeight, }) {
     const { user, modal } = useContext(Context);
     const navigate = useNavigate();
 
@@ -69,19 +69,19 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                         </Link>
                                     </> :
                                     <>
-                                        <div style={{ color: 'red' }}>Failed to fetch data. Refresh</div>
+                                        <div style={{ color: 'red', fontSize: '.6rem' }}>Failed to fetch data. Refresh</div>
                                     </>
                         }
                     </div>
                     <div className="action-btn">
                         <div onClick={() => api.logout(navigate)} className='logout'>
-                            <span className='action-btn-icon'><LogoutIcon /></span>
+                            <span className='action-btn-icon'><LogoutIcon style={{ fontSize: '1rem' }} /></span>
                             <span className='action-btn-text'>Logout</span>
                         </div>
                         {
                             profileData.role && profileData.role.toLowerCase() === 'admin' ?
                                 <div onClick={() => modal.setShow(true)} className='admin-login'>
-                                    <span className='action-btn-icon'><AdminPanelSettingsIcon /></span>
+                                    <span className='action-btn-icon'><AdminPanelSettingsIcon style={{ fontSize: '1rem' }} /></span>
                                     <span className='action-btn-text'>Admin</span>
                                 </div> : ''
                         }
@@ -215,6 +215,7 @@ const Header = styled.div`
 
         .admin-login, .logout {
             display: flex;
+            align-items: center;
             justify-content: center;
         }
 

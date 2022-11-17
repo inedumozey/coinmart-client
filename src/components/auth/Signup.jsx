@@ -87,8 +87,8 @@ export default function Signup_C() {
 
     return (
         <Wrapper>
+            <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1.5rem' }}>SIGN UP</h3>
             <MDBContainer fluid className="p-3h-custom">
-                <h3 style={{ textAlign: 'center', color: 'var(--blue)', fontSize: '1.5rem' }}>SIGN UP</h3>
                 <MDBRow>
 
                     <MDBCol className='bg' col='10' md='6'>
@@ -228,13 +228,12 @@ export default function Signup_C() {
 }
 
 const Wrapper = styled.div`
-    padding: 0 ${({ theme }) => theme.lg_padding} 20px 0;
+    padding: 0 ${({ theme }) => theme.lg_padding} 20px ${({ theme }) => theme.lg_padding};
     @media (max-width: ${({ theme }) => theme.md_screen}){
-        padding: 0 ${({ theme }) => theme.md_padding} 20px 0;
-
+        padding: 0 ${({ theme }) => theme.md_padding} 20px ${({ theme }) => theme.md_padding};
     }
     @media (max-width: ${({ theme }) => theme.sm_screen}){
-        padding: 0 ${({ theme }) => theme.sm_padding} 20px 0;
+        padding: 0 ${({ theme }) => theme.sm_padding} 20px ${({ theme }) => theme.sm_padding};
     }
     @media (max-width: 767px){
         .bg {

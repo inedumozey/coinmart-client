@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components'
 import apiClass from '../../../utils/api';
 import PersonIcon from '@mui/icons-material/Person';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import SavingsIcon from '@mui/icons-material/Savings';
-import PaidIcon from '@mui/icons-material/Paid';
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-import CreditScoreIcon from '@mui/icons-material/CreditScore';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import SendIcon from '@mui/icons-material/Send';
-import VerifiedIcon from '@mui/icons-material/Verified';
-import LockIcon from '@mui/icons-material/Lock';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
-import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
+import { Context } from '../../../context/Context';
 
 const api = new apiClass()
 
@@ -25,32 +13,10 @@ export default function AsideLinks({ isExpanded }) {
     const location = useLocation()
     const [expandProfile, setExpandProfile] = useState(false)
     const [expandReferral, setExpandReferral] = useState(false)
-    const [newNotifications, setNewNotifications] = useState(true)
-    const [newNotificationCounts, setNewNotificationCounts] = useState(5)
+    const { user } = useContext(Context);
+    const { links, profile } = user
 
-    const links = [
-        { url: '/dashboard', name: 'My Packages', icon: DashboardIcon },
-        { url: '/dashboard/withdrawal', name: 'Withdrawal', icon: PaidIcon },
-        { url: '/dashboard/deposit', name: 'Deposit', icon: SavingsIcon },
-        { url: '/dashboard/transactions', name: 'Transactions', icon: CurrencyExchangeIcon },
-        { url: '/dashboard/plans', name: 'Plans', icon: CreditScoreIcon },
-        { url: '/dashboard/notifications', name: 'Notifications', icon: newNotifications ? NotificationsActiveIcon : NotificationsIcon },
-        { url: '/dashboard/tickets', name: 'Ticket', icon: SendIcon },
-    ]
-
-    const profileLinks = [
-        { url: '/dashboard/update-account', name: 'Update Account', icon: PersonIcon },
-        { url: '/dashboard/security', name: 'Security', icon: LockIcon },
-        { url: '/dashboard/verify-account', name: 'Verify Account', icon: VerifiedIcon },
-    ]
-
-    const referralLinks = [
-        { url: '/dashboard/downlines', name: 'Downlines', icon: GroupAddIcon },
-        { url: '/dashboard/referral-history', name: 'Referral History', icon: ManageHistoryIcon },
-        { url: '/dashboard/referral-contest', name: 'Referral Contest', icon: SportsKabaddiIcon },
-    ]
-
-    const isProfileActive = location.pathname.includes('update-account') || location.pathname.includes('security') || location.pathname.includes('verify-account');
+    const isProfileActive = location.pathname.includes('account') || location.pathname.includes('security') || location.pathname.includes('verify-account');
 
     const isReferralActive = location.pathname.includes('downlines') || location.pathname.includes('referral-history') || location.pathname.includes('referral-contest');
 
@@ -77,7 +43,7 @@ export default function AsideLinks({ isExpanded }) {
                 </Link>
                 <div className="profile-dropdwon-menu">
                     {
-                        profileLinks?.map((link, i) => {
+                        links.profileLinks?.map((link, i) => {
                             return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
@@ -89,18 +55,21 @@ export default function AsideLinks({ isExpanded }) {
                 </div>
             </div>
             {
-                links?.map((link, i) => {
+                links.links?.map((link, i) => {
                     return <div key={i} className='linkWrapper'>
                         <Link
-                            style={{
-                                color: link.name === 'Notifications' && newNotifications ? 'red' : '#fff'
-                            }}
                             to={link.url}
                             className={location.pathname === link.url ? 'link activeLink' : 'link'}>
                             <div className="icon1">
-                                <link.icon className='icon' />
+                                {link.name === 'Notifications' && profile.newNotifications ? <span style={{ color: '#fff', fontSize: '.7rem', position: 'absolute' }}>{profile.newNotificationCounts}</span> : ''}
+                                <link.icon
+                                    style={{
+                                        color: link.name === 'Notifications' && profile.newNotifications ? 'red' : '#fff'
+                                    }}
+                                    className='icon'
+                                />
                             </div>
-                            <div className="name">{link.name} {link.name === 'Notifications' && newNotifications ? <span style={{ color: '#fff' }}>{`(${newNotificationCounts})`}</span> : ''}</div>
+                            <div className="name">{link.name}</div>
                         </Link>
                     </div>
                 })
@@ -121,7 +90,7 @@ export default function AsideLinks({ isExpanded }) {
                 </Link>
                 <div className="referral-dropdwon-menu">
                     {
-                        referralLinks?.map((link, i) => {
+                        links.referralLinks?.map((link, i) => {
                             return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
@@ -171,6 +140,7 @@ const Wrapper = styled.div`
                 height: 100%;
                 justify-content: center;
                 align-items: center;
+                position: relative;
             }
 
             .icon {

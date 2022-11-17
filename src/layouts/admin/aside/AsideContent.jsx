@@ -4,8 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../../../context/Context';
 import { ScrollBar } from '../../../styles/globalStyles';
 import Spinner_ from '../../../components/spinner/Spinner';
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import ChangeProfileImage from '../../../components/user/ChangeProfileImage';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AsideLinks from './AsideLinks';
 import apiClass from '../../../utils/api';
@@ -46,24 +44,17 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                 fetchProfileSuccess ?
                                     <>
                                         <div className="img">
-                                            {
-                                                profileImageLoading ? <div className="changeProfile center"><Spinner_ size="sm" /></div> :
-                                                    <label htmlFor='file' className="changeProfile">
-                                                        <AddAPhotoIcon style={{ fontSize: '1.2rem', color: '#888' }} />
-                                                    </label>
-                                            }
-                                            <ChangeProfileImage />
-                                            <Link to="/admin/">
+                                            <div>
                                                 <img src={profileData.profile && profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile" />
-                                            </Link>
+                                            </div>
                                         </div>
-                                        <Link to="/admin" className="metadata">
+                                        <div className="metadata">
                                             {/* if username is more than 20 characters, show only the first 17 charactesr */}
                                             <div className="username">{profileData.username && (profileData.username.length > 17 ? `${profileData.username.substr(0, 17)}...` : profileData.username)} {`(${profileData.role})`}</div>
 
                                             {/* if email is more than 20 characters, show only the last 14 and first 6 charactesr */}
                                             <div className="email">{profileData.email && (profileData.email.length > 20 ? `${profileData.email.substr(0, 6)}...${profileData.email.slice(profileData.email.length - 14)}` : profileData.email)}</div>
-                                        </Link>
+                                        </div>
                                     </> :
                                     <>
                                         <div style={{ color: 'red' }}>Failed to fetch data. Refresh</div>
@@ -72,7 +63,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                     </div>
                     <div className="action-btn">
                         <div onClick={() => api.logoutAdmin(navigate)} className='logout'>
-                            <span className='action-btn-icon'><LogoutIcon /></span>
+                            <span className='action-btn-icon'><LogoutIcon style={{ fontSize: '1rem' }} /></span>
                             <span className='action-btn-text'>Logout</span>
                         </div>
                     </div>
@@ -119,7 +110,6 @@ const Header = styled.div`
             margin: auto;
             border-radius: 50%;
             border: 1px solid #ddd;
-            cursor: pointer;
             margin: auto;
             height: ${({ isExpanded }) => isExpanded ? '55px' : '40px'};
             width: ${({ isExpanded }) => isExpanded ? '55px' : '40px'};
@@ -179,14 +169,6 @@ const Header = styled.div`
         font-size: .75rem;
         font-weight: 600;
 
-        .admin-login{
-            color: var(--yellow);
-            cursor: pointer;
-            border-left: 1px solid #ccc;
-            border-right: 1px solid #ccc;
-            width: 50%;
-            color: var(--blue);
-        }
         .logout{
             color: red;
             cursor: pointer;
@@ -199,8 +181,9 @@ const Header = styled.div`
             }
         }
 
-        .admin-login, .logout {
+        .logout {
             display: flex;
+            align-items: center;
             justify-content: center;
         }
 
