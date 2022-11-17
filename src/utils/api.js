@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
+import { Navigate } from "react-router";
 import { toast } from 'react-toastify';
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -31,6 +32,27 @@ class apiClass {
         });
     }
 
+    logout = (navigate) => {
+        Cookies.remove('accesstoken')
+        Cookies.remove('refreshtoken')
+        Cookies.remove('role')
+
+        navigate('/');
+    }
+
+    setAdminCookies = (token) => {
+        Cookies.set('extratoken', token, {
+            secure: true,
+            sameSite: 'strict'
+        })
+    }
+
+    logoutAdmin = (navigate) => {
+        Cookies.remove('extratoken')
+
+        navigate('/dashboard');
+    }
+
     refreshToken = async () => {
         if (!Cookies.get('accesstoken') && Cookies.get('refreshtoken')) {
             try {
@@ -57,14 +79,6 @@ class apiClass {
             window.location.reload();
             toast('Session is over, please login')
         }
-    }
-
-    logout = () => {
-        Cookies.remove('accesstoken')
-        Cookies.remove('refreshtoken')
-        Cookies.remove('role')
-
-        window.location.reload()
     }
 
     fetchProfile = async (setProfileData, setProfileLoading, setFetchProfileSuccess, setFetchProfileMsg) => {

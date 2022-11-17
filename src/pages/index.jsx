@@ -36,15 +36,23 @@ import ReferralHistory from './users/ReferralHistory';
 import ReferralContest from './users/ReferralContest';
 
 //admin pages
-import AdminDashboard from "./admin/AdminDashboard";
-import AdminDeposit from './admin/Deposit';
-import AdminDownlines from './admin/Downlines';
-import AdminInvestment from './admin/Investment';
+import AdminHome from './admin/Home';
 import AdminUsers from './admin/Users';
-import AdminAppConfig from './admin/AppConfig';
-import AdminInvestmentPackages from './admin/Plans';
-import AdminMessages from './admin/Messages';
-import AdminWithdrawal from './admin/Withdrawal';
+import AdminUser from './admin/User';
+import AdminNewDeposit from "./admin/NewDeposit";
+import AdminConfirmedDeposit from "./admin/ConfirmedDeposit";
+import AdminNotifications from './admin/Notifications';
+import AdminInvestmentHx from './admin/InvestmentHx';
+import AdminPlans from './admin/Plans';
+import AdminPlan from './admin/Plan';
+import AdminWithdrawalRequest from './admin/WithdrawalRequest';
+import AdminWithdrawalRejected from './admin/WithdrawalRejected';
+import AdminWithdrawalConfirmed from './admin/WithdrawalConfirmed';
+import AdminReferralHx from './admin/ReferralHx';
+import AdminReferralConfig from './admin/ReferralConfig';
+import AdminReferralContest from './admin/ReferralContest';
+
+
 
 //certificate model page
 import Certificate from "./certificate/Certificate";
@@ -83,9 +91,9 @@ export default function Pages() {
                 <Route path="withdrawal" element={<Withdrawal />} />
                 <Route path="downlines" element={<Downlines />} />
                 <Route path="plans" element={<Plans />} />
-                <Route path="plan/:id" element={<Plan />} />
+                <Route path="plans/:id" element={<Plan />} />
                 <Route path="notifications" element={<Notifications />} />
-                <Route path="notification/:id" element={<Notification />} />
+                <Route path="notifications/:id" element={<Notification />} />
                 <Route path="update-account" element={<UpdateAccount />} />
                 <Route path="tickets" element={<Ticket />} />
                 <Route path="transactions" element={<Transactions />} />
@@ -96,15 +104,21 @@ export default function Pages() {
             </Route>
 
             <Route path="/admin">
-                <Route path="" element={<AdminDashboard />} />
+                <Route path="" element={<AdminHome />} />
                 <Route path="users" element={<AdminUsers />} />
-                <Route path="app-config" element={<AdminAppConfig />} />
-                <Route path="deposit" element={<AdminDeposit />} />
-                <Route path="withdrawal" element={<AdminWithdrawal />} />
-                <Route path="downlines" element={<AdminDownlines />} />
-                <Route path="plans" element={<AdminInvestmentPackages />} />
-                <Route path="investment" element={<AdminInvestment />} />
-                <Route path="messages" element={<AdminMessages />} />
+                <Route path="users/:id" element={<AdminUser />} />
+                <Route path="deposit/confirmed" element={<AdminConfirmedDeposit />} />
+                <Route path="deposit/new" element={<AdminNewDeposit />} />
+                <Route path="notifications" element={<AdminNotifications />} />
+                <Route path="investment/history" element={<AdminInvestmentHx />} />
+                <Route path="investment/plans" element={<AdminPlans />} />
+                <Route path="investment/plans/:id" element={<AdminPlan />} />
+                <Route path="withdrawal/request" element={<AdminWithdrawalRequest />} />
+                <Route path="withdrawal/rejected" element={<AdminWithdrawalRejected />} />
+                <Route path="withdrawal/confirmed" element={<AdminWithdrawalConfirmed />} />
+                <Route path="referral/history" element={<AdminReferralHx />} />
+                <Route path="referral/config" element={<AdminReferralConfig />} />
+                <Route path="referral/contest" element={<AdminReferralContest />} />
             </Route>
 
             <Route path="certificate/1668012585323" element={<Certificate />} />

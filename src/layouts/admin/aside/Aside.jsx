@@ -11,7 +11,13 @@ export default function Aside({ headerHeight, expandedAside, shrinkedAside, isEx
             isExpanded={isExpanded}
         >
             <div onClick={() => setExpanded(!isExpanded)} className="handle"></div>
-            <AsideContent />
+
+            <AsideContent
+                expandedAside={expandedAside}
+                shrinkedAside={shrinkedAside}
+                isExpanded={isExpanded}
+                headerHeight={headerHeight}
+            />
         </AsideStyle>
     )
 }
@@ -19,7 +25,6 @@ export default function Aside({ headerHeight, expandedAside, shrinkedAside, isEx
 
 const AsideStyle = styled.div`
     position: fixed;
-    padding: 20px 20px 20px 15px;
     top: ${({ headerHeight }) => headerHeight};
     transition: ${({ theme }) => theme.transition};
     width: ${({ shrinkedAside }) => shrinkedAside};

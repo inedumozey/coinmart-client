@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 
-export default function Plans() {
+export default function ReferralConfig() {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -11,6 +11,6 @@ export default function Plans() {
         }
     }, [])
     return (
-        <div>Plans</div>
+        <div>Referral Config</div>
     )
 }

@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export default function Plans() {
+export default function Plan() {
     const navigate = useNavigate();
+    const params = useParams()
 
     useEffect(() => {
         if (!Cookies.get('extratoken')) {
@@ -11,6 +12,6 @@ export default function Plans() {
         }
     }, [])
     return (
-        <div>Plans</div>
+        <div>Selected Plan with id: {params.id}</div>
     )
 }

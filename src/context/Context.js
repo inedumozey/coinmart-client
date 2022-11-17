@@ -14,8 +14,14 @@ function ContextApi() {
     const [fetchProfileSuccess, setFetchProfileSuccess] = useState(false);
     const [fetchProfileMsg, setFetchProfileMsg] = useState("");
 
+    // profile image uplaod
     const [profileImageLoading, setProfileImageLoading] = useState(false);
     const [profileImageSuccess, setProfileImageSuccess] = useState(false);
+
+    // admin
+    const [loginLoading, setLoginLoading] = useState(false);
+    const [loginSuccess, setLoginSuccess] = useState(false);
+
 
     const state = {
         ...staticData,
@@ -37,7 +43,14 @@ function ContextApi() {
                 profileImageSuccess,
             }
         },
-        admin: {},
+        admin: {
+            login: {
+                loginLoading,
+                setLoginLoading,
+                loginSuccess,
+                setLoginSuccess,
+            }
+        },
         modal: {
             show,
             setShow

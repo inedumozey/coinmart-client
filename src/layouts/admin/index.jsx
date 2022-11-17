@@ -1,14 +1,42 @@
 import styled from 'styled-components'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from './header/Header';
 import Aside from './aside/Aside';
+import Cookies from 'js-cookie';
+import { Context } from '../../context/Context';
+import apiClass from '../../utils/api';
+import Copyright from '../../components/Copyright';
+const api = new apiClass()
 
 const headerHeight = '63px'
-const expandedAside = '200px'
-const shrinkedAside = '60px'
+const expandedAside = '240px'
+const shrinkedAside = '75px'
 
 export default function Admin({ children }) {
-    const [isExpanded, setExpanded] = useState(true)
+    const [isExpanded, setExpanded] = useState(true);
+    const { user } = useContext(Context);
+    const {
+        setProfileData,
+        setProfileLoading,
+        setFetchProfileSuccess,
+        setFetchProfileMsg
+    } = user.profile;
+
+
+    useEffect(() => {
+        // if accesstoken not there, refresh it before proceeding to get profile, otherwise, get profile straight up
+        if (!Cookies.get('accesstoken')) {
+            api.refreshToken()
+            setTimeout(() => {
+                api.fetchProfile(setProfileData, setProfileLoading, setFetchProfileSuccess, setFetchProfileMsg)
+            }, 2000);
+        }
+        else {
+            api.fetchProfile(setProfileData, setProfileLoading, setFetchProfileSuccess, setFetchProfileMsg)
+        }
+
+    }, [])
+
     return (
         <Wrapper>
             <Header
@@ -33,15 +61,17 @@ export default function Admin({ children }) {
                 <MainContent headerHeight={headerHeight}>
                     {children}
                 </MainContent>
-                <FooterStyle headerHeight={headerHeight}>Footer</FooterStyle>
+                <FooterStyle headerHeight={headerHeight}>
+                    <Copyright height='100%' bg="transparent" />
+                </FooterStyle>
             </MainStyle>
         </Wrapper>
     )
 }
 
 
-const Wrapper = styled.div`
-`
+const Wrapper = styled.div``
+
 const MainStyle = styled.div`;
     position: absolute;
     top: ${({ headerHeight }) => `calc(${headerHeight} - 5px)`};

@@ -1,0 +1,440 @@
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom';
+import styled from 'styled-components'
+import apiClass from '../../../utils/api';
+import PersonIcon from '@mui/icons-material/Person';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import SavingsIcon from '@mui/icons-material/Savings';
+import PaidIcon from '@mui/icons-material/Paid';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import SendIcon from '@mui/icons-material/Send';
+import VerifiedIcon from '@mui/icons-material/Verified';
+import LockIcon from '@mui/icons-material/Lock';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
+import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
+
+const api = new apiClass()
+
+export default function AsideLinks({ isExpanded }) {
+    const location = useLocation()
+    const [expandInvestment, setExpandInvestment] = useState(false)
+    const [expandDeposit, setExpandDeposit] = useState(false)
+    const [expandWithdrawal, setExpandWithdrawal] = useState(false)
+    const [expandReferral, setExpandReferral] = useState(false)
+
+    const links = [
+        { url: '/admin', name: 'Home', icon: DashboardIcon },
+        { url: '/admin/users', name: 'Users', icon: PersonIcon },
+        { url: '/admin/notifications', name: 'Notifications', icon: NotificationsIcon },
+    ]
+
+    const investmentLinks = [
+        { url: '/admin/investment/plans', name: 'Plans', icon: CreditScoreIcon },
+        { url: '/admin/investment/history', name: 'History', icon: CreditScoreIcon },
+    ]
+    const isVestmentActive = location.pathname.includes('/admin/investment/plans') || location.pathname.includes('/admin/investment/history')
+
+    const depositLinks = [
+        { url: '/admin/deposit/new', name: 'New', icon: SavingsIcon },
+        { url: '/admin/deposit/confirmed', name: 'Confimred', icon: CreditScoreIcon },
+    ]
+    const isDepositActive = location.pathname.includes('/admin/deposit/new') || location.pathname.includes('/admin/deposit/confiremed');
+
+    const withdrawalLinks = [
+        { url: '/admin/withdrawal/request', name: 'Request', icon: SavingsIcon },
+        { url: '/admin/withdrawal/confirmed', name: 'Confimred', icon: CreditScoreIcon },
+        { url: '/admin/withdrawal/rejected', name: 'Rejected', icon: CreditScoreIcon },
+    ]
+    const isWithdrawalActive = location.pathname.includes('/admin/withdrawal/request') || location.pathname.includes('/admin/withdrawal/confirmed') || location.pathname.includes('/admin/withdrawal/rejected');
+
+    const referralLinks = [
+        { url: '/admin/referral/history', name: 'History', icon: SavingsIcon },
+        { url: '/admin/referral/config', name: 'Config', icon: CreditScoreIcon },
+        { url: '/admin/referral/contest', name: 'Contest', icon: CreditScoreIcon },
+    ]
+    const isReferralActive = location.pathname.includes('/admin/referral/') || location.pathname.includes('/admin/referral/config') || location.pathname.includes('/admin/referral/contest');
+
+
+    // const depositLinks = [
+    //     { url: '/dashboard', name: 'My Packages', icon: DashboardIcon },
+    //     { url: '/dashboard/withdrawal', name: 'Withdrawal', icon: PaidIcon },
+    //     { url: '/dashboard/deposit', name: 'Deposit', icon: SavingsIcon },
+    //     { url: '/dashboard/transactions', name: 'Transactions', icon: CurrencyExchangeIcon },
+    //     { url: '/dashboard/plans', name: 'Plans', icon: CreditScoreIcon },
+    //     { url: '/dashboard/notifications', name: 'Notifications', icon: newNotifications ? NotificationsActiveIcon : NotificationsIcon },
+    //     { url: '/dashboard/tickets', name: 'Ticket', icon: SendIcon },
+    // ]
+
+    // const profileLinks = [
+    //     { url: '/dashboard/update-account', name: 'Update Account', icon: PersonIcon },
+    //     { url: '/dashboard/security', name: 'Security', icon: LockIcon },
+    //     { url: '/dashboard/verify-account', name: 'Verify Account', icon: VerifiedIcon },
+    // ]
+
+    // const referralLinks = [
+    //     { url: '/dashboard/downlines', name: 'Downlines', icon: GroupAddIcon },
+    //     { url: '/dashboard/referral-history', name: 'Referral History', icon: ManageHistoryIcon },
+    //     { url: '/dashboard/referral-contest', name: 'Referral Contest', icon: SportsKabaddiIcon },
+    // ]
+
+
+    return (
+        <Wrapper
+            isExpanded={isExpanded}
+            expandDeposit={expandDeposit}
+            expandWithdrawal={expandWithdrawal}
+            expandInvestment={expandInvestment}
+            expandReferral={expandReferral}
+        >
+            {
+                links?.map((link, i) => {
+                    return <div key={i} className='linkWrapper'>
+                        <Link
+                            style={{
+                                color: '#fff'
+                            }}
+                            to={link.url}
+                            className={location.pathname === link.url ? 'link activeLink' : 'link'}>
+                            <div className="icon1">
+                                <link.icon className='icon' />
+                            </div>
+                            <div className="name">{link.name}</div>
+                        </Link>
+                    </div>
+                })
+            }
+
+            {/* investment */}
+            <div className='linkWrapper' onClick={() => setExpandInvestment(!expandInvestment)}>
+                <Link className={isVestmentActive ? 'link activeLink' : 'link'}>
+                    <div className="icon1">
+                        <PersonIcon className='icon' />
+                    </div>
+                    <div className="name">
+                        Investment
+                        <div className="icon">
+                            {
+                                expandInvestment ? < ArrowDropUpIcon /> : <ArrowDropDownIcon />
+                            }
+                        </div>
+                    </div>
+                </Link>
+                <div className="investment-dropdwon-menu">
+                    {
+                        investmentLinks?.map((link, i) => {
+                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                                <div className="icon1">
+                                    <link.icon className='icon' />
+                                </div>
+                                <div className="name">{link.name}</div>
+                            </Link>
+                        })
+                    }
+                </div>
+            </div>
+
+            {/* Deposit */}
+            <div className='linkWrapper' onClick={() => setExpandDeposit(!expandDeposit)}>
+                <Link className={isDepositActive ? 'link activeLink' : 'link'}>
+                    <div className="icon1">
+                        <PersonIcon className='icon' />
+                    </div>
+                    <div className="name">
+                        Deposit
+                        <div className="icon">
+                            {
+                                expandDeposit ? < ArrowDropUpIcon /> : <ArrowDropDownIcon />
+                            }
+                        </div>
+                    </div>
+                </Link>
+                <div className="deposit-dropdwon-menu">
+                    {
+                        depositLinks?.map((link, i) => {
+                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                                <div className="icon1">
+                                    <link.icon className='icon' />
+                                </div>
+                                <div className="name">{link.name}</div>
+                            </Link>
+                        })
+                    }
+                </div>
+            </div>
+
+            {/* Withdrawal */}
+            <div className='linkWrapper' onClick={() => setExpandWithdrawal(!expandWithdrawal)}>
+                <Link className={isWithdrawalActive ? 'link activeLink' : 'link'}>
+                    <div className="icon1">
+                        <PersonIcon className='icon' />
+                    </div>
+                    <div className="name">
+                        Withdrawal
+                        <div className="icon">
+                            {
+                                expandWithdrawal ? < ArrowDropUpIcon /> : <ArrowDropDownIcon />
+                            }
+                        </div>
+                    </div>
+                </Link>
+                <div className="withdrawal-dropdwon-menu">
+                    {
+                        withdrawalLinks?.map((link, i) => {
+                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                                <div className="icon1">
+                                    <link.icon className='icon' />
+                                </div>
+                                <div className="name">{link.name}</div>
+                            </Link>
+                        })
+                    }
+                </div>
+            </div>
+
+            {/* Referral */}
+            <div className='linkWrapper' onClick={() => setExpandReferral(!expandReferral)}>
+                <Link className={isReferralActive ? 'link activeLink' : 'link'}>
+                    <div className="icon1">
+                        <PersonIcon className='icon' />
+                    </div>
+                    <div className="name">
+                        Referral
+                        <div className="icon">
+                            {
+                                expandReferral ? < ArrowDropUpIcon /> : <ArrowDropDownIcon />
+                            }
+                        </div>
+                    </div>
+                </Link>
+                <div className="referral-dropdwon-menu">
+                    {
+                        referralLinks?.map((link, i) => {
+                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                                <div className="icon1">
+                                    <link.icon className='icon' />
+                                </div>
+                                <div className="name">{link.name}</div>
+                            </Link>
+                        })
+                    }
+                </div>
+            </div>
+
+        </Wrapper>
+    )
+}
+
+
+const Wrapper = styled.div`
+    transition: ${({ theme }) => theme.transition};
+
+    .activeLink {
+        opacity: .6;
+    }
+
+    .linkWrapper {
+        transition: ${({ theme }) => theme.transition};
+        overflow: hidden;
+        margin-top: 5px;
+        padding: 0 10px;
+        box-shadow: 4px 4px 10px 0 rgba(0,0,0,.1),4px 4px 15px -5px rgba(104,97,206,.4);
+
+        .link {
+            background: var(--blue-deep);
+            display: block;
+            width: 100%;
+            height: 47px;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 4px 4px 10px 0 rgba(0,0,0,.1),4px 4px 15px -5px rgba(104,97,206,.4);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .icon1 {
+                width: 30px;
+                display: flex;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .icon {
+                font-size: 1.7rem;
+                font-weight: 600;
+            }
+
+            .name {
+                font-weight: 600;
+                height: 100%;
+                padding: 0 10px;
+                justify-content: space-between;
+                align-items: center;
+                margin: 0 5px;
+                width: calc(100% - 30px);
+
+                .icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                display: ${({ isExpanded }) => isExpanded ? 'flex' : 'none'};
+                @media (max-width: ${({ theme }) => theme.md_screen}){
+                    display: ${({ isExpanded }) => !isExpanded ? 'flex' : 'none'};
+                }
+            }
+        }
+
+        .investment-dropdwon-menu {
+            background: inherit;
+            a {
+                background: inherit;
+                color: #555;
+                display: block;
+                width: 100%;
+                border-radius: none;
+                box-shadow: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 5px;
+                padding-left:  ${({ isExpanded }) => isExpanded ? '20px' : '0px'};
+
+                @media (max-width: ${({ theme }) => theme.md_screen}){
+                    padding-left:  ${({ isExpanded }) => !isExpanded ? '20px' : '0px'};
+                }
+
+                &:hover {
+                    background: #ddd;
+                }
+            }
+
+            .active-link {
+                background: #ddd;
+            }
+
+            .icon {
+                color: var(--blue-deep);
+            }
+            height : ${({ expandInvestment }) => expandInvestment ? '100px' : '0px'};
+            opacity : ${({ expandInvestment }) => expandInvestment ? '1' : '0'};
+            transition: ${({ theme }) => theme.transition};
+        }
+
+        .deposit-dropdwon-menu {
+            background: inherit;
+            a {
+                background: inherit;
+                color: #555;
+                display: block;
+                width: 100%;
+                border-radius: none;
+                box-shadow: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 5px;
+                padding-left:  ${({ isExpanded }) => isExpanded ? '20px' : '0px'};
+
+                @media (max-width: ${({ theme }) => theme.md_screen}){
+                    padding-left:  ${({ isExpanded }) => !isExpanded ? '20px' : '0px'};
+                }
+
+                &:hover {
+                    background: #ddd;
+                }
+            }
+
+            .active-link {
+                background: #ddd;
+            }
+
+            .icon {
+                color: var(--blue-deep);
+            }
+            height : ${({ expandDeposit }) => expandDeposit ? '100px' : '0px'};
+            opacity : ${({ expandDeposit }) => expandDeposit ? '1' : '0'};
+            transition: ${({ theme }) => theme.transition};
+        }
+
+        .withdrawal-dropdwon-menu {
+            background: inherit;
+            a {
+                background: inherit;
+                color: #555;
+                display: block;
+                width: 100%;
+                border-radius: none;
+                box-shadow: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 5px;
+                padding-left:  ${({ isExpanded }) => isExpanded ? '20px' : '0px'};
+
+                @media (max-width: ${({ theme }) => theme.md_screen}){
+                    padding-left:  ${({ isExpanded }) => !isExpanded ? '20px' : '0px'};
+                }
+
+                &:hover {
+                    background: #ddd;
+                }
+            }
+
+            .active-link {
+                background: #ddd;
+            }
+
+            .icon {
+                color: var(--blue-deep);
+            }
+            height : ${({ expandWithdrawal }) => expandWithdrawal ? '150px' : '0px'};
+            opacity : ${({ expandWithdrawal }) => expandWithdrawal ? '1' : '0'};
+            transition: ${({ theme }) => theme.transition};
+        }
+
+        .referral-dropdwon-menu {
+            background: inherit;
+            a {
+                background: inherit;
+                color: #555;
+                display: block;
+                width: 100%;
+                border-radius: none;
+                box-shadow: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 5px;
+                padding-left:  ${({ isExpanded }) => isExpanded ? '20px' : '0px'};
+
+                @media (max-width: ${({ theme }) => theme.md_screen}){
+                    padding-left:  ${({ isExpanded }) => !isExpanded ? '20px' : '0px'};
+                }
+
+                &:hover {
+                    background: #ddd;
+                }
+            }
+
+            .active-link {
+                background: #ddd;
+            }
+
+            .icon {
+                color: var(--blue-deep);
+            }
+            height : ${({ expandReferral }) => expandReferral ? '150px' : '0px'};
+            opacity : ${({ expandReferral }) => expandReferral ? '1' : '0'};
+            transition: ${({ theme }) => theme.transition};
+        }
+    }
+`

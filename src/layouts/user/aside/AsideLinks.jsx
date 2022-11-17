@@ -93,7 +93,7 @@ export default function AsideLinks({ isExpanded }) {
                     return <div key={i} className='linkWrapper'>
                         <Link
                             style={{
-                                color: link.name === 'Notifications' && newNotifications ? '#a50d0d' : '#fff'
+                                color: link.name === 'Notifications' && newNotifications ? 'red' : '#fff'
                             }}
                             to={link.url}
                             className={location.pathname === link.url ? 'link activeLink' : 'link'}>
@@ -140,7 +140,6 @@ export default function AsideLinks({ isExpanded }) {
 
 const Wrapper = styled.div`
     transition: ${({ theme }) => theme.transition};
-    padding-top: 10px;
 
     .activeLink {
         opacity: .6;
