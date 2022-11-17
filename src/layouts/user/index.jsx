@@ -6,21 +6,43 @@ import Cookies from 'js-cookie';
 import { Context } from '../../context/Context';
 import apiClass from '../../utils/api';
 import Copyright from '../../components/Copyright';
-const api = new apiClass()
+import MainHeader from './header/MainHeader';
+import Trade from '../../components/tradeView/Ticker';
+import TickerTap from '../../components/tradeView/TickerTape';
+import { useLocation } from 'react-router-dom'
+import Typewriter from 'typewriter-effect';
 
+
+const api = new apiClass();
 const headerHeight = '63px'
 const expandedAside = '240px'
 const shrinkedAside = '75px'
 
 export default function User({ children }) {
     const [isExpanded, setExpanded] = useState(true);
-    const { user } = useContext(Context);
+    const location = useLocation()
+    const { user, contact, movingText } = useContext(Context);
     const {
         setProfileData,
         setProfileLoading,
         setFetchProfileSuccess,
         setFetchProfileMsg
     } = user.profile;
+
+    let currentRouteName;
+    if (location.pathname.includes('/dashboard')) currentRouteName = "My Packages"
+    if (location.pathname.includes('/dashboard/deposit')) currentRouteName = "Deposit"
+    if (location.pathname.includes('/dashboard/transfer')) currentRouteName = "Transfer"
+    if (location.pathname.includes('/dashboard/withdrawal')) currentRouteName = "Withdrawal"
+    if (location.pathname.includes('/dashboard/referral-history')) currentRouteName = "Referral History"
+    if (location.pathname.includes('/dashboard/referral-contest')) currentRouteName = "Referral Contest"
+    if (location.pathname.includes('/dashboard/plans')) currentRouteName = "Plans"
+    if (location.pathname.includes('/dashboard/notifications')) currentRouteName = "Notifications"
+    if (location.pathname.includes('/dashboard/account')) currentRouteName = "Account"
+    if (location.pathname.includes('/dashboard/verify-account')) currentRouteName = "Account Verification"
+    if (location.pathname.includes('/dashboard/tickets')) currentRouteName = "Tickets"
+    if (location.pathname.includes('/dashboard/transactions')) currentRouteName = "Transactions"
+    if (location.pathname.includes('/dashboard/security')) currentRouteName = "Security";;
 
 
     useEffect(() => {
@@ -59,8 +81,25 @@ export default function User({ children }) {
                 isExpanded={isExpanded}
             >
                 <MainContent headerHeight={headerHeight}>
-                    main header
-                    {children}
+                    <div className="main-header">
+                        <div className="row text">
+                            <h4 className="present-route">{currentRouteName}</h4>
+                            <Typewriter
+                                options={{
+                                    strings: movingText,
+                                    autoStart: true,
+                                    loop: true,
+                                }}
+                            />
+                        </div>
+
+                        <div className="row trade-view">
+                            <TickerTap />
+                        </div>
+                    </div>
+                    <div className="main-body">
+                        {children}
+                    </div>
                 </MainContent>
                 <FooterStyle headerHeight={headerHeight}>
                     <Copyright height='100%' bg="transparent" />
@@ -69,6 +108,8 @@ export default function User({ children }) {
         </Wrapper>
     )
 }
+
+
 
 
 const Wrapper = styled.div``
@@ -92,12 +133,23 @@ const MainContent = styled.div`
     width: 100%;
     min-height: ${({ headerHeight }) => `calc(100vh - ${headerHeight} - ${headerHeight} + 5px)`};
     background: var(--gray-pale);
-    padding: 15px ${({ theme }) => theme.lg_padding};
-    @media (max-width: ${({ theme }) => theme.md_screen}){
-        padding: 15px ${({ theme }) => theme.md_padding};
-    }
-    @media (max-width: ${({ theme }) => theme.sm_screen}){
-        padding: 15px ${({ theme }) => theme.sm_padding};
+
+    .main-header {
+        width: 100%;
+        color: #fff;
+        background: linear-gradient(to left, var(--blue) 0%, var(--blue2) 50% );
+
+        .text {
+            background: linear-gradient(to left, var(--blue) 0%, var(--blue2) 50% );
+            height: 80px;
+            padding: 15px ${({ theme }) => theme.lg_padding};
+            @media (max-width: ${({ theme }) => theme.md_screen}){
+                padding: 15px ${({ theme }) => theme.md_padding};
+            }
+            @media (max-width: ${({ theme }) => theme.sm_screen}){
+                padding: 15px ${({ theme }) => theme.sm_padding};
+            }
+        }
     }
 `
 const FooterStyle = styled.div`

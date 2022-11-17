@@ -2,9 +2,8 @@ const staticData = {
     contact: {
         email: 'drmo@developer.api',
         mobile: '08036000347',
-        // mobile: '+1(918) 280-8396',
         address: '9Co Meath C15 T26E 14 Mullaghaboy Industrial Estate, Plymouth, Indiana',
-        name: 'DrMo',
+        name: 'DrMohdhdh',
         investment: 'Dolor---'
 
         // email: 'admin@extractcoinmart.com',
@@ -23,6 +22,9 @@ const staticData = {
         // invest: 'Invest'
     },
     countryUrl: "https://restcountries.eu/rest/v2/all",
+
+    movingText: [`How are you my Friend?`, `Welcome to Drmo.`, `Have a nice day!`]
+    // movingText: [`Thanks for investing with Extratcoinmart.`, `Have a nice day!`]
 }
 
 export default staticData

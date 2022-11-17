@@ -7,6 +7,8 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { Context } from '../../../context/Context';
 
+
+
 const api = new apiClass()
 
 export default function AsideLinks({ isExpanded }) {
@@ -18,7 +20,7 @@ export default function AsideLinks({ isExpanded }) {
 
     const isProfileActive = location.pathname.includes('account') || location.pathname.includes('security') || location.pathname.includes('verify-account');
 
-    const isReferralActive = location.pathname.includes('downlines') || location.pathname.includes('referral-history') || location.pathname.includes('referral-contest');
+    const isReferralActive = location.pathname.includes('referral-history') || location.pathname.includes('referral-contest');
 
     return (
         <Wrapper
@@ -44,7 +46,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="profile-dropdwon-menu">
                     {
                         links.profileLinks?.map((link, i) => {
-                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link key={i} to={link.url} className={location.pathname.includes(link.url) ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -59,7 +61,7 @@ export default function AsideLinks({ isExpanded }) {
                     return <div key={i} className='linkWrapper'>
                         <Link
                             to={link.url}
-                            className={location.pathname === link.url ? 'link activeLink' : 'link'}>
+                            className={location.pathname.includes(link.url) ? 'link activeLink' : 'link'}>
                             <div className="icon1">
                                 {link.name === 'Notifications' && profile.newNotifications ? <span style={{ color: '#fff', fontSize: '.7rem', position: 'absolute' }}>{profile.newNotificationCounts}</span> : ''}
                                 <link.icon
@@ -91,7 +93,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="referral-dropdwon-menu">
                     {
                         links.referralLinks?.map((link, i) => {
-                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link key={i} to={link.url} className={location.pathname.includes(link.url) ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>

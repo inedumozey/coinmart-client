@@ -34,31 +34,38 @@ function ContextApi() {
     const [loginSuccess, setLoginSuccess] = useState(false);
 
     const admin_links = [
-        { url: '/admin', name: 'Home', icon: DashboardIcon },
+        { url: '/admin/home', name: 'Home', icon: DashboardIcon },
         { url: '/admin/users', name: 'Users', icon: PersonIcon },
         { url: '/admin/notifications', name: 'Notifications', icon: NotificationsIcon },
     ]
 
     const admin_investmentLinks = [
+        { url: '/admin/investment/config', name: 'Config', icon: CreditScoreIcon },
         { url: '/admin/investment/plans', name: 'Plans', icon: CreditScoreIcon },
         { url: '/admin/investment/history', name: 'History', icon: CreditScoreIcon },
     ]
 
+    const admin_transferLinks = [
+        { url: '/admin/transfer/config', name: 'Config', icon: CreditScoreIcon },
+        { url: '/admin/transfer/history', name: 'History', icon: CreditScoreIcon },
+    ]
 
     const admin_depositLinks = [
+        { url: '/admin/deposit/config', name: 'Config', icon: SavingsIcon },
         { url: '/admin/deposit/new', name: 'New', icon: SavingsIcon },
         { url: '/admin/deposit/confirmed', name: 'Confimred', icon: CreditScoreIcon },
     ]
 
     const admin_withdrawalLinks = [
+        { url: '/admin/withdrawal/config', name: 'Config', icon: SavingsIcon },
         { url: '/admin/withdrawal/request', name: 'Request', icon: SavingsIcon },
         { url: '/admin/withdrawal/confirmed', name: 'Confimred', icon: CreditScoreIcon },
         { url: '/admin/withdrawal/rejected', name: 'Rejected', icon: CreditScoreIcon },
     ]
 
     const admin_referralLinks = [
-        { url: '/admin/referral/history', name: 'History', icon: SavingsIcon },
         { url: '/admin/referral/config', name: 'Config', icon: CreditScoreIcon },
+        { url: '/admin/referral/history', name: 'History', icon: SavingsIcon },
         { url: '/admin/referral/contest', name: 'Contest', icon: CreditScoreIcon },
     ]
 
@@ -72,9 +79,10 @@ function ContextApi() {
     const [newNotificationCounts, setNewNotificationCounts] = useState(5)
 
     const links = [
-        { url: '/dashboard', name: 'My Packages', icon: DashboardIcon },
+        { url: '/dashboard/my-packages', name: 'My Packages', icon: DashboardIcon },
         { url: '/dashboard/withdrawal', name: 'Withdrawal', icon: PaidIcon },
         { url: '/dashboard/deposit', name: 'Deposit', icon: SavingsIcon },
+        { url: '/dashboard/transfer', name: 'Transfer', icon: SavingsIcon },
         { url: '/dashboard/transactions', name: 'Transactions', icon: CurrencyExchangeIcon },
         { url: '/dashboard/plans', name: 'Plans', icon: CreditScoreIcon },
         { url: '/dashboard/notifications', name: 'Notifications', icon: newNotifications ? NotificationsActiveIcon : NotificationsIcon },
@@ -123,8 +131,6 @@ function ContextApi() {
                 profileLinks,
                 referralLinks,
             }
-
-
         },
         admin: {
             login: {
@@ -135,6 +141,7 @@ function ContextApi() {
             },
             links: {
                 links: admin_links,
+                transferLinks: admin_transferLinks,
                 investmentLinks: admin_investmentLinks,
                 depositLinks: admin_depositLinks,
                 withdrawalLinks: admin_withdrawalLinks,
@@ -144,7 +151,7 @@ function ContextApi() {
         modal: {
             show,
             setShow
-        }
+        },
     }
 
     return (

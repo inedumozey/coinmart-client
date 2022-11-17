@@ -20,7 +20,9 @@ import VerifyEmail from './auth/VerifyEmail';
 
 // user dashboard pages
 import UserDashboard from "./users/UserDashboard";
+import MyPackages from "./users/MyPackages";
 import Deposit from './users/Deposit';
+import Transfer from './users/Transfer';
 import Plans from './users/Plans';
 import Plan from './users/Plan';
 import Notifications from './users/Notifications';
@@ -31,11 +33,11 @@ import Transactions from './users/Transactions';
 import Withdrawal from './users/Withdrawal';
 import Security from './users/Security';
 import VerifyAccount from './users/VerifyAccount';
-import Downlines from './users/Downlines';
 import ReferralHistory from './users/ReferralHistory';
 import ReferralContest from './users/ReferralContest';
 
 //admin pages
+import AdminDashboard from './admin/AdminDashboard';
 import AdminHome from './admin/Home';
 import AdminUsers from './admin/Users';
 import AdminUser from './admin/User';
@@ -51,6 +53,12 @@ import AdminWithdrawalConfirmed from './admin/WithdrawalConfirmed';
 import AdminReferralHx from './admin/ReferralHx';
 import AdminReferralConfig from './admin/ReferralConfig';
 import AdminReferralContest from './admin/ReferralContest';
+import AdminDepositConfig from "./admin/DepositConfig";
+import AdminTransferConfig from "./admin/TransferConfig";
+import AdminTransferHistory from "./admin/TransferHistory";
+import AdminInvestmentConfig from "./admin/InvestmentConfig";
+import AdminWithdrawalConfig from "./admin/WithdrawalConfig";
+
 
 
 
@@ -87,9 +95,10 @@ export default function Pages() {
 
             <Route path="/dashboard">
                 <Route path="" element={<UserDashboard />} />
+                <Route path="my-packages" element={<MyPackages />} />
                 <Route path="deposit" element={<Deposit />} />
+                <Route path="transfer" element={<Transfer />} />
                 <Route path="withdrawal" element={<Withdrawal />} />
-                <Route path="downlines" element={<Downlines />} />
                 <Route path="plans" element={<Plans />} />
                 <Route path="plans/:id" element={<Plan />} />
                 <Route path="notifications" element={<Notifications />} />
@@ -104,15 +113,21 @@ export default function Pages() {
             </Route>
 
             <Route path="/admin">
-                <Route path="" element={<AdminHome />} />
+                <Route path="" element={<AdminDashboard />} />
+                <Route path="home" element={<AdminHome />} />
                 <Route path="users" element={<AdminUsers />} />
                 <Route path="users/:id" element={<AdminUser />} />
+                <Route path="transfer/config" element={<AdminTransferConfig />} />
+                <Route path="transfer/history" element={<AdminTransferHistory />} />
+                <Route path="deposit/config" element={<AdminDepositConfig />} />
                 <Route path="deposit/confirmed" element={<AdminConfirmedDeposit />} />
                 <Route path="deposit/new" element={<AdminNewDeposit />} />
                 <Route path="notifications" element={<AdminNotifications />} />
+                <Route path="investment/config" element={<AdminInvestmentConfig />} />
                 <Route path="investment/history" element={<AdminInvestmentHx />} />
                 <Route path="investment/plans" element={<AdminPlans />} />
                 <Route path="investment/plans/:id" element={<AdminPlan />} />
+                <Route path="withdrawal/config" element={<AdminWithdrawalConfig />} />
                 <Route path="withdrawal/request" element={<AdminWithdrawalRequest />} />
                 <Route path="withdrawal/rejected" element={<AdminWithdrawalRejected />} />
                 <Route path="withdrawal/confirmed" element={<AdminWithdrawalConfirmed />} />

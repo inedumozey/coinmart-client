@@ -5,19 +5,6 @@ import apiClass from '../../../utils/api';
 import PersonIcon from '@mui/icons-material/Person';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import SavingsIcon from '@mui/icons-material/Savings';
-import PaidIcon from '@mui/icons-material/Paid';
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-import CreditScoreIcon from '@mui/icons-material/CreditScore';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import SendIcon from '@mui/icons-material/Send';
-import VerifiedIcon from '@mui/icons-material/Verified';
-import LockIcon from '@mui/icons-material/Lock';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
-import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
 import { Context } from '../../../context/Context';
 
 const api = new apiClass()
@@ -26,24 +13,28 @@ export default function AsideLinks({ isExpanded }) {
     const location = useLocation()
     const [expandInvestment, setExpandInvestment] = useState(false)
     const [expandDeposit, setExpandDeposit] = useState(false)
+    const [expandTransfer, setExpandTransfer] = useState(false)
     const [expandWithdrawal, setExpandWithdrawal] = useState(false)
     const [expandReferral, setExpandReferral] = useState(false)
     const { admin } = useContext(Context);
     const { links } = admin
 
-    const isVestmentActive = location.pathname.includes('/admin/investment/plans') || location.pathname.includes('/admin/investment/history')
+    const isVestmentActive = location.pathname.includes('/admin/investment/plans') || location.pathname.includes('/admin/investment/history') || location.pathname.includes('/admin/investment/config')
 
-    const isDepositActive = location.pathname.includes('/admin/deposit/new') || location.pathname.includes('/admin/deposit/confiremed');
+    const isDepositActive = location.pathname.includes('/admin/deposit/new') || location.pathname.includes('/admin/deposit/confiremed') || location.pathname.includes('/admin/deposit/config');
 
-    const isWithdrawalActive = location.pathname.includes('/admin/withdrawal/request') || location.pathname.includes('/admin/withdrawal/confirmed') || location.pathname.includes('/admin/withdrawal/rejected');
+    const isTransferActive = location.pathname.includes('/admin/transfer/config') || location.pathname.includes('/admin/transfer/history');
 
-    const isReferralActive = location.pathname.includes('/admin/referral/') || location.pathname.includes('/admin/referral/config') || location.pathname.includes('/admin/referral/contest');
+    const isWithdrawalActive = location.pathname.includes('/admin/withdrawal/request') || location.pathname.includes('/admin/withdrawal/confirmed') || location.pathname.includes('/admin/withdrawal/rejected') || location.pathname.includes('/admin/withdrawal/config');
+
+    const isReferralActive = location.pathname.includes('/admin/referral/') || location.pathname.includes('/admin/referral/config') || location.pathname.includes('/admin/referral/contest') || location.pathname.includes('/admin/referral/config');
 
 
     return (
         <Wrapper
             isExpanded={isExpanded}
             expandDeposit={expandDeposit}
+            expandTransfer={expandTransfer}
             expandWithdrawal={expandWithdrawal}
             expandInvestment={expandInvestment}
             expandReferral={expandReferral}
@@ -113,6 +104,35 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="deposit-dropdwon-menu">
                     {
                         links.depositLinks?.map((link, i) => {
+                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                                <div className="icon1">
+                                    <link.icon className='icon' />
+                                </div>
+                                <div className="name">{link.name}</div>
+                            </Link>
+                        })
+                    }
+                </div>
+            </div>
+
+            {/* transferLinks */}
+            <div className='linkWrapper' onClick={() => setExpandTransfer(!expandTransfer)}>
+                <Link className={isTransferActive ? 'link activeLink' : 'link'}>
+                    <div className="icon1">
+                        <PersonIcon className='icon' />
+                    </div>
+                    <div className="name">
+                        Transfer
+                        <div className="icon">
+                            {
+                                expandTransfer ? < ArrowDropUpIcon /> : <ArrowDropDownIcon />
+                            }
+                        </div>
+                    </div>
+                </Link>
+                <div className="transfer-dropdwon-menu">
+                    {
+                        links.transferLinks?.map((link, i) => {
                             return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
@@ -281,7 +301,7 @@ const Wrapper = styled.div`
             .icon {
                 color: var(--blue-deep);
             }
-            height : ${({ expandInvestment }) => expandInvestment ? '100px' : '0px'};
+            height : ${({ expandInvestment }) => expandInvestment ? '150px' : '0px'};
             opacity : ${({ expandInvestment }) => expandInvestment ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }
@@ -317,8 +337,44 @@ const Wrapper = styled.div`
             .icon {
                 color: var(--blue-deep);
             }
-            height : ${({ expandDeposit }) => expandDeposit ? '100px' : '0px'};
+            height : ${({ expandDeposit }) => expandDeposit ? '150px' : '0px'};
             opacity : ${({ expandDeposit }) => expandDeposit ? '1' : '0'};
+            transition: ${({ theme }) => theme.transition};
+        }
+
+        .transfer-dropdwon-menu {
+            background: inherit;
+            a {
+                background: inherit;
+                color: #555;
+                display: block;
+                width: 100%;
+                border-radius: none;
+                box-shadow: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 5px;
+                padding-left:  ${({ isExpanded }) => isExpanded ? '20px' : '0px'};
+
+                @media (max-width: ${({ theme }) => theme.md_screen}){
+                    padding-left:  ${({ isExpanded }) => !isExpanded ? '20px' : '0px'};
+                }
+
+                &:hover {
+                    background: #ddd;
+                }
+            }
+
+            .active-link {
+                background: #ddd;
+            }
+
+            .icon {
+                color: var(--blue-deep);
+            }
+            height : ${({ expandTransfer }) => expandTransfer ? '100px' : '0px'};
+            opacity : ${({ expandTransfer }) => expandTransfer ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }
 
@@ -353,7 +409,7 @@ const Wrapper = styled.div`
             .icon {
                 color: var(--blue-deep);
             }
-            height : ${({ expandWithdrawal }) => expandWithdrawal ? '150px' : '0px'};
+            height : ${({ expandWithdrawal }) => expandWithdrawal ? '200px' : '0px'};
             opacity : ${({ expandWithdrawal }) => expandWithdrawal ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }

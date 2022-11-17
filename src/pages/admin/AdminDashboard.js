@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 
-export default function UserDashboard() {
+export default function AdminDashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        navigate('/dashboard/my-packages')
+        navigate('/admin/home')
     }, [])
     return (
         <div></div>

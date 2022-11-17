@@ -8,10 +8,37 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 export default function Header({ isExpanded, setExpanded, headerHeight }) {
     const state = useContext(Context)
     const { contact } = state;
+    const location = useLocation()
+
+    let currentRouteName;
+    if (location.pathname.includes('/admin/home')) currentRouteName = "Home"
+    if (location.pathname.includes('/admin/users')) currentRouteName = "Users"
+
+    if (location.pathname.includes('/admin/deposit/config')) currentRouteName = "Deposit Config"
+    if (location.pathname.includes('/admin/deposit/confirmed')) currentRouteName = "Successful Deposit"
+    if (location.pathname.includes('/admin/deposit/new')) currentRouteName = "Initaited Deposit"
+
+    if (location.pathname.includes('/admin/transfer/config')) currentRouteName = "Transfer Config"
+    if (location.pathname.includes('/admin/transfer/history')) currentRouteName = "Transfer History"
+
+    if (location.pathname.includes('/admin/notifications')) currentRouteName = "send Notifications"
+
+    if (location.pathname.includes('/admin/investment/config')) currentRouteName = "Investment Config"
+    if (location.pathname.includes('/admin/investment/plans')) currentRouteName = "Investment Plans"
+    if (location.pathname.includes('/admin/investment/history')) currentRouteName = "Investment History"
+
+    if (location.pathname.includes('/admin/withdrawal/config')) currentRouteName = "Withdrawal Config"
+    if (location.pathname.includes('/admin/withdrawal/request')) currentRouteName = "Withdrawal Request"
+    if (location.pathname.includes('/admin/withdrawal/rejected')) currentRouteName = "Rejected Withdrawal"
+    if (location.pathname.includes('/admin/withdrawal/confirmed')) currentRouteName = "Successful Withdrawal"
+
+    if (location.pathname.includes('/admin/referral/history')) currentRouteName = "Referral History"
+    if (location.pathname.includes('/admin/referral/config')) currentRouteName = "Referral Config"
+    if (location.pathname.includes('/admin/referral/contest')) currentRouteName = "Referral Contest"
 
     return (
         <HeaderStyle isExpanded={isExpanded} headerHeight={headerHeight} >
-            <h4 style={{ color: "#c0c3d1" }}>Admin Dashboard</h4>
+            <h4 style={{ color: "#c0c3d1" }}>Admin | {currentRouteName}</h4>
             {/* <h4>{contact.name} {contact.investment}</h4> */}
             <div className="toggle lg-screen">
                 <span onClick={() => setExpanded(!isExpanded)} className='shrink'>
