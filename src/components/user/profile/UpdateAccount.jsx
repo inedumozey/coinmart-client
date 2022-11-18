@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../../../context/Context';
 import Spinner_ from '../../spinner/Spinner';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
@@ -48,7 +47,6 @@ export default function UpdateAccount() {
 
     return (
         <Wrapper>
-            <h4 style={{ textAlign: 'center' }}>Update Your Account</h4>
             {
                 preparing || profileLoading ?
                     <>
@@ -113,6 +111,7 @@ const Form = ({ initiastate }) => {
 
     return (
         <FormStyle>
+            <h5 style={{ marginBottom: '40px' }}>Personal Info</h5>
             <ImgWrapper>
                 <div className="img">
                     {
@@ -128,15 +127,15 @@ const Form = ({ initiastate }) => {
 
             <InputWrapper>
                 <div className="wrap">
-                    <h5 className="tag">Account Bal: </h5>
-                    <h6 className="value">{profileData.amount} {profileData.currency}</h6>
+                    <h6 className="tag">Acct Bal: </h6>
+                    <div className="value">{profileData.amount} {profileData.currency}</div>
                 </div>
             </InputWrapper>
 
             <InputWrapper>
                 <div className="wrap">
-                    <h5 className="tag">Account No: </h5>
-                    <h6 className="value">{profileData.accountNumber}</h6>
+                    <h6 className="tag">Acct No: </h6>
+                    <div className="value">{profileData.accountNumber}</div>
                 </div>
             </InputWrapper>
 
@@ -209,7 +208,6 @@ const Form = ({ initiastate }) => {
     )
 }
 
-
 const ChangePassword = () => {
     const { user } = useContext(Context);
     const {
@@ -256,7 +254,7 @@ const ChangePassword = () => {
 
     return (
         <ChangePasswordStyle>
-            <h5 style={{ textAlign: 'center' }}>Reset Password</h5>
+            <h5 style={{ marginBottom: '40px' }}>Reset Password</h5>
 
             <InputWrapper>
                 <InputIcon right="" left="0">
@@ -312,7 +310,6 @@ const ChangePassword = () => {
         </ChangePasswordStyle>
     )
 }
-
 
 const Wrapper = styled.div`
     width: 100vw;
@@ -391,7 +388,8 @@ const InputIcon = styled.div`
 `
 
 const FormStyle = styled.div`
-    
+    background: #fff;
+    padding: 20px 10px;
 `
 
 const ImgWrapper = styled.div`
@@ -426,6 +424,6 @@ const ImgWrapper = styled.div`
 const ChangePasswordStyle = styled.div`
     background: #fff;
     min-height: 100px;
-    padding: 20px;
+    padding: 20px 10px;
     margin: 30px 0 20px 0;
 `
