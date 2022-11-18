@@ -24,10 +24,8 @@ function ContextApi() {
     // modal
     const [show, setShow] = useState(false);
 
-    const [profileData, setProfileData] = useState({});
-    const [profileLoading, setProfileLoading] = useState(true);
-    const [fetchProfileSuccess, setFetchProfileSuccess] = useState(false);
-    const [fetchProfileMsg, setFetchProfileMsg] = useState("");
+    // load skeleton
+    const [preparing, setPreparing] = useState(true)
 
     // ........................admin..............................
     const [loginLoading, setLoginLoading] = useState(false);
@@ -71,12 +69,22 @@ function ContextApi() {
 
 
     // .................user and user links................................
+    const [profileData, setProfileData] = useState({});
+    const [profileLoading, setProfileLoading] = useState(true); // get profile data on initial load of web page
+    const [profileLoadingAgain, setProfileLoadingAgain] = useState(false); // subsequent call to get profile data
+    const [fetchProfileSuccess, setFetchProfileSuccess] = useState(false);
+    const [fetchProfileMsg, setFetchProfileMsg] = useState("");
 
     // profile image uplaod
     const [profileImageLoading, setProfileImageLoading] = useState(false);
     const [profileImageSuccess, setProfileImageSuccess] = useState(false);
     const [newNotifications, setNewNotifications] = useState(true)
     const [newNotificationCounts, setNewNotificationCounts] = useState(5)
+    const [editProfileLoading, setEditProfileLoading] = useState(false)
+
+    // Reset Password
+    const [changePasswordLoading, setChangePasswordLoading] = useState(false)
+    const [changePasswordSuccess, setChangePasswordSuccess] = useState(false)
 
     const links = [
         { url: '/dashboard/my-packages', name: 'My Packages', icon: DashboardIcon },
@@ -118,7 +126,11 @@ function ContextApi() {
                 newNotifications,
                 setNewNotifications,
                 newNotificationCounts,
-                setNewNotificationCounts
+                setNewNotificationCounts,
+                setEditProfileLoading,
+                editProfileLoading,
+                profileLoadingAgain,
+                setProfileLoadingAgain
             },
             profileImage: {
                 setProfileImageLoading,
@@ -130,6 +142,12 @@ function ContextApi() {
                 links,
                 profileLinks,
                 referralLinks,
+            },
+            passwordReset: {
+                changePasswordLoading,
+                setChangePasswordLoading,
+                changePasswordSuccess,
+                setChangePasswordSuccess
             }
         },
         admin: {
@@ -152,6 +170,10 @@ function ContextApi() {
             show,
             setShow
         },
+        skeleton: {
+            preparing,
+            setPreparing
+        }
     }
 
     return (

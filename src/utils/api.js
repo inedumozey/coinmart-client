@@ -112,12 +112,9 @@ class apiClass {
 
     changeProfileImage = async (
         setProfileImageLoading,
-        setProfileImageSuccess,
         file,
-        setProfileData,
-        setProfileLoading,
-        setFetchProfileSuccess,
-        setFetchProfileMsg) => {
+        setProfileLoadingAgain,
+        setProfileData,) => {
         setProfileImageLoading(true);
         try {
             let formData = new FormData();
@@ -131,26 +128,114 @@ class apiClass {
             });
 
             setProfileImageLoading(false);
-            setProfileImageSuccess(true);
             toast(data.msg, { type: 'success' })
 
-            this.fetchProfile(setProfileData, setProfileLoading, setFetchProfileSuccess, setFetchProfileMsg)
-
-            // load profile if profile image changed successfull
+            // fecth profile if profile image changed successfull
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
         }
         catch (err) {
             if (err.response) {
-                setProfileImageSuccess(true);
                 setProfileImageLoading(false);
                 toast(err.response.data.msg, { type: 'error' })
             }
             else {
-                setProfileImageSuccess(true);
                 setProfileImageLoading(false);
                 toast(err.response.data.msg, { type: 'error' })
             }
         }
     }
+
+    fetchProfileAgain = async (setProfileData, setProfileLoadingAgain) => {
+        try {
+            const { data } = await axios.get(`${BASE_URL}/auth/get-profile`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+            setProfileData(data.data);
+            setProfileLoadingAgain(false);
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setProfileLoadingAgain(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setProfileLoadingAgain(false)
+                toast(err.message, { type: 'error' })
+            }
+
+        }
+    }
+
+    updateProfile = async (
+        setEditProfileLoading,
+        setProfileLoadingAgain,
+        setFetchProfileSuccess,
+        setFetchProfileMsg,
+        setProfileData,
+        inp
+    ) => {
+
+        setEditProfileLoading(true);
+        try {
+            const { data } = await axios.put(`${BASE_URL}/profile/update-profile`, { ...inp }, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+
+            toast(data.msg, { type: 'success' })
+
+            // fetch profile if successful
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain, setFetchProfileSuccess, setFetchProfileMsg)
+            setEditProfileLoading(false)
+        }
+        catch (err) {
+            if (err.response) {
+                setEditProfileLoading(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setEditProfileLoading(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+        }
+    }
+
+    resetPassword = async (
+        setChangePasswordLoading,
+        data_,
+        setChangePasswordSuccess
+    ) => {
+
+        setChangePasswordLoading(true);
+        try {
+            const { data } = await axios.put(`${BASE_URL}/auth/reset-password`, data_, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+
+            setChangePasswordLoading(false);
+            setChangePasswordSuccess(true)
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setChangePasswordLoading(false);
+                setChangePasswordSuccess(false);
+                toast(err.response.data.msg, { type: 'error' });
+            }
+            else {
+                setChangePasswordLoading(false);
+                setChangePasswordSuccess(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+        }
+    }
+
 
 }
 export default apiClass;

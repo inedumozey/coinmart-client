@@ -10,14 +10,11 @@ export default function ChangeProfileImage() {
 
     const {
         setProfileData,
-        setProfileLoading,
-        setFetchProfileSuccess,
-        setFetchProfileMsg
+        setProfileLoadingAgain,
     } = user.profile;
 
     const {
         setProfileImageLoading,
-        setProfileImageSuccess,
     } = user.profileImage
 
     const handleChangeProfile = (e) => {
@@ -28,24 +25,18 @@ export default function ChangeProfileImage() {
             setTimeout(() => {
                 api.changeProfileImage(
                     setProfileImageLoading,
-                    setProfileImageSuccess,
                     e.target.files[0],
                     setProfileData,
-                    setProfileLoading,
-                    setFetchProfileSuccess,
-                    setFetchProfileMsg
+                    setProfileLoadingAgain,
                 )
             }, 2000);
         }
         else {
             api.changeProfileImage(
                 setProfileImageLoading,
-                setProfileImageSuccess,
                 e.target.files[0],
                 setProfileData,
-                setProfileLoading,
-                setFetchProfileSuccess,
-                setFetchProfileMsg
+                setProfileLoadingAgain,
             )
         }
     }

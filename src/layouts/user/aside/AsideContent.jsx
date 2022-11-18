@@ -56,11 +56,11 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                                     </label>
                                             }
                                             <ChangeProfileImage />
-                                            <Link to="/dashboard/update-account">
+                                            <Link to="/dashboard/account">
                                                 <img src={profileData.profile && profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile" />
                                             </Link>
                                         </div>
-                                        <Link to="/dashboard/update-account" className="metadata">
+                                        <Link to="/dashboard/account" className="metadata">
                                             {/* if username is more than 20 characters, show only the first 17 charactesr */}
                                             <div className="username">{profileData.username && (profileData.username.length > 17 ? `${profileData.username.substr(0, 17)}...` : profileData.username)} {`(${profileData.role})`}</div>
 
