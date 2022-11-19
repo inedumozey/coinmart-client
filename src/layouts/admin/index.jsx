@@ -91,13 +91,6 @@ const MainContent = styled.div`
     width: 100%;
     min-height: ${({ headerHeight }) => `calc(100vh - ${headerHeight} - ${headerHeight} + 5px)`};
     background: var(--gray-pale);
-    padding: 15px ${({ theme }) => theme.lg_padding};
-    @media (max-width: ${({ theme }) => theme.md_screen}){
-        padding: 15px ${({ theme }) => theme.md_padding};
-    }
-    @media (max-width: ${({ theme }) => theme.sm_screen}){
-        padding: 15px ${({ theme }) => theme.sm_padding};
-    }
 `
 const FooterStyle = styled.div`
     width: 100%;

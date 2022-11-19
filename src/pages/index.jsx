@@ -106,8 +106,8 @@ export default function Pages() {
                 <Route path="account" element={<Account />} />
                 <Route path="tickets" element={<Ticket />} />
                 <Route path="transactions" element={<Transactions />} />
-                <Route path="security" element={<Security />} />
-                <Route path="verify-account" element={<VerifyAccount />} />
+                {/* <Route path="security" element={<Security />} /> */}
+                {/* <Route path="verify-account" element={<VerifyAccount />} /> */}
                 <Route path="referral-history" element={<ReferralHistory />} />
                 <Route path="referral-contest" element={<ReferralContest />} />
             </Route>

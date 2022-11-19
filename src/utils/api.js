@@ -7,11 +7,15 @@ const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 class apiClass {
     constructor() { }
 
-    fetchConfig = async () => {
+    fetchConfig = async (setConfigData) => {
         try {
-            await axios.get(`${BASE_URL}/config`);
+            const { data } = await axios.get(`${BASE_URL}/config`);
+            setConfigData(data.data)
         }
-        catch (err) { return }
+        catch (err) {
+            return;
+        }
+
     }
 
     setCookies = (accesstoken, refreshtoken, role) => {
@@ -170,12 +174,12 @@ class apiClass {
     }
 
     updateProfile = async (
-        setEditProfileLoading,
+        setProfileData,
         setProfileLoadingAgain,
         setFetchProfileSuccess,
         setFetchProfileMsg,
-        setProfileData,
-        inp
+        inp,
+        setEditProfileLoading,
     ) => {
 
         setEditProfileLoading(true);
@@ -231,6 +235,67 @@ class apiClass {
             else {
                 setChangePasswordLoading(false);
                 setChangePasswordSuccess(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+        }
+    }
+
+    transfer_checkUser = async (
+        inp,
+        setTransferLoading_checkUser
+    ) => {
+
+        setTransferLoading_checkUser(true);
+        try {
+            const { data } = await axios.put(`${BASE_URL}/transfer/check-user`, { ...inp }, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+
+        }
+        catch (err) {
+            if (err.response) {
+                setTransferLoading_checkUser(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setTransferLoading_checkUser(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+        }
+    }
+
+    transfer_payUser = async (
+        setProfileData,
+        setProfileLoadingAgain,
+        setFetchProfileSuccess,
+        setFetchProfileMsg,
+        inp,
+        setTransferLoading,
+    ) => {
+
+        setTransferLoading(true);
+        try {
+            const { data } = await axios.put(`${BASE_URL}/transfer/pay-user`, { ...inp }, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+
+            toast(data.msg, { type: 'success' })
+
+            // fetch profile if successful
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain, setFetchProfileSuccess, setFetchProfileMsg)
+            setTransferLoading(false)
+        }
+        catch (err) {
+            if (err.response) {
+                setTransferLoading(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setTransferLoading(false);
                 toast(err.response.data.msg, { type: 'error' })
             }
         }

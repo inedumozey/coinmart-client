@@ -203,7 +203,7 @@ const Wrapper = styled.div`
             .icon {
                 color: var(--blue-deep);
             }
-            height : ${({ expandProfile }) => expandProfile ? '150px' : '0px'};
+            height : ${({ expandProfile }) => expandProfile ? '50px' : '0px'};
             opacity : ${({ expandProfile }) => expandProfile ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }

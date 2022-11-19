@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { ContextApi } from './context/Context';
+import { useState, useEffect, useContext } from 'react';
+import { ContextApi, Context } from './context/Context';
 import Cookies from "js-cookie";
 import { useLocation } from 'react-router-dom'
 
@@ -11,7 +11,6 @@ function App() {
   const preloader = document.getElementById('preloader')
   const [preloading, setPreloading] = useState(true);
   const location = useLocation()
-
 
   // page preloader
   useEffect(() => {

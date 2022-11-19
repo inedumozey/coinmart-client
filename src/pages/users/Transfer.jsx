@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Transfer_C from '../../components/user/transfer/Transfer';
 
 export default function Transfer() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function Transfer() {
             navigate("/auth/signin")
         }
     }, [])
-    return (
-        <div>Transfer</div>
-    )
+    return <Transfer_C />
 }

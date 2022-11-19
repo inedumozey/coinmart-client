@@ -2,7 +2,7 @@ import { useState, useEffect, createContext } from 'react';
 import Pages from '../pages';
 import Layout from '../layouts';
 import staticData from '../utils/staticData';
-
+import styled from 'styled-components'
 import SavingsIcon from '@mui/icons-material/Savings';
 import PaidIcon from '@mui/icons-material/Paid';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
@@ -17,6 +17,10 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
 import PersonIcon from '@mui/icons-material/Person';
+import apiClass from '../utils/api';
+import Skeleton from '../components/Skeleton';
+
+const api = new apiClass()
 
 const Context = createContext()
 
@@ -25,7 +29,16 @@ function ContextApi() {
     const [show, setShow] = useState(false);
 
     // load skeleton
-    const [preparing, setPreparing] = useState(true)
+    const [preparing, setPreparing] = useState(true);
+
+    // config
+    const [configData, setConfigData] = useState('')
+    const [updatingConfig, setUpdatingConfig] = useState(false)
+
+    useEffect(() => {
+        api.fetchConfig(setConfigData)
+    }, [])
+
 
     // ........................admin..............................
     const [loginLoading, setLoginLoading] = useState(false);
@@ -84,7 +97,11 @@ function ContextApi() {
 
     // Reset Password
     const [changePasswordLoading, setChangePasswordLoading] = useState(false)
-    const [changePasswordSuccess, setChangePasswordSuccess] = useState(false)
+    const [changePasswordSuccess, setChangePasswordSuccess] = useState(false);
+
+    //transfer
+    const [transferLoading_checkUser, setTransferLoading_checkUser] = useState(false);
+    const [transferLoading_payUser, setTransferLoading_payUser] = useState(false);
 
     const links = [
         { url: '/dashboard/my-packages', name: 'My Packages', icon: DashboardIcon },
@@ -99,8 +116,8 @@ function ContextApi() {
 
     const profileLinks = [
         { url: '/dashboard/account', name: 'Account', icon: PersonIcon },
-        { url: '/dashboard/security', name: 'Security', icon: LockIcon },
-        { url: '/dashboard/verify-account', name: 'Verify Account', icon: VerifiedIcon },
+        // { url: '/dashboard/security', name: 'Security', icon: LockIcon },
+        // { url: '/dashboard/verify-account', name: 'Verify Account', icon: VerifiedIcon },
     ]
 
     const referralLinks = [
@@ -108,8 +125,6 @@ function ContextApi() {
         { url: '/dashboard/referral-history', name: 'Referral History', icon: ManageHistoryIcon },
         { url: '/dashboard/referral-contest', name: 'Referral Contest', icon: SportsKabaddiIcon },
     ]
-
-
 
     const state = {
         ...staticData,
@@ -148,6 +163,12 @@ function ContextApi() {
                 setChangePasswordLoading,
                 changePasswordSuccess,
                 setChangePasswordSuccess
+            },
+            transfer: {
+                transferLoading_checkUser,
+                setTransferLoading_checkUser,
+                transferLoading_payUser,
+                setTransferLoading_payUser
             }
         },
         admin: {
@@ -166,25 +187,126 @@ function ContextApi() {
                 referralLinks: admin_referralLinks,
             }
         },
-        modal: {
-            show,
-            setShow
-        },
-        skeleton: {
-            preparing,
-            setPreparing
+        modal: { show, setShow },
+        skeleton: { preparing, setPreparing },
+        config: {
+            configData,
+            setConfigData,
+            updatingConfig,
+            setUpdatingConfig,
         }
     }
 
+    const [load, setLoad] = useState(true)
+    setTimeout(() => {
+        setLoad(false)
+    }, 2000)
     return (
         <Context.Provider value={state}>
-            <Layout>
-                <Pages />
-            </Layout>
+            {
+                configData && !load ?
+                    <Layout>
+                        <Pages />
+                    </Layout> :
+                    <Preloader />
+
+            }
         </Context.Provider>
     )
 }
 
+
+function Preloader() {
+    return (
+        <PreloaderStyle>
+            {/* header */}
+            <div className="header"><Skeleton /></div>
+            <div className="main">
+                <span className="aside">
+                    <Skeleton />
+                    <div className="image">
+                        <div className="child"><Skeleton type="round" /></div>
+                    </div>
+                </span>
+                <span className="mainWrapper">
+                    <div className="canvas"><Skeleton /></div>
+                    <div className="footer"><Skeleton /></div>
+                </span>
+            </div>
+        </PreloaderStyle>
+    )
+}
+const PreloaderStyle = styled.div`
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: #ddd;
+
+    .header {
+        width: 100%;
+        height: 70px;
+        padding: 0 0 5px 0
+    }
+    .main {
+        height: calc(100% - 70px);
+        width: 100%;
+
+        .aside {
+            width: 150px;
+            height: 100%;
+            display: inline-block;
+            padding: 0 5px 0 0;
+            position: relative;
+
+            .image {
+                position: absolute;
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                left: 50%;
+                display: flex;
+                padding: 5px;
+                justify-content: center;
+                align-items: center;
+                background: #ddd;
+                z-index: 2;
+                top: 10px;
+                transform: translateX(-50%);
+
+                .child {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+
+                }
+            }
+
+            @media (max-width: ${({ theme }) => theme.md_screen}){
+                display: none;
+            }
+        }
+
+        .mainWrapper {
+            width: calc(100% - 150px);
+            height: 100%;
+            display: inline-block;
+
+            @media (max-width: ${({ theme }) => theme.md_screen}){
+                width: 100%;
+            }
+
+            .footer {
+                width: 100%;
+                height: 70px;
+            }
+            .canvas {
+                height: calc(100% - 70px);
+                width: 100%;
+                padding: 0 0 5px 0
+            }
+        }
+    }
+`
 
 
 export { ContextApi, Context }

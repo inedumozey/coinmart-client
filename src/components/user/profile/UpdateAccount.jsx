@@ -22,6 +22,7 @@ const api = new apiClass()
 
 export default function UpdateAccount() {
     const { user, skeleton } = useContext(Context);
+
     const {
         profileData,
         profileLoading,
@@ -101,17 +102,17 @@ const Form = ({ initiastate }) => {
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.updateProfile(setEditProfileLoading, setProfileData, setProfileLoadingAgain, setFetchProfileSuccess, setFetchProfileMsg, inp)
+                api.updateProfile(setProfileData, setProfileLoadingAgain, setFetchProfileSuccess, setFetchProfileMsg, inp, setEditProfileLoading)
             }, 2000);
         }
         else {
-            api.updateProfile(setEditProfileLoading, setProfileData, setProfileLoadingAgain, setFetchProfileSuccess, setFetchProfileMsg, inp)
+            api.updateProfile(setProfileData, setProfileLoadingAgain, setFetchProfileSuccess, setFetchProfileMsg, inp, setEditProfileLoading)
         }
     }
 
     return (
         <FormStyle>
-            <h5 style={{ marginBottom: '40px' }}>Personal Info</h5>
+            <h4 style={{ marginBottom: '40px' }}>Personal Info</h4>
             <ImgWrapper>
                 <div className="img">
                     {
@@ -127,14 +128,14 @@ const Form = ({ initiastate }) => {
 
             <InputWrapper>
                 <div className="wrap">
-                    <h6 className="tag">Acct Bal: </h6>
+                    <div className="tag">Acct Bal: </div>
                     <div className="value">{profileData.amount} {profileData.currency}</div>
                 </div>
             </InputWrapper>
 
             <InputWrapper>
                 <div className="wrap">
-                    <h6 className="tag">Acct No: </h6>
+                    <div className="tag">Acct No: </div>
                     <div className="value">{profileData.accountNumber}</div>
                 </div>
             </InputWrapper>
@@ -315,12 +316,22 @@ const Wrapper = styled.div`
     width: 100vw;
     margin: auto;
     max-width: 800px;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
     padding: 10px ${({ theme }) => theme.lg_padding};
     @media (max-width: ${({ theme }) => theme.md_screen}){
         padding: 10px ${({ theme }) => theme.md_padding};
     }
     @media (max-width: ${({ theme }) => theme.sm_screen}){
         padding: 10px ${({ theme }) => theme.sm_padding};
+    }
+
+    .tag { 
+        font-weight: bold;
     }
 `
 
@@ -390,6 +401,9 @@ const InputIcon = styled.div`
 const FormStyle = styled.div`
     background: #fff;
     padding: 20px 10px;
+    box-shadow: 2px 2px 5px #ccc;
+    margin: 10px auto 40px auto;
+    width: 100%;
 `
 
 const ImgWrapper = styled.div`
@@ -399,6 +413,7 @@ const ImgWrapper = styled.div`
         width: 100px;
         height: 100px;
         border-radius: 50%;
+        border: 1px solid #ccc;
         object-fit: contain;
         position: relative;
 
@@ -425,5 +440,7 @@ const ChangePasswordStyle = styled.div`
     background: #fff;
     min-height: 100px;
     padding: 20px 10px;
-    margin: 30px 0 20px 0;
+    margin: 10px auto 20px auto;
+    width: 100%;
+    box-shadow: 2px 2px 5px #ccc;
 `
