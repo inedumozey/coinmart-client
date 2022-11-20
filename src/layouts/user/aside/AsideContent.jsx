@@ -30,8 +30,6 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
         profileImageLoading,
     } = user.profileImage;
 
-    console.log(profileData.isSupperAdmin)
-
     return (
         <Wrapper
             expandedAside={expandedAside}
@@ -69,10 +67,10 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                                 {profileData.username && (profileData.username.length > 10 ? `${profileData.username.substr(0, 10)}...` : profileData.username)}
                                                 <span style={
                                                     (function () {
-                                                        if (profileData.role.toLowerCase() == 'admin' && !profileData.isSupperAdmin) {
+                                                        if (profileData.role && profileData.role.toLowerCase() == 'admin' && !profileData.isSupperAdmin) {
                                                             return { color: 'var(--blue)' }
                                                         }
-                                                        if (profileData.role.toLowerCase() == 'admin' && profileData.isSupperAdmin) {
+                                                        if (profileData.role && profileData.role.toLowerCase() == 'admin' && profileData.isSupperAdmin) {
                                                             return { color: 'red' }
                                                         }
                                                         else {

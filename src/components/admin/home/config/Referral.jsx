@@ -19,11 +19,13 @@ import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
 import Select from 'react-select'
 import resolve from '../../../../utils/resolve';
 import CreatableSelect from 'react-select/creatable';
+import DateTimePicker from 'react-datetime-picker';
 
 const api = new apiClass()
 
 
 export default function Referral({ initialState }) {
+    const [value, onChange] = useState(new Date());
     const { config } = useContext(Context);
     const {
         configData,
@@ -59,7 +61,6 @@ export default function Referral({ initialState }) {
 
     return (
         <Wrapper>
-
             <InputWrapper>
                 <label>
                     Referral Bonus: {" "}
@@ -132,18 +133,28 @@ export default function Referral({ initialState }) {
                 <label>
                     Contest Starts At: {" "}
                     <span className='tag'>
-                        {/* {initialState.referralBonusPercentage} */}
+                        {new Date(initialState.referralContestStarts).toLocaleString()}
                     </span>
                 </label>
+                <input
+                    type="datetime-local"
+                    value={inp.referralContestStarts || ''}
+                    onChange={(e) => setInp({ ...inp, referralContestStarts: e.target.value })}
+                />
             </InputWrapper>
 
             <InputWrapper>
                 <label>
                     Contest Ends At: {" "}
                     <span className='tag'>
-                        {/* {initialState.referralBonusPercentage} */}
+                        {new Date(initialState.referralContestStops).toLocaleString()}
                     </span>
                 </label>
+                <input
+                    type="datetime-local"
+                    value={inp.referralContestStops || ''}
+                    onChange={(e) => setInp({ ...inp, referralContestStops: e.target.value })}
+                />
             </InputWrapper>
 
             <div className='text-center text-md-start mt- pt-2'>

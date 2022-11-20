@@ -209,7 +209,7 @@ function ContextApi() {
     const [load, setLoad] = useState(true)
     setTimeout(() => {
         setLoad(false)
-    }, 2000)
+    }, 1000)
     return (
         <Context.Provider value={state}>
             {
