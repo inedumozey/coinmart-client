@@ -112,7 +112,6 @@ const Form = ({ initiastate }) => {
 
     return (
         <FormStyle>
-            <h4 style={{ marginBottom: '40px' }}>Personal Info</h4>
             <ImgWrapper>
                 <div className="img">
                     {
@@ -255,7 +254,7 @@ const ChangePassword = () => {
 
     return (
         <ChangePasswordStyle>
-            <h5 style={{ marginBottom: '40px' }}>Reset Password</h5>
+            <h4 style={{ marginBottom: '40px' }}>Reset Password</h4>
 
             <InputWrapper>
                 <InputIcon right="" left="0">
@@ -407,7 +406,6 @@ const FormStyle = styled.div`
 `
 
 const ImgWrapper = styled.div`
-    margin: 20px 0;
 
     .img {
         width: 100px;

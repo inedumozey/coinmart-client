@@ -2,24 +2,12 @@ import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Context } from '../../../../context/Context';
 import Spinner_ from '../../../spinner/Spinner';
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import ChangeProfileImage from '../../../../components/user/ChangeProfileImage';
 import apiClass from '../../../../utils/api';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import Skeleton from '../../../Skeleton';
-import EditLocationIcon from '@mui/icons-material/EditLocation';
-import PublicIcon from '@mui/icons-material/Public';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import PersonIcon from '@mui/icons-material/Person';
 import Cookies from 'js-cookie'
 import Btn from '../../../Btn/Btn';
-import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
-import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
-import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
 import Select from 'react-select'
 import resolve from '../../../../utils/resolve';
 import CreatableSelect from 'react-select/creatable';
-import DateTimePicker from 'react-datetime-picker';
 
 const api = new apiClass()
 
@@ -59,6 +47,7 @@ export default function Referral({ initialState }) {
         }
     }
 
+    console.log(initialState.referralContestStops)
     return (
         <Wrapper>
             <InputWrapper>

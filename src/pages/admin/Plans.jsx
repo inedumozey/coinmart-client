@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Plans_C from '../../components/admin/investment/plans/Plans';
 
 export default function Plans() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function Plans() {
             navigate("/dashboard")
         }
     }, [])
-    return (
-        <div>Plans</div>
-    )
+    return <Plans_C />
 }
