@@ -30,6 +30,8 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
         profileImageLoading,
     } = user.profileImage;
 
+    console.log(profileData.isSupperAdmin)
+
     return (
         <Wrapper
             expandedAside={expandedAside}
@@ -60,9 +62,28 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                                 <img src={profileData.profile && profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile" />
                                             </Link>
                                         </div>
+
                                         <Link to="/dashboard/account" className="metadata">
                                             {/* if username is more than 20 characters, show only the first 17 charactesr */}
-                                            <div className="username">{profileData.username && (profileData.username.length > 17 ? `${profileData.username.substr(0, 17)}...` : profileData.username)} {`(${profileData.role})`}</div>
+                                            <div className="username">
+                                                {profileData.username && (profileData.username.length > 10 ? `${profileData.username.substr(0, 10)}...` : profileData.username)}
+                                                <span style={
+                                                    (function () {
+                                                        if (profileData.role.toLowerCase() == 'admin' && !profileData.isSupperAdmin) {
+                                                            return { color: 'var(--blue)' }
+                                                        }
+                                                        if (profileData.role.toLowerCase() == 'admin' && profileData.isSupperAdmin) {
+                                                            return { color: 'red' }
+                                                        }
+                                                        else {
+                                                            return { color: 'inherit' }
+                                                        }
+                                                    }())
+                                                }>
+                                                    {" "}
+                                                    {`(${profileData.isSupperAdmin && profileData.role.toLowerCase() == 'admin' ? "SUPPER ADMIN" : profileData.role})`}
+                                                </span>
+                                            </div>
 
                                             {/* if email is more than 20 characters, show only the last 14 and first 6 charactesr */}
                                             <div className="email">{profileData.email && (profileData.email.length > 20 ? `${profileData.email.substr(0, 6)}...${profileData.email.slice(profileData.email.length - 14)}` : profileData.email)}</div>

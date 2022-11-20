@@ -11,7 +11,7 @@ export default function Header({ isExpanded, setExpanded, headerHeight }) {
 
     return (
         <HeaderStyle isExpanded={isExpanded} headerHeight={headerHeight} >
-            <h4 style={{ color: "#c0c3d1" }}>User Dashboard</h4>
+            <h4>User Dashboard</h4>
             {/* <h4>{contact.name} {contact.investment}</h4> */}
             <div className="toggle lg-screen">
                 <span onClick={() => setExpanded(!isExpanded)} className='shrink'>
@@ -75,7 +75,7 @@ const HeaderStyle = styled.div`
         cursor: pointer;
         
         .icon {
-            color: #ffffffb5;
+            color: #fff;
             font-size: 2rem;
         }
 

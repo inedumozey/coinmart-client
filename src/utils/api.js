@@ -208,6 +208,35 @@ class apiClass {
         }
     }
 
+    updateConfig = async (setUpdatingConfig, inp, setConfigData, setCategory, category) => {
+        setCategory(category)
+        setUpdatingConfig(true);
+        try {
+            const { data } = await axios.put(`${BASE_URL}/config/update`, { ...inp }, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            toast(data.msg, { type: 'success' })
+
+            // fetch config data
+            this.fetchConfig(setConfigData)
+            setUpdatingConfig(false)
+        }
+        catch (err) {
+            if (err.response) {
+                setUpdatingConfig(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setUpdatingConfig(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+        }
+    }
+
     resetPassword = async (
         setChangePasswordLoading,
         data_,
@@ -296,6 +325,39 @@ class apiClass {
             }
             else {
                 setTransferLoading(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+        }
+    }
+
+    resetAdminPassword = async (
+        setChangePasswordLoading,
+        data_,
+        setChangePasswordSuccess
+    ) => {
+
+        setChangePasswordLoading(true);
+        try {
+            const { data } = await axios.put(`${BASE_URL}/config/reset-admin-password`, data_, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            setChangePasswordLoading(false);
+            setChangePasswordSuccess(true)
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setChangePasswordLoading(false);
+                setChangePasswordSuccess(false);
+                toast(err.response.data.msg, { type: 'error' });
+            }
+            else {
+                setChangePasswordLoading(false);
+                setChangePasswordSuccess(false);
                 toast(err.response.data.msg, { type: 'error' })
             }
         }

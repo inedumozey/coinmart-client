@@ -34,6 +34,7 @@ function ContextApi() {
     // config
     const [configData, setConfigData] = useState('')
     const [updatingConfig, setUpdatingConfig] = useState(false)
+    const [category, setCategory] = useState('')
 
     useEffect(() => {
         api.fetchConfig(setConfigData)
@@ -44,6 +45,11 @@ function ContextApi() {
     const [loginLoading, setLoginLoading] = useState(false);
     const [loginSuccess, setLoginSuccess] = useState(false);
 
+    // Reset Password
+    const [changeAdminPasswordLoading, setChangeAdminPasswordLoading] = useState(false)
+    const [changeAdminPasswordSuccess, setChangeAdminPasswordSuccess] = useState(false);
+
+
     const admin_links = [
         { url: '/admin/home', name: 'Home', icon: DashboardIcon },
         { url: '/admin/users', name: 'Users', icon: PersonIcon },
@@ -51,31 +57,26 @@ function ContextApi() {
     ]
 
     const admin_investmentLinks = [
-        { url: '/admin/investment/config', name: 'Config', icon: CreditScoreIcon },
         { url: '/admin/investment/plans', name: 'Plans', icon: CreditScoreIcon },
         { url: '/admin/investment/history', name: 'History', icon: CreditScoreIcon },
     ]
 
     const admin_transferLinks = [
-        { url: '/admin/transfer/config', name: 'Config', icon: CreditScoreIcon },
         { url: '/admin/transfer/history', name: 'History', icon: CreditScoreIcon },
     ]
 
     const admin_depositLinks = [
-        { url: '/admin/deposit/config', name: 'Config', icon: SavingsIcon },
         { url: '/admin/deposit/new', name: 'New', icon: SavingsIcon },
         { url: '/admin/deposit/confirmed', name: 'Confimred', icon: CreditScoreIcon },
     ]
 
     const admin_withdrawalLinks = [
-        { url: '/admin/withdrawal/config', name: 'Config', icon: SavingsIcon },
         { url: '/admin/withdrawal/request', name: 'Request', icon: SavingsIcon },
         { url: '/admin/withdrawal/confirmed', name: 'Confimred', icon: CreditScoreIcon },
         { url: '/admin/withdrawal/rejected', name: 'Rejected', icon: CreditScoreIcon },
     ]
 
     const admin_referralLinks = [
-        { url: '/admin/referral/config', name: 'Config', icon: CreditScoreIcon },
         { url: '/admin/referral/history', name: 'History', icon: SavingsIcon },
         { url: '/admin/referral/contest', name: 'Contest', icon: CreditScoreIcon },
     ]
@@ -178,6 +179,12 @@ function ContextApi() {
                 loginSuccess,
                 setLoginSuccess,
             },
+            passwordReset: {
+                changePasswordLoading: changeAdminPasswordLoading,
+                setChangePasswordLoading: setChangeAdminPasswordLoading,
+                changePasswordSuccess: changeAdminPasswordSuccess,
+                setChangePasswordSuccess: setChangeAdminPasswordSuccess
+            },
             links: {
                 links: admin_links,
                 transferLinks: admin_transferLinks,
@@ -194,6 +201,8 @@ function ContextApi() {
             setConfigData,
             updatingConfig,
             setUpdatingConfig,
+            category,
+            setCategory
         }
     }
 

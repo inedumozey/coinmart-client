@@ -19,15 +19,14 @@ export default function AsideLinks({ isExpanded }) {
     const { admin } = useContext(Context);
     const { links } = admin
 
-    const isVestmentActive = location.pathname.includes('/admin/investment/plans') || location.pathname.includes('/admin/investment/history') || location.pathname.includes('/admin/investment/config')
+    const isVestmentActive = location.pathname.includes('/admin/investment/plans') || location.pathname.includes('/admin/investment/history');
 
-    const isDepositActive = location.pathname.includes('/admin/deposit/new') || location.pathname.includes('/admin/deposit/confiremed') || location.pathname.includes('/admin/deposit/config');
-
+    const isDepositActive = location.pathname.includes('/admin/deposit/new') || location.pathname.includes('/admin/deposit/confiremed');
     const isTransferActive = location.pathname.includes('/admin/transfer/config') || location.pathname.includes('/admin/transfer/history');
 
-    const isWithdrawalActive = location.pathname.includes('/admin/withdrawal/request') || location.pathname.includes('/admin/withdrawal/confirmed') || location.pathname.includes('/admin/withdrawal/rejected') || location.pathname.includes('/admin/withdrawal/config');
+    const isWithdrawalActive = location.pathname.includes('/admin/withdrawal/request') || location.pathname.includes('/admin/withdrawal/confirmed') || location.pathname.includes('/admin/withdrawal/rejected');
 
-    const isReferralActive = location.pathname.includes('/admin/referral/') || location.pathname.includes('/admin/referral/config') || location.pathname.includes('/admin/referral/contest') || location.pathname.includes('/admin/referral/config');
+    const isReferralActive = location.pathname.includes('/admin/referral/') || location.pathname.includes('/admin/referral/config') || location.pathname.includes('/admin/referral/contest');
 
 
     return (

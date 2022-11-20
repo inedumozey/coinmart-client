@@ -11,7 +11,7 @@ import resolve from '../../../../utils/resolve';
 const api = new apiClass()
 
 
-export default function Transfer({ initialState }) {
+export default function MemberManagement({ initialState }) {
     const { config } = useContext(Context);
     const {
         configData,
@@ -23,10 +23,11 @@ export default function Transfer({ initialState }) {
     } = config;
 
     const [inp, setInp] = useState({
-        allowTransfer: initialState.allowTransfer,
-        minTransferableLimit: initialState.minTransferableLimit,
-        maxTransferableLimit: initialState.maxTransferableLimit,
-        transferableCommonDiff: initialState.transferableCommonDiff,
+        totalMembers: initialState.totalMembers,
+        totalInvestors: initialState.totalInvestors,
+        totalWithdrawal: initialState.totalWithdrawal,
+        membersCountry: initialState.membersCountry,
+        totalDeposit: initialState.totalDeposit,
     });
 
     const submitForm = () => {
@@ -34,11 +35,11 @@ export default function Transfer({ initialState }) {
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.updateConfig(setUpdatingConfig, inp, setConfigData, setCategory, 'transfer')
+                api.updateConfig(setUpdatingConfig, inp, setConfigData, setCategory, 'membermanager')
             }, 2000);
         }
         else {
-            api.updateConfig(setUpdatingConfig, inp, setConfigData, setCategory, 'transfer')
+            api.updateConfig(setUpdatingConfig, inp, setConfigData, setCategory, 'membermanager')
         }
     }
 
@@ -46,85 +47,83 @@ export default function Transfer({ initialState }) {
         <Wrapper>
             <InputWrapper>
                 <label>
-                    Allow Transfer?: {" "}
+                    Active Members: {" "}
                     <span className='tag'>
-                        {initialState.allowTransfer ? 'true' : 'false'}
-                    </span>
-                </label>
-                <Select
-                    options={[
-                        { value: 'true', label: 'true' },
-                        { value: 'false', label: 'false' }
-                    ]}
-                    defaultValue={{ value: inp.allowTransfer ? 'true' : "false", label: inp.allowTransfer ? 'true' : "false" }}
-                    onChange={(selectedOption) => setInp({ ...inp, allowTransfer: selectedOption.value })}
-                />
-            </InputWrapper>
-
-            <InputWrapper>
-                <label>
-                    Min Transferable Limit: {" "}
-                    <span className='tag'>
-                        {initialState.minTransferableLimit} {" "}
-                        {initialState.currency}
+                        {initialState.totalMembers} {" "}
                     </span>
                 </label>
                 <input
                     type="number"
                     min={0}
-                    value={inp.minTransferableLimit || ''}
-                    onChange={(e) => setInp({ ...inp, minTransferableLimit: e.target.value })}
+                    value={inp.totalMembers || ''}
+                    onChange={(e) => setInp({ ...inp, totalMembers: e.target.value })}
                 />
             </InputWrapper>
 
             <InputWrapper>
                 <label>
-                    Max Transferable Limit: {" "}
+                    Total Investors: {" "}
                     <span className='tag'>
-                        {initialState.maxTransferableLimit} {" "}
-                        {initialState.currency}
+                        {initialState.totalInvestors} {" "}
                     </span>
                 </label>
                 <input
                     type="number"
                     min={0}
-                    value={inp.maxTransferableLimit || ''}
-                    onChange={(e) => setInp({ ...inp, maxTransferableLimit: e.target.value })}
+                    value={inp.totalInvestors || ''}
+                    onChange={(e) => setInp({ ...inp, totalInvestors: e.target.value })}
                 />
             </InputWrapper>
 
             <InputWrapper>
                 <label>
-                    Common Diff: {" "}
+                    Total Payment: {" "}
                     <span className='tag'>
-                        {initialState.transferableCommonDiff} {" "}
-                        {initialState.currency}
+                        {initialState.totalWithdrawal} {" "}
                     </span>
                 </label>
                 <input
                     type="number"
                     min={0}
-                    value={inp.transferableCommonDiff || ''}
-                    onChange={(e) => setInp({ ...inp, transferableCommonDiff: e.target.value })}
+                    value={inp.totalWithdrawal || ''}
+                    onChange={(e) => setInp({ ...inp, totalWithdrawal: e.target.value })}
                 />
             </InputWrapper>
 
             <InputWrapper>
                 <label>
-                    Transfer Factors: {'==>'} To allow any amount, make the factor 1 by making min, max and common diff 1
+                    Total Deposit: {" "}
+                    <span className='tag'>
+                        {initialState.totalDeposit} {" "}
+                    </span>
                 </label>
-                <Select
-                    options={resolve.makeReactSelectOptions(initialState.transferableFactors)}
-                    value={resolve.makeReactSelectOptions(initialState.transferableFactors)[0]}
+                <input
+                    type="number"
+                    min={0}
+                    value={inp.totalDeposit || ''}
+                    onChange={(e) => setInp({ ...inp, totalDeposit: e.target.value })}
                 />
             </InputWrapper>
 
-
+            <InputWrapper>
+                <label>
+                    Member's Country: {" "}
+                    <span className='tag'>
+                        {initialState.membersCountry} {" "}
+                    </span>
+                </label>
+                <input
+                    type="number"
+                    min={0}
+                    value={inp.membersCountry || ''}
+                    onChange={(e) => setInp({ ...inp, membersCountry: e.target.value })}
+                />
+            </InputWrapper>
 
             <div className='text-center text-md-start mt- pt-2'>
 
                 <Btn onClick={submitForm} color="var(--blue)" link={false}>
-                    {updatingConfig && category === "transfer" ? <Spinner_ size="sm" /> : "Update"}
+                    {updatingConfig && category === 'membermanager' ? <Spinner_ size="sm" /> : "Update"}
                 </Btn>
             </div>
         </Wrapper>

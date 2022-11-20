@@ -7,7 +7,7 @@ export default function Plan() {
     const params = useParams()
 
     useEffect(() => {
-        if (!Cookies.get('extratoken')) {
+        if (!Cookies.get('extratoken') && !Cookies.get('refreshtoken')) {
             navigate("/dashboard")
         }
     }, [])

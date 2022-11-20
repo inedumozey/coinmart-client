@@ -26,7 +26,7 @@ export default function AdminLogin() {
     // submit the password to the backend
     const callApi = async () => {
         try {
-            const { data } = await axios.post(`${BASE_URL}/auth/admin-login`, { password }, {
+            const { data } = await axios.post(`${BASE_URL}/config/admin-login`, { password }, {
                 headers: {
                     'authorization': `Bearer ${Cookies.get('accesstoken')}`
                 }

@@ -51,13 +51,8 @@ import AdminWithdrawalRequest from './admin/WithdrawalRequest';
 import AdminWithdrawalRejected from './admin/WithdrawalRejected';
 import AdminWithdrawalConfirmed from './admin/WithdrawalConfirmed';
 import AdminReferralHx from './admin/ReferralHx';
-import AdminReferralConfig from './admin/ReferralConfig';
 import AdminReferralContest from './admin/ReferralContest';
-import AdminDepositConfig from "./admin/DepositConfig";
-import AdminTransferConfig from "./admin/TransferConfig";
 import AdminTransferHistory from "./admin/TransferHistory";
-import AdminInvestmentConfig from "./admin/InvestmentConfig";
-import AdminWithdrawalConfig from "./admin/WithdrawalConfig";
 
 
 
@@ -117,22 +112,17 @@ export default function Pages() {
                 <Route path="home" element={<AdminHome />} />
                 <Route path="users" element={<AdminUsers />} />
                 <Route path="users/:id" element={<AdminUser />} />
-                <Route path="transfer/config" element={<AdminTransferConfig />} />
                 <Route path="transfer/history" element={<AdminTransferHistory />} />
-                <Route path="deposit/config" element={<AdminDepositConfig />} />
                 <Route path="deposit/confirmed" element={<AdminConfirmedDeposit />} />
                 <Route path="deposit/new" element={<AdminNewDeposit />} />
                 <Route path="notifications" element={<AdminNotifications />} />
-                <Route path="investment/config" element={<AdminInvestmentConfig />} />
                 <Route path="investment/history" element={<AdminInvestmentHx />} />
                 <Route path="investment/plans" element={<AdminPlans />} />
                 <Route path="investment/plans/:id" element={<AdminPlan />} />
-                <Route path="withdrawal/config" element={<AdminWithdrawalConfig />} />
                 <Route path="withdrawal/request" element={<AdminWithdrawalRequest />} />
                 <Route path="withdrawal/rejected" element={<AdminWithdrawalRejected />} />
                 <Route path="withdrawal/confirmed" element={<AdminWithdrawalConfirmed />} />
                 <Route path="referral/history" element={<AdminReferralHx />} />
-                <Route path="referral/config" element={<AdminReferralConfig />} />
                 <Route path="referral/contest" element={<AdminReferralContest />} />
             </Route>
 

@@ -7,7 +7,7 @@ export default function Home() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!Cookies.get('extratoken')) {
+        if (!Cookies.get('extratoken') && !Cookies.get('refreshtoken')) {
             navigate("/dashboard")
         }
     }, [])
