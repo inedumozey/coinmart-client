@@ -28,6 +28,14 @@ export default function AsideLinks({ isExpanded }) {
 
     const isReferralActive = location.pathname.includes('/admin/referral/') || location.pathname.includes('/admin/referral/config') || location.pathname.includes('/admin/referral/contest');
 
+    const dropdwonHeight = {
+        investment: '100px',
+        deposit: '100px',
+        transfer: '50px',
+        withdrawal: '150px',
+        referral: '100px'
+    }
+
 
     return (
         <Wrapper
@@ -37,6 +45,7 @@ export default function AsideLinks({ isExpanded }) {
             expandWithdrawal={expandWithdrawal}
             expandInvestment={expandInvestment}
             expandReferral={expandReferral}
+            dropdwonHeight={dropdwonHeight}
         >
             {
                 links.links?.map((link, i) => {
@@ -300,7 +309,7 @@ const Wrapper = styled.div`
             .icon {
                 color: var(--blue-deep);
             }
-            height : ${({ expandInvestment }) => expandInvestment ? '150px' : '0px'};
+            height : ${({ expandInvestment, dropdwonHeight }) => expandInvestment ? dropdwonHeight.investment : '0px'};
             opacity : ${({ expandInvestment }) => expandInvestment ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }
@@ -336,7 +345,7 @@ const Wrapper = styled.div`
             .icon {
                 color: var(--blue-deep);
             }
-            height : ${({ expandDeposit }) => expandDeposit ? '150px' : '0px'};
+            height : ${({ expandDeposit, dropdwonHeight }) => expandDeposit ? dropdwonHeight.deposit : '0px'};
             opacity : ${({ expandDeposit }) => expandDeposit ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }
@@ -372,7 +381,7 @@ const Wrapper = styled.div`
             .icon {
                 color: var(--blue-deep);
             }
-            height : ${({ expandTransfer }) => expandTransfer ? '100px' : '0px'};
+            height : ${({ expandTransfer, dropdwonHeight }) => expandTransfer ? dropdwonHeight.transfer : '0px'};
             opacity : ${({ expandTransfer }) => expandTransfer ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }
@@ -408,7 +417,7 @@ const Wrapper = styled.div`
             .icon {
                 color: var(--blue-deep);
             }
-            height : ${({ expandWithdrawal }) => expandWithdrawal ? '200px' : '0px'};
+            height : ${({ expandWithdrawal, dropdwonHeight }) => expandWithdrawal ? dropdwonHeight.withdrawal : '0px'};
             opacity : ${({ expandWithdrawal }) => expandWithdrawal ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }
@@ -444,7 +453,7 @@ const Wrapper = styled.div`
             .icon {
                 color: var(--blue-deep);
             }
-            height : ${({ expandReferral }) => expandReferral ? '150px' : '0px'};
+            height : ${({ expandReferral, dropdwonHeight }) => expandReferral ? dropdwonHeight.referral : '0px'};
             opacity : ${({ expandReferral }) => expandReferral ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }
