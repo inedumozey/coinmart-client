@@ -482,7 +482,7 @@ class apiClass {
         }
     }
 
-    buyPlan = async (data_, setInvestLoading) => {
+    buyPlan = async (data_, setInvestLoading, setProfileData, setProfileLoadingAgain) => {
 
         try {
             const { data } = await axios.post(`${BASE_URL}/investment/invest/${data_.id}`, data_, {
@@ -492,6 +492,9 @@ class apiClass {
             });
             setInvestLoading(false);
             toast(data.msg, { type: 'success' })
+
+            // refresh profile data
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
         }
         catch (err) {
             if (err.response) {

@@ -12,8 +12,14 @@ const api = new apiClass()
 
 export default function BuyPlan() {
     const navigate = useNavigate()
-    const { investment } = useContext(Context)
+    const { investment, user } = useContext(Context)
     const [amount, setAmount] = useState('')
+
+    const {
+        setProfileLoadingAgain,
+        profileLoadingAgain,
+        setProfileData
+    } = user.profile
 
     const {
         selectedInvestingPlan,
@@ -35,11 +41,11 @@ export default function BuyPlan() {
             if (!Cookies.get('accesstoken')) {
                 api.refreshToken()
                 setTimeout(() => {
-                    api.buyPlan(data, setInvestLoading)
+                    api.buyPlan(data, setInvestLoading, setProfileData, setProfileLoadingAgain)
                 }, 2000);
             }
             else {
-                api.buyPlan(data, setInvestLoading)
+                api.buyPlan(data, setInvestLoading, setProfileData, setProfileLoadingAgain)
             }
         }
     }
@@ -75,7 +81,7 @@ export default function BuyPlan() {
 
                     <div className='center'>
                         <Btn disabled={!amount} onClick={() => submitForm(selectedInvestingPlan._id)} color="var(--blue)" link={false}>
-                            {investLoading ? <Spinner_ size="sm" /> : "Start"}
+                            {investLoading || profileLoadingAgain ? <Spinner_ size="sm" /> : "Start"}
                         </Btn>
                     </div>
                 </div>

@@ -30,6 +30,8 @@ export default function Transfer({ initialState }) {
     });
 
     const submitForm = () => {
+        setUpdatingConfig(true)
+
         // if accesstoken not there, refresh it before proceeding to get profile, otherwise, get profile straight up
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()

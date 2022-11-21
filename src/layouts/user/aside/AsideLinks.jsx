@@ -30,7 +30,7 @@ export default function AsideLinks({ isExpanded }) {
         >
             {/* My profile */}
             <div className='linkWrapper' onClick={() => setExpandProfile(!expandProfile)}>
-                <Link className={isProfileActive ? 'link activeLink' : 'link'}>
+                <Link title="My Profile" className={isProfileActive ? 'link activeLink' : 'link'}>
                     <div className="icon1">
                         <PersonIcon className='icon' />
                     </div>
@@ -46,7 +46,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="profile-dropdwon-menu">
                     {
                         links.profileLinks?.map((link, i) => {
-                            return <Link key={i} to={link.url} className={location.pathname.includes(link.url) ? 'link active-link' : 'link'}>
+                            return <Link title={link.name} key={i} to={link.url} className={location.pathname.includes(link.url) ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -60,6 +60,7 @@ export default function AsideLinks({ isExpanded }) {
                 links.links?.map((link, i) => {
                     return <div key={i} className='linkWrapper'>
                         <Link
+                            title={link.name}
                             to={link.url}
                             className={location.pathname.includes(link.url) ? 'link activeLink' : 'link'}>
                             <div className="icon1">
@@ -76,8 +77,10 @@ export default function AsideLinks({ isExpanded }) {
                     </div>
                 })
             }
+
+            {/* Referral */}
             <div className='linkWrapper' onClick={() => setExpandReferral(!expandReferral)}>
-                <Link className={isReferralActive ? 'link activeLink' : 'link'}>
+                <Link title="Referral" className={isReferralActive ? 'link activeLink' : 'link'}>
                     <div className="icon1">
                         <PersonIcon className='icon' />
                     </div>
@@ -93,7 +96,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="referral-dropdwon-menu">
                     {
                         links.referralLinks?.map((link, i) => {
-                            return <Link key={i} to={link.url} className={location.pathname.includes(link.url) ? 'link active-link' : 'link'}>
+                            return <Link title={link.name} key={i} to={link.url} className={location.pathname.includes(link.url) ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>

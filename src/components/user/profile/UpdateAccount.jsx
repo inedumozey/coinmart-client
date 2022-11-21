@@ -125,14 +125,14 @@ const Form = ({ initiastate }) => {
                 </div>
             </ImgWrapper>
 
-            <InputWrapper>
-                <div className="wrap">
+            <InputWrapper className='no-shadow'>
+                <div style={{ boxShadow: '0' }} className="wrap">
                     <div className="tag">Acct Bal: </div>
                     <div className="value">{profileData.amount} {profileData.currency}</div>
                 </div>
             </InputWrapper>
 
-            <InputWrapper>
+            <InputWrapper className='no-shadow'>
                 <div className="wrap">
                     <div className="tag">Acct No: </div>
                     <div className="value">{profileData.accountNumber}</div>
@@ -349,8 +349,7 @@ const InputWrapper = styled.div`
             font-weight: bold;
             margin-right: 10px;
         }
-    }
-    
+    }    
     
     input {
         border: none;
@@ -403,6 +402,10 @@ const FormStyle = styled.div`
     box-shadow: 2px 2px 5px #ccc;
     margin: 10px auto 40px auto;
     width: 100%;
+
+    .no-shadow {
+        box-shadow: none;
+    }
 `
 
 const ImgWrapper = styled.div`

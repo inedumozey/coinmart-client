@@ -54,6 +54,7 @@ export default function AsideLinks({ isExpanded }) {
                             style={{
                                 color: '#fff'
                             }}
+                            title={link.name}
                             to={link.url}
                             className={location.pathname === link.url ? 'link activeLink' : 'link'}>
                             <div className="icon1">
@@ -67,7 +68,7 @@ export default function AsideLinks({ isExpanded }) {
 
             {/* investment */}
             <div className='linkWrapper' onClick={() => setExpandInvestment(!expandInvestment)}>
-                <Link className={isVestmentActive ? 'link activeLink' : 'link'}>
+                <Link title="Investment" className={isVestmentActive ? 'link activeLink' : 'link'}>
                     <div className="icon1">
                         <PersonIcon className='icon' />
                     </div>
@@ -83,7 +84,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="investment-dropdwon-menu">
                     {
                         links.investmentLinks?.map((link, i) => {
-                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -96,7 +97,7 @@ export default function AsideLinks({ isExpanded }) {
 
             {/* Deposit */}
             <div className='linkWrapper' onClick={() => setExpandDeposit(!expandDeposit)}>
-                <Link className={isDepositActive ? 'link activeLink' : 'link'}>
+                <Link title="Deposit" className={isDepositActive ? 'link activeLink' : 'link'}>
                     <div className="icon1">
                         <PersonIcon className='icon' />
                     </div>
@@ -112,7 +113,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="deposit-dropdwon-menu">
                     {
                         links.depositLinks?.map((link, i) => {
-                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -125,7 +126,7 @@ export default function AsideLinks({ isExpanded }) {
 
             {/* transferLinks */}
             <div className='linkWrapper' onClick={() => setExpandTransfer(!expandTransfer)}>
-                <Link className={isTransferActive ? 'link activeLink' : 'link'}>
+                <Link title="Transfer" className={isTransferActive ? 'link activeLink' : 'link'}>
                     <div className="icon1">
                         <PersonIcon className='icon' />
                     </div>
@@ -141,7 +142,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="transfer-dropdwon-menu">
                     {
                         links.transferLinks?.map((link, i) => {
-                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -154,7 +155,7 @@ export default function AsideLinks({ isExpanded }) {
 
             {/* Withdrawal */}
             <div className='linkWrapper' onClick={() => setExpandWithdrawal(!expandWithdrawal)}>
-                <Link className={isWithdrawalActive ? 'link activeLink' : 'link'}>
+                <Link title="Withdrawal" className={isWithdrawalActive ? 'link activeLink' : 'link'}>
                     <div className="icon1">
                         <PersonIcon className='icon' />
                     </div>
@@ -170,7 +171,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="withdrawal-dropdwon-menu">
                     {
                         links.withdrawalLinks?.map((link, i) => {
-                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -183,7 +184,7 @@ export default function AsideLinks({ isExpanded }) {
 
             {/* Referral */}
             <div className='linkWrapper' onClick={() => setExpandReferral(!expandReferral)}>
-                <Link className={isReferralActive ? 'link activeLink' : 'link'}>
+                <Link title="Referral" className={isReferralActive ? 'link activeLink' : 'link'}>
                     <div className="icon1">
                         <PersonIcon className='icon' />
                     </div>
@@ -200,7 +201,7 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="referral-dropdwon-menu">
                     {
                         links.referralLinks?.map((link, i) => {
-                            return <Link key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
