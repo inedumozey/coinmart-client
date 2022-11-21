@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import History from '../../components/user/investment/History';
 
 export default function MyPackages() {
     const navigate = useNavigate();
@@ -12,9 +13,7 @@ export default function MyPackages() {
     }, [])
 
 
-    return (
-        <div>Home</div>
-    )
+    return <History />
 }
 
 

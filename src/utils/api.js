@@ -507,5 +507,75 @@ class apiClass {
             }
         }
     }
+
+    resolveInvestment = async () => {
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/investment/resolve`);
+            // console.log(data)
+            return
+        }
+        catch (err) {
+            if (err.response) {
+                // console.log(err.response.data.msg)
+                return;
+            }
+            else {
+                // console.log(err.message)
+                return;
+            }
+        }
+    }
+
+    adminGetAllInvestments = async (setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin) => {
+        setFetchingInvestments_admin(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/investment/get-all-investments-admin`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setInvestmentData_admin(data)
+            setFetchingInvestments_admin(false)
+            setFetchInvestmentsMsg_admin(data.msg)
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingInvestments_admin(false)
+                setFetchInvestmentsMsg_admin(err.response.data.msg)
+            }
+            else {
+                setFetchingInvestments_admin(false)
+                setFetchInvestmentsMsg_admin(err.message)
+            }
+        }
+    }
+
+    userGetAllInvestments = async (setInvestmentData_users, setFetchingInvestments_users, setFetchInvestmentsMsg_users) => {
+        setFetchingInvestments_users(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/investment/get-all-investments`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+            setInvestmentData_users(data)
+            setFetchingInvestments_users(false)
+            setFetchInvestmentsMsg_users(data.msg)
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingInvestments_users(false)
+                setFetchInvestmentsMsg_users(err.response.data.msg)
+            }
+            else {
+                setFetchingInvestments_users(false)
+                setFetchInvestmentsMsg_users(err.message)
+            }
+        }
+    }
+
+
 }
 export default apiClass;

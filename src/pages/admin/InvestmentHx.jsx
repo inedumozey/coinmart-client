@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import History_C from '../../components/admin/investment/history/History';
 
 export default function InvestoryHx() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function InvestoryHx() {
             navigate("/dashboard")
         }
     }, [])
-    return (
-        <div>Investory Hx</div>
-    )
+    return <History_C />
 }

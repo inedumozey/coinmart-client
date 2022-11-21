@@ -66,9 +66,25 @@ function ContextApi() {
     const [selectedInvestingPlan, setSelectedInvestingPlan] = useState('')
     const [investLoading, setInvestLoading] = useState(false)
 
+    // for admin
+    const [investmentData_admin, setInvestmentData_admin] = useState([]);
+    const [fetchingInvestments_admin, setFetchingInvestments_admin] = useState(false);
+    const [fetchInvestmentsMsg_admin, setFetchInvestmentsMsg_admin] = useState('');
+    // for users
+    const [investmentData_users, setInvestmentData_users] = useState('');
+    const [fetchingInvestments_users, setFetchingInvestments_users] = useState(false);
+    const [fetchInvestmentsMsg_users, setFetchInvestmentsMsg_users] = useState('');
+
     useEffect(() => {
         api.fetchPlans(setPlans, setFetchingPlans, setFetchingPlansSuccess)
+
+        // resolve investment
+        api.resolveInvestment()
+
     }, [])
+
+
+
 
     const admin_links = [
         { url: '/admin/home', name: 'Home', icon: DashboardIcon },
@@ -251,6 +267,20 @@ function ContextApi() {
                 setSelectedInvestingPlan,
                 investLoading,
                 setInvestLoading,
+
+                investmentData_admin,
+                setInvestmentData_admin,
+                fetchingInvestments_admin,
+                setFetchingInvestments_admin,
+                fetchInvestmentsMsg_admin,
+                setFetchInvestmentsMsg_admin,
+
+                investmentData_users,
+                setInvestmentData_users,
+                fetchingInvestments_users,
+                setFetchingInvestments_users,
+                fetchInvestmentsMsg_users,
+                setFetchInvestmentsMsg_users,
             }
         }
     }
