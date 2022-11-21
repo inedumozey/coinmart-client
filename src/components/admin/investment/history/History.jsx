@@ -4,15 +4,14 @@ import { Context } from '../../../../context/Context';
 import Spinner_ from '../../../spinner/Spinner';
 import apiClass from '../../../../utils/api';
 import Cookies from 'js-cookie'
-import Btn from '../../../Btn/Btn';
-import Select from 'react-select'
-import resolve from '../../../../utils/resolve';
+import Skeleton from '../../../Skeleton';
+import HistoryData from './HistoryData';
 
 const api = new apiClass()
 
 export default function History() {
+    const { investment, config } = useContext(Context);
 
-    const { investment } = useContext(Context);
     const {
         investmentData_admin,
         setInvestmentData_admin,
@@ -47,7 +46,14 @@ export default function History() {
 
     return (
         <Wrapper>
-            histoy
+            {
+                fetchingInvestments_admin || load ?
+                    <div className='skeleton'>
+                        <Skeleton />
+                    </div>
+                    :
+                    <HistoryData data={investmentData_admin.data} />
+            }
         </Wrapper>
     )
 }
@@ -55,9 +61,14 @@ export default function History() {
 
 
 const Wrapper = styled.div`
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+    width: 100vw;
+    margin: auto;
+    max-width: 800px;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px ${({ theme }) => theme.lg_padding};
         @media (max-width: ${({ theme }) => theme.md_screen}){
             padding: 20px ${({ theme }) => theme.md_padding};
@@ -66,5 +77,12 @@ const Wrapper = styled.div`
             padding: 20px ${({ theme }) => theme.sm_padding};
             grid-template-columns: repeat( auto-fit, minmax(170px, 1fr) );
         }
+    }
+
+    .skeleton {
+        width: 80vw;
+        margin: auto;
+        height: 80vh;
+        padding: 10px;
     }
 `

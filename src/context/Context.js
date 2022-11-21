@@ -70,6 +70,7 @@ function ContextApi() {
     const [investmentData_admin, setInvestmentData_admin] = useState([]);
     const [fetchingInvestments_admin, setFetchingInvestments_admin] = useState(false);
     const [fetchInvestmentsMsg_admin, setFetchInvestmentsMsg_admin] = useState('');
+    const [resolvingInvestment, setResolvingInvestment] = useState(false);
     // for users
     const [investmentData_users, setInvestmentData_users] = useState('');
     const [fetchingInvestments_users, setFetchingInvestments_users] = useState(false);
@@ -274,6 +275,8 @@ function ContextApi() {
                 setFetchingInvestments_admin,
                 fetchInvestmentsMsg_admin,
                 setFetchInvestmentsMsg_admin,
+                resolvingInvestment,
+                setResolvingInvestment,
 
                 investmentData_users,
                 setInvestmentData_users,
