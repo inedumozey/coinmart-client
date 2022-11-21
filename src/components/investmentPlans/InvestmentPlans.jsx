@@ -32,9 +32,9 @@ export default function InvestmentPlans() {
         operationType,
         setOperationType,
         selectedPlan,
-        setSelectedPlan
+        setSelectedPlan,
+        setOpenAddPlanModal,
     } = investment.plans
-
 
     const {
         openInvestModal,
@@ -55,7 +55,9 @@ export default function InvestmentPlans() {
     }
 
     const handleEdit = (plan) => {
-        console.log(plan)
+        setSelectedPlan(plan)
+        setOperationType('update-plan')
+        setOpenAddPlanModal(true)
     }
 
     const handleDelete = (id) => {
@@ -124,13 +126,19 @@ export default function InvestmentPlans() {
                                         <div className="amount">Point: {plan.point}</div>
                                     </div>
                                     <div className="footer">
-                                        <div
-                                            className='action-btn edit'
-                                            color="var(--blue)"
-                                            onClick={() => handleEdit(plan)}
-                                        >
-                                            <EditIcon style={{ color: 'green' }} />
-                                        </div>
+                                        {/* add ediy button if role admin and extratoken exist in cookies */}
+                                        {
+
+                                            Cookies.get('role')?.toLowerCase() === "admin" && Cookies.get('extratoken') ?
+                                                <div
+                                                    className='action-btn edit'
+                                                    color="var(--blue)"
+                                                    onClick={() => handleEdit(plan)}
+                                                >
+                                                    <EditIcon style={{ color: 'green' }} />
+                                                </div> : ''
+                                        }
+
                                         <Btn
                                             color="var(--blue)"
                                             link={false}
@@ -138,13 +146,18 @@ export default function InvestmentPlans() {
                                         >
                                             Invest
                                         </Btn>
-                                        <div
-                                            className='action-btn delete'
-                                            color="var(--blue)"
-                                            onClick={() => handleDelete(plan._id)}
-                                        >
-                                            {deletingPlan || refreshingPlans ? <Spinner_ size='sm' /> : <DeleteForeverIcon style={{ color: 'red' }} />}
-                                        </div>
+
+                                        {/* add delete button if role admin and extratoken exist in cookies */}
+                                        {
+                                            Cookies.get('role')?.toLowerCase() === "admin" && Cookies.get('extratoken') ?
+                                                <div
+                                                    className='action-btn delete'
+                                                    color="var(--blue)"
+                                                    onClick={() => handleDelete(plan._id)}
+                                                >
+                                                    {deletingPlan || refreshingPlans ? <Spinner_ size='sm' /> : <DeleteForeverIcon style={{ color: 'red' }} />}
+                                                </div> : ''
+                                        }
 
                                     </div>
                                 </Card>

@@ -42,8 +42,11 @@ export default function Add_Update_Plans() {
     }, [inp.type, inp.minAmount, inp.maxAmount, inp.lifespan, inp.point, inp.returnPercentage])
 
     const submitForm = (e) => {
+
+        // if the operation type is plan-add, perform add plan opeartion, otherwise, perform plan update operation
         e.preventDefault();
-        setPostingPlan(true)
+        operationType === 'add-plan' ? setPostingPlan(true) : setUpdatingPlan(true)
+
         // if accesstoken not there, refresh it before proceeding to get profile, otherwise, get profile straight up
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
