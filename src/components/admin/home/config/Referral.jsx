@@ -47,7 +47,6 @@ export default function Referral({ initialState }) {
         }
     }
 
-    console.log(initialState.referralContestStops)
     return (
         <Wrapper>
             <InputWrapper>

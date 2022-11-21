@@ -10,7 +10,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import Trade from '../../../components/tradeView/Ticker';
 import { Context } from '../../../context/Context';
 
-
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // import required modules
@@ -440,7 +439,7 @@ const HeaderStyle = styled.div`
     }
 
     .none-home-page {
-        height: calc(100vh - 153px);
+        height: calc(100vh - 200px);
         position: relative;
         z-index: 1;
 

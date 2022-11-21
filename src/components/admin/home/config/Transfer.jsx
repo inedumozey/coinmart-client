@@ -119,8 +119,6 @@ export default function Transfer({ initialState }) {
                 />
             </InputWrapper>
 
-
-
             <div className='text-center text-md-start mt- pt-2'>
 
                 <Btn onClick={submitForm} color="var(--blue)" link={false}>

@@ -25,7 +25,7 @@ export default function Landing({ children }) {
             <div
                 style={{
                     width: '100vw',
-                    height: `${isHomeRoute ? `calc(${headerHeight_full - footerHeight})` : `calc(${headerHeight_mid - footerHeight})`}`
+                    height: `${isHomeRoute ? `calc(${headerHeight_full - footerHeight})` : `calc(${headerHeight_mid - footerHeight}) - 40px`}`
                 }}
                 onClick={() => setOpenMenu(false)}>
                 {children}

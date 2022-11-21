@@ -49,6 +49,26 @@ function ContextApi() {
     const [changeAdminPasswordLoading, setChangeAdminPasswordLoading] = useState(false)
     const [changeAdminPasswordSuccess, setChangeAdminPasswordSuccess] = useState(false);
 
+    // Investment plan
+    const [plans, setPlans] = useState([]);
+    const [fetchingPlans, setFetchingPlans] = useState(false)
+    const [fetchingPlansSuccess, setFetchingPlansSuccess] = useState(false);
+
+    const [openAddPlanModal, setOpenAddPlanModal] = useState(false);
+    const [postingPlan, setPostingPlan] = useState(false)
+    const [updatingPlan, setUpdatingPlan] = useState(false)
+    const [deletingPlan, setDeletingPlan] = useState(false)
+    const [refreshingPlans, setRefreshingPlans] = useState(false);
+    const [operationType, setOperationType] = useState('');
+    const [selectedPlan, setSelectedPlan] = useState('');
+
+    const [openInvestModal, setOpenInvestModal] = useState(false)
+    const [selectedInvestingPlan, setSelectedInvestingPlan] = useState('')
+    const [investLoading, setInvestLoading] = useState(false)
+
+    useEffect(() => {
+        api.fetchPlans(setPlans, setFetchingPlans, setFetchingPlansSuccess)
+    }, [])
 
     const admin_links = [
         { url: '/admin/home', name: 'Home', icon: DashboardIcon },
@@ -203,6 +223,35 @@ function ContextApi() {
             setUpdatingConfig,
             category,
             setCategory
+        },
+
+        investment: {
+            plans: {
+                plans,
+                setPlans,
+                openAddPlanModal,
+                setOpenAddPlanModal,
+                postingPlan,
+                setPostingPlan,
+                updatingPlan,
+                setUpdatingPlan,
+                deletingPlan,
+                setDeletingPlan,
+                refreshingPlans,
+                setRefreshingPlans,
+                operationType,
+                setOperationType,
+                selectedPlan,
+                setSelectedPlan
+            },
+            invest: {
+                openInvestModal,
+                setOpenInvestModal,
+                selectedInvestingPlan,
+                setSelectedInvestingPlan,
+                investLoading,
+                setInvestLoading,
+            }
         }
     }
 
@@ -213,7 +262,7 @@ function ContextApi() {
     return (
         <Context.Provider value={state}>
             {
-                configData && !load ?
+                configData && !load && fetchingPlansSuccess ?
                     <Layout>
                         <Pages />
                     </Layout> :

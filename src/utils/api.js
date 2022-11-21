@@ -363,6 +363,146 @@ class apiClass {
         }
     }
 
+    // investment plan
+    fetchPlans = async (setPlans, setFetchingPlans, setFetchingPlansSuccess) => {
+        setFetchingPlans(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/investment/plans`);
+            setPlans(data.data);
+            setFetchingPlans(false);
+            setFetchingPlansSuccess(true);
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingPlans(false);
+                setFetchingPlansSuccess(false);
+            }
+            else {
+                setFetchingPlans(false);
+                setFetchingPlansSuccess(false);
+            }
+        }
+    }
 
+    refreshPlans = async (setPlans, setRefreshingPlans) => {
+        setRefreshingPlans(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/investment/plans`);
+            setPlans(data.data);
+            setRefreshingPlans(false);
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setRefreshingPlans(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setRefreshingPlans(false);
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    postPlan = async (data_, setPostingPlan, setPlans, setRefreshingPlans) => {
+        setPostingPlan(true)
+        try {
+            const { data } = await axios.post(`${BASE_URL}/investment/plans`, data_, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setPostingPlan(false);
+            toast(data.msg, { type: 'success' })
+            // refresh plan
+            this.refreshPlans(setPlans, setRefreshingPlans)
+        }
+        catch (err) {
+            if (err.response) {
+                setPostingPlan(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setPostingPlan(false);
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    updatePlan = async (data_, id, setUpdatingPlan, setPlans, setRefreshingPlans) => {
+        setUpdatingPlan(true)
+        try {
+            const { data } = await axios.put(`${BASE_URL}/investment/plans/${id}`, data_, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setUpdatingPlan(false);
+            toast(data.msg, { type: 'success' })
+            // refresh plan
+            this.refreshPlans(setPlans, setRefreshingPlans)
+        }
+        catch (err) {
+            if (err.response) {
+                setUpdatingPlan(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setUpdatingPlan(false);
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    deletePlan = async (id, setDeletingPlan, setPlans, setRefreshingPlans) => {
+
+        try {
+            const { data } = await axios.delete(`${BASE_URL}/investment/plans/${id}`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setDeletingPlan(false);
+            toast(data.msg, { type: 'success' })
+            // refresh plan
+            this.refreshPlans(setPlans, setRefreshingPlans)
+        }
+        catch (err) {
+            if (err.response) {
+                setDeletingPlan(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setDeletingPlan(false);
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    buyPlan = async (data_, setInvestLoading) => {
+
+        try {
+            const { data } = await axios.post(`${BASE_URL}/investment/invest/${data_.id}`, data_, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                }
+            });
+            setInvestLoading(false);
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setInvestLoading(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setInvestLoading(false);
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
 }
 export default apiClass;

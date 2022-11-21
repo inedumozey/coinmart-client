@@ -24,7 +24,6 @@ import MyPackages from "./users/MyPackages";
 import Deposit from './users/Deposit';
 import Transfer from './users/Transfer';
 import Plans from './users/Plans';
-import Plan from './users/Plan';
 import Notifications from './users/Notifications';
 import Notification from './users/Notification';
 import Account from './users/Account';
@@ -95,7 +94,6 @@ export default function Pages() {
                 <Route path="transfer" element={<Transfer />} />
                 <Route path="withdrawal" element={<Withdrawal />} />
                 <Route path="plans" element={<Plans />} />
-                <Route path="plans/:id" element={<Plan />} />
                 <Route path="notifications" element={<Notifications />} />
                 <Route path="notifications/:id" element={<Notification />} />
                 <Route path="account" element={<Account />} />
