@@ -7,7 +7,7 @@ export default function Notifications() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!Cookies.get('extratoken') && !Cookies.get('refreshtoken')) {
+        if (!Cookies.get('extratoken') || !Cookies.get('refreshtoken')) {
             navigate("/dashboard")
         }
     }, [])
