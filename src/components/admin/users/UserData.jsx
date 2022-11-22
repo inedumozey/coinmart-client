@@ -204,7 +204,7 @@ export default function UserData() {
                                     >
                                         {toggleBlockUserLoading && selectedData._id === data._id ?
                                             <div className="center"><Spinner_ size="sm" /></div> :
-                                            data.isBlocked ? 'Block' : 'Unblock'}
+                                            data.isBlocked ? 'Unblock' : 'Block'}
                                     </td>
 
                                     <td
