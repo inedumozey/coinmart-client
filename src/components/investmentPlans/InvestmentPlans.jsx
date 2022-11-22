@@ -200,7 +200,7 @@ const Card = styled.div`
     box-shadow: 2px 2px 4px #ccc, -2px -2px 4px #ccc;
     background: #fff;
     // padding: 10px;
-    margin: 2px 0;;
+    margin: 8px 0;;
     justify-self: center;
     position: relative;
 

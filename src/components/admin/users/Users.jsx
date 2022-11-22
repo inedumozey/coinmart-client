@@ -112,8 +112,9 @@ const Skeletons = styled.div`
 
     .header {
         .stat {
-            width: 20%;
+            width: 200px;
             height: 100px;
+            padding-bottom: 10px;
         }
         .search-wrapper {
             display: flex;
@@ -122,7 +123,7 @@ const Skeletons = styled.div`
 
         .search {
             height: 40px;
-            width: 40%;
+            width: 250px;
             max-width: 300px;
         }
     }
@@ -149,7 +150,7 @@ const Skeletons = styled.div`
         .more{
             border-radius: 5px;
             height: 100%;
-            width: 100px;
+            width: 130px;
         }
     }
 

@@ -297,7 +297,7 @@ const Wrapper = styled.div`
         .search {
             display: inline-block;
             margin-bottom: 10px;
-            width: 40%;
+            width: 140px;
             max-width: 300px;
     
             input {
