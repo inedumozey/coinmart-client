@@ -199,8 +199,9 @@ const Card = styled.div`
     height: 300px;
     box-shadow: 2px 2px 4px #ccc, -2px -2px 4px #ccc;
     background: #fff;
-    padding: 10px;
-    margin: 10px 5px;
+    // padding: 10px;
+    margin: 2px 0;;
+    justify-self: center;
     position: relative;
 
     @media (max-width: ${({ theme }) => theme.sm_screen}){
