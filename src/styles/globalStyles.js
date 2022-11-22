@@ -123,7 +123,6 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Table = styled.div`
-    padding: 0;
     width: 100%;
     max-height: 63vh;
     overflow: auto;
@@ -137,7 +136,6 @@ const Table = styled.div`
         border-spacing: 0.5rem;
         height: 100%;
         border-collapse: collapse;
-        width: ${({ width }) => width ? width : '1000px'};
         text-align: left;
         cursor: default;
         color: #000;

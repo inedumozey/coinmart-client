@@ -53,7 +53,15 @@ export default function Users() {
             {
                 fetchingUsers_initial || load ?
                     <Skeletons>
-                        <div className="search"> <Skeleton /> </div>
+                        <div className="header">
+                            <div className="stat-wrapper">
+                                <div className="stat"><Skeleton /></div>
+                            </div>
+                            <div className="search-wrapper">
+                                <div className="search"><Skeleton /></div>
+                            </div>
+
+                        </div>
                         <div className="table">
                             {
                                 [1, 2, 3, 4].map((item, i) => {
@@ -102,10 +110,21 @@ const Skeletons = styled.div`
     padding: 20px;
     box-shadow: 2px 2px 4px #ccc;
 
-    .search {
-        height: 40px;
-        width: 40%;
-        max-width: 300px;
+    .header {
+        .stat {
+            width: 20%;
+            height: 100px;
+        }
+        .search-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .search {
+            height: 40px;
+            width: 40%;
+            max-width: 300px;
+        }
     }
 
     .table {

@@ -49,7 +49,7 @@ export default function UserData() {
 
         setFilter(newData)
 
-    }, [inp, userData])
+    }, [inp, userData.data])
 
     const handleViewMore = () => {
         setOpening(true)
@@ -115,13 +115,48 @@ export default function UserData() {
 
     return (
         <Wrapper>
-            <div className="search">
-                <input
-                    placeholder='Search by Username, Email, Amount, or Account Number'
-                    value={inp || ''}
-                    onChange={(e) => setInp(e.target.value)}
-                />
+            <div className="header">
+                <div className="stat-wrapper">
+                    <div className="stat">
+                        <div>Total Users: {userData.data.length}</div>
+                        <div>
+                            Admins: {(userData.data.filter(user => user.role?.toLowerCase() === 'admin')).length}
+                        </div>
+                        <div>
+                            Supper Admins: {(userData.data.filter(user => user.isSupperAdmin)).length}
+                        </div>
+                        <div>
+                            Investors: {(userData.data.filter(user => user.hasInvested)).length}
+                        </div>
+                        <div>
+                            App Total Balance: {
+                                (function () {
+                                    const amountArr = userData.data.map(user => {
+                                        return user.amount;
+                                    })
+
+                                    const sum = amountArr.reduce((a, b) => {
+                                        return a + b
+                                    }, 0)
+
+                                    return sum;
+                                }())
+                            } {config.configData.currency}
+                        </div>
+                    </div>
+                </div>
+                <div className="search-wrapper">
+                    <div className="search">
+                        <input
+                            placeholder='Search by Username, Email, Amount, or Account Number'
+                            value={inp || ''}
+                            onChange={(e) => setInp(e.target.value)}
+                        />
+                    </div>
+                </div>
+
             </div>
+
             <Table>
                 <table>
                     <thead>
@@ -253,23 +288,31 @@ const Wrapper = styled.div`
     padding: 20px;
     box-shadow: 2px 2px 4px #ccc;
 
-    .search {
-        display: inline-block;
-        margin-bottom: 10px;
-        width: 40%;
-        max-width: 300px;
-    }
+    .header {
+        .search-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
 
-    input {
-        padding: 10px;
-        border-radius: 5px;
-        width: 100%;
-        border: 1px solid #ccc;
-
-        &: focus {
-            outline: none;
+        .search {
+            display: inline-block;
+            margin-bottom: 10px;
+            width: 40%;
+            max-width: 300px;
+    
+            input {
+                padding: 10px;
+                border-radius: 5px;
+                width: 100%;
+                border: 1px solid #ccc;
+        
+                &: focus {
+                    outline: none;
+                }
+            }
         }
     }
+
 `
 
 const ViewMore = styled.div`
