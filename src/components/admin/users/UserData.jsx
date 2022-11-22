@@ -8,7 +8,8 @@ import { Table } from '../../../styles/globalStyles'
 import { ScrollBar } from '../../../styles/globalStyles'
 import { useSnap } from '@mozeyinedu/hooks-lab';
 import filter from "@mozeyinedu/filter";
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom';
+import VerifiedIcon from '@mui/icons-material/Verified';
 
 const api = new apiClass()
 
@@ -188,7 +189,7 @@ export default function UserData() {
 
                                         }
                                     </td>
-                                    <td>{data.isVerified ? 'Verified' : 'Unverified'}</td>
+                                    <td>{data.isVerified ? <VerifiedIcon style={{ color: 'blue' }} /> : 'Unverified'}</td>
                                     <td>{data.amount}</td>
                                     <td>{data.accountNumber}</td>
                                     <td>{data.referralCode}</td>
