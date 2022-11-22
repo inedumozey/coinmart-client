@@ -55,7 +55,7 @@ export default function History() {
                     {
                         load || fetchingInvestments_users ?
                             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((data, i) => {
-                                return <Skeletons />
+                                return <Skeletons key={i} />
                             }) :
                             !investmentData_users ?
                                 <div className="tag red">
@@ -82,7 +82,7 @@ export default function History() {
                     {
                         load || fetchingInvestments_users ?
                             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((data, i) => {
-                                return <Skeletons />
+                                return <Skeletons key={i} />
                             }) :
                             !investmentData_users ?
                                 <div className="tag red">

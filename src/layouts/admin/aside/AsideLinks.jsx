@@ -56,7 +56,7 @@ export default function AsideLinks({ isExpanded }) {
                             }}
                             title={link.name}
                             to={link.url}
-                            className={location.pathname === link.url ? 'link activeLink' : 'link'}>
+                            className={location.pathname.includes(link.url) ? 'link activeLink' : 'link'}>
                             <div className="icon1">
                                 <link.icon className='icon' />
                             </div>

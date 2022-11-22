@@ -74,10 +74,10 @@ class apiClass {
             }
         }
 
-        if (!Cookies.get('refreshtoken')) {
-            window.location.reload();
-            toast('Session is over, please login')
-        }
+        // if (!Cookies.get('refreshtoken')) {
+        //     window.location.reload();
+        //     toast('Session is over, please login')
+        // }
     }
 
     fetchProfile = async (setProfileData, setProfileLoading, setFetchProfileSuccess, setFetchProfileMsg) => {
@@ -158,16 +158,16 @@ class apiClass {
             });
             setProfileData(data.data);
             setProfileLoadingAgain(false);
-            toast(data.msg, { type: 'success' })
+            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setProfileLoadingAgain(false)
-                toast(err.response.data.msg, { type: 'error' })
+                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setProfileLoadingAgain(false)
-                toast(err.message, { type: 'error' })
+                // toast(err.message, { type: 'error' })
             }
 
         }
@@ -390,16 +390,16 @@ class apiClass {
             const { data } = await axios.get(`${BASE_URL}/investment/plans`);
             setPlans(data.data);
             setRefreshingPlans(false);
-            toast(data.msg, { type: 'success' })
+            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setRefreshingPlans(false);
-                toast(err.response.data.msg, { type: 'error' })
+                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setRefreshingPlans(false);
-                toast(err.message, { type: 'error' })
+                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -572,6 +572,166 @@ class apiClass {
             else {
                 setFetchingInvestments_users(false)
                 setFetchInvestmentsMsg_users(err.message)
+            }
+        }
+    }
+
+    // manual by the supper admin
+    resolveInvestments = async (id, setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin, setResolvingInvestment) => {
+        setResolvingInvestment(true)
+        try {
+            const { data } = await axios.put(`${BASE_URL}/investment/resolve-manual/${id}`, {}, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            setInvestmentData_admin(data)
+            setResolvingInvestment(false)
+            toast(data.msg, { type: 'success' })
+
+            this.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
+        }
+        catch (err) {
+            if (err.response) {
+                setResolvingInvestment(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setResolvingInvestment(false)
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    getUsers = async (setFetchingUsers_initial, setFetchingUsersSuccess_initial, setUserData) => {
+        setFetchingUsers_initial(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/auth/get-users`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setUserData(data)
+            setFetchingUsers_initial(false)
+            setFetchingUsersSuccess_initial(true)
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingUsers_initial(false)
+                setFetchingUsersSuccess_initial(false)
+            }
+            else {
+                setFetchingUsers_initial(false)
+                setFetchingUsersSuccess_initial(false)
+            }
+        }
+    }
+
+    refreshUsers = async (setFetchingUsers_refresh, setUserData) => {
+        setFetchingUsers_refresh(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/auth/get-users`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setUserData(data)
+            setFetchingUsers_refresh(false)
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingUsers_refresh(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingUsers_refresh(false)
+                // toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    toggleAdmin = async (id, toggleMakeAdminLoading, setFetchingUsers_refresh, setUserData) => {
+        toggleMakeAdminLoading(true)
+        try {
+            const { data } = await axios.put(`${BASE_URL}/auth/toggle-admin/${id}`, {}, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            toggleMakeAdminLoading(false)
+            toast(data.msg, { type: 'success' })
+
+            //refresh user data
+            this.refreshUsers(setFetchingUsers_refresh, setUserData)
+        }
+        catch (err) {
+            if (err.response) {
+                toggleMakeAdminLoading(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                toggleMakeAdminLoading(false)
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    toggleDeactivate = async (id, setToggleBockUserLoading, setFetchingUsers_refresh, setUserData) => {
+        setToggleBockUserLoading(true)
+        try {
+            const { data } = await axios.put(`${BASE_URL}/auth/toggle-block-user/${id}`, {}, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setToggleBockUserLoading(false)
+            toast(data.msg, { type: 'success' })
+
+            //refresh user data
+            this.refreshUsers(setFetchingUsers_refresh, setUserData)
+        }
+        catch (err) {
+            if (err.response) {
+                setToggleBockUserLoading(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setToggleBockUserLoading(false)
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    deleteUser = async (id, setDeleteUserLoading, setFetchingUsers_refresh, setUserData) => {
+        setDeleteUserLoading(true)
+        try {
+            const { data } = await axios.put(`${BASE_URL}/auth/delete-many-accounts/`, { id }, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setDeleteUserLoading(false)
+            toast(data.msg, { type: 'success' })
+
+            //refresh user data
+            this.refreshUsers(setFetchingUsers_refresh, setUserData)
+        }
+        catch (err) {
+            if (err.response) {
+                setDeleteUserLoading(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setDeleteUserLoading(false)
+                toast(err.message, { type: 'error' })
             }
         }
     }

@@ -66,15 +66,25 @@ function ContextApi() {
     const [selectedInvestingPlan, setSelectedInvestingPlan] = useState('')
     const [investLoading, setInvestLoading] = useState(false)
 
-    // for admin
+    // ---------for admin
     const [investmentData_admin, setInvestmentData_admin] = useState([]);
     const [fetchingInvestments_admin, setFetchingInvestments_admin] = useState(false);
     const [fetchInvestmentsMsg_admin, setFetchInvestmentsMsg_admin] = useState('');
     const [resolvingInvestment, setResolvingInvestment] = useState(false);
-    // for users
+    // ---------for users
     const [investmentData_users, setInvestmentData_users] = useState('');
     const [fetchingInvestments_users, setFetchingInvestments_users] = useState(false);
     const [fetchInvestmentsMsg_users, setFetchInvestmentsMsg_users] = useState('');
+
+    // fetch all users by admin
+    const [userData, setUserData] = useState([]);
+    const [fetchingUsers_initial, setFetchingUsers_initial] = useState(true);
+    const [fetchingUsersSuccess_initial, setFetchingUsersSuccess_initial] = useState(false);
+    const [fetchingUsers_refresh, setFetchingUsers_refresh] = useState(false);
+
+    const [toggleBlockUserLoading, setToggleBockUserLoading] = useState(false);
+    const [toggleMakeAdminLoading, setToggleMakeAdminLoading] = useState(false);
+    const [deleteUserLoading, setDeleteUserLoading] = useState(false);
 
     useEffect(() => {
         api.fetchPlans(setPlans, setFetchingPlans, setFetchingPlansSuccess)
@@ -209,6 +219,7 @@ function ContextApi() {
                 setTransferLoading_payUser
             }
         },
+
         admin: {
             login: {
                 loginLoading,
@@ -229,10 +240,30 @@ function ContextApi() {
                 depositLinks: admin_depositLinks,
                 withdrawalLinks: admin_withdrawalLinks,
                 referralLinks: admin_referralLinks,
+            },
+            userMgt: {
+                fetchingUsers_initial,
+                setFetchingUsers_initial,
+                fetchingUsersSuccess_initial,
+                setFetchingUsersSuccess_initial,
+                fetchingUsers_refresh,
+                setFetchingUsers_refresh,
+                userData,
+                setUserData,
+
+                toggleBlockUserLoading,
+                setToggleBockUserLoading,
+                toggleMakeAdminLoading,
+                setToggleMakeAdminLoading,
+                deleteUserLoading,
+                setDeleteUserLoading,
             }
         },
+
         modal: { show, setShow },
+
         skeleton: { preparing, setPreparing },
+
         config: {
             configData,
             setConfigData,

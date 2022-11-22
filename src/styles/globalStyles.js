@@ -122,7 +122,56 @@ const GlobalStyle = createGlobalStyle`
     }
 `
 
+const Table = styled.div`
+    padding: 0;
+    width: 100%;
+    max-height: 63vh;
+    overflow: auto;
+    margin: 0px auto 10px auto;
+
+    ${ScrollBar()}
+
+    table{
+        font-size: .7rem;
+        margin: auto;
+        border-spacing: 0.5rem;
+        height: 100%;
+        border-collapse: collapse;
+        width: ${({ width }) => width ? width : '1000px'};
+        text-align: left;
+        cursor: default;
+        color: #000;
+    }
+
+    td, th {
+        border: 1px solid #999;
+        padding: 0.5rem;
+        text-align: left;
+        padding: 0.25rem;
+    }
+
+    th{
+        background: var(--blue-deep);
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background: #333;;
+      color: #fff;
+
+      &:hover {
+        opacity: .7;
+    }
+  }
+
+    tbody tr:hover {
+        opacity: .5;
+    }
+
+`
+
 export {
   GlobalStyle,
   ScrollBar,
+  Table,
 };

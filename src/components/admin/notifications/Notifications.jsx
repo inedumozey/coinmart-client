@@ -1,40 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Context } from '../../../../context/Context';
-import Spinner_ from '../../../spinner/Spinner';
-import apiClass from '../../../../utils/api';
 import Cookies from 'js-cookie'
-import Skeleton from '../../../Skeleton';
-import HistoryData from './HistoryData';
+import { Context } from '../../../context/Context'
+import apiClass from '../../../utils/api'
+import Spinner_ from '../../spinner/Spinner'
+import Skeleton from '../../Skeleton'
 
 const api = new apiClass()
 
-export default function History() {
-    const { investment, config } = useContext(Context);
+export default function Notifications() {
+    const { config } = useContext(Context);
 
-    const {
-        investmentData_admin,
-        setInvestmentData_admin,
-        fetchingInvestments_admin,
-        setFetchingInvestments_admin,
-        fetchInvestmentsMsg_admin,
-        setFetchInvestmentsMsg_admin,
-    } = investment.invest;
 
     const [load, setLoading] = useState(true)
 
     useEffect(() => {
-        setFetchingInvestments_admin(true)
+        // setFetchingInvestments_admin(true)
 
         // if accesstoken not there, refresh it before proceeding data, otherwise, get data straight up
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
+                // api.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
             }, 2000);
         }
         else {
-            api.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
+            // api.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
         }
     }, []);
 
@@ -47,14 +38,12 @@ export default function History() {
     return (
         <Wrapper>
             {
-                fetchingInvestments_admin || load ?
+                load ?
                     <div className='skeleton'>
                         <Skeleton />
                     </div>
                     :
-                    investmentData_admin?.length ?
-                        <HistoryData data={investmentData_admin.data} /> :
-                        <div className="tag">No any investment made at the moment</div>
+                    <div className="tag">No messages sent yet</div>
             }
         </Wrapper>
     )
@@ -63,7 +52,9 @@ export default function History() {
 
 
 const Wrapper = styled.div`
+    width: 100vw;
     margin: auto;
+    max-width: 800px;
     min-height: 70vh;
     display: flex;
     flex-direction: column;

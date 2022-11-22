@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Notifications_C from '../../components/admin/notifications/Notifications';
 
 export default function Notifications() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function Notifications() {
             navigate("/dashboard")
         }
     }, [])
-    return (
-        <div>Notifications</div>
-    )
+    return <Notifications_C />
 }

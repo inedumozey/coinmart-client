@@ -57,7 +57,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                             }
                                             <ChangeProfileImage />
                                             <Link to="/dashboard/account">
-                                                <img src={profileData.profile && profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile" />
+                                                <img src={profileData.profile.profilePicUrl} alt="profile" />
                                             </Link>
                                         </div>
 

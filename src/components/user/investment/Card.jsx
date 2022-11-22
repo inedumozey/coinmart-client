@@ -61,7 +61,7 @@ export default function Card({ data, type }) {
                         }
                     </div>
                     <div>
-                        <div style={{ fontWeight: 600 }}>Returns {data.returnPercentage}%</div>
+                        <div style={{ fontWeight: 600 }}>Returns <span style={{ color: 'var(--yellow)' }}>{data.returnPercentage}%</span></div>
                         <div style={{ fontSize: '.7rem' }}>{data.rewards?.toFixed(2)} {data.currency}</div>
                     </div>
                 </div>
