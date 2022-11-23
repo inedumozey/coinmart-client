@@ -154,9 +154,9 @@ function ContextApi() {
     //referral
     const [fetchReferralHxLoading, setFetchReferralHxLoading] = useState(false);
     const [referralHxData, setReferralHxData] = useState([]);
-    const [addReferral, setAddingReferral] = useState(false);
     const [fetchReferralHxSuccess, setFetchReferralHxSuccess] = useState(false);
-    const [showAddLinkModal, setShowAddLinkModal] = useState(false);
+    const [showAddRefcodeModal, setShowAddRefcodeModal] = useState(false);
+    const [addingRefcode, setAddingRefcode] = useState(false);
 
 
     const links = [
@@ -226,10 +226,10 @@ function ContextApi() {
                 setFetchReferralHxSuccess,
                 referralHxData,
                 setReferralHxData,
-                addReferral,
-                setAddingReferral,
-                showAddLinkModal,
-                setShowAddLinkModal
+                showAddRefcodeModal,
+                setShowAddRefcodeModal,
+                addingRefcode,
+                setAddingRefcode,
             },
             transfer: {
                 transferLoading_checkUser,

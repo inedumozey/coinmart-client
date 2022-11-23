@@ -18,6 +18,7 @@ export default function ChangeProfileImage() {
     } = user.profileImage
 
     const handleChangeProfile = (e) => {
+        setProfileImageLoading(true)
 
         // if accesstoken not there, refresh it before proceeding to get profile, otherwise, get profile straight up
         if (!Cookies.get('accesstoken')) {

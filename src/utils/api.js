@@ -766,37 +766,30 @@ class apiClass {
         }
     }
 
-    addReferral = async (
-        refcode,
-        setAddingReferral,
-        setProfileData,
-        setProfileLoadingAgain,
-        setFetchProfileSuccess,
-        setFetchProfileMsg
-    ) => {
+    addRefecode = async (refcode, setAddingRefcode, setProfileData, setProfileLoadingAgain) => {
 
-        setAddingReferral(true);
+        setAddingRefcode(true);
         try {
-            const { data } = await axios.put(`${BASE_URL}/referral/add-referral`, { refcode }, {
+            const { data } = await axios.put(`${BASE_URL}/referral/add-refcode`, { refcode }, {
                 headers: {
                     'authorization': `Bearer ${Cookies.get('accesstoken')}`
                 }
             });
 
-            setAddingReferral(false)
+            setAddingRefcode(false)
             toast(data.msg, { type: 'success' })
 
             // fetch profile if successful
-            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain, setFetchProfileSuccess, setFetchProfileMsg)
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
 
         }
         catch (err) {
             if (err.response) {
-                setAddingReferral(false);
+                setAddingRefcode(false);
                 toast(err.response.data.msg, { type: 'error' })
             }
             else {
-                setAddingReferral(false);
+                setAddingRefcode(false);
                 toast(err.response.data.msg, { type: 'error' })
             }
         }

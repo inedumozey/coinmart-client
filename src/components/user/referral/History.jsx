@@ -9,6 +9,7 @@ import { Table } from '../../../styles/globalStyles'
 import HistoryData from './HistoryData'
 import Btn from '../../Btn/Btn'
 import Modal from '../../Modal'
+import AddRefcode from './AddReferrer'
 
 const api = new apiClass()
 
@@ -20,12 +21,10 @@ export default function History() {
         setFetchReferralHxLoading,
         referralHxData,
         setReferralHxData,
-        addReferral,
-        setAddingReferral,
         fetchReferralHxSuccess,
         setFetchReferralHxSuccess,
-        showAddLinkModal,
-        setShowAddLinkModal,
+        showAddRefcodeModal,
+        setShowAddRefcodeModal,
     } = user.referral
 
     const {
@@ -36,8 +35,7 @@ export default function History() {
         setProfileLoadingAgain,
         setFetchProfileSuccess,
         setFetchProfileMsg
-    } =
-        user.profile
+    } = user.profile
 
 
     const [load, setLoading] = useState(true)
@@ -96,21 +94,24 @@ export default function History() {
                                         <div>
                                             You were referred by <span style={{ fontWeight: 'bold' }}>{profileData.referrerUsername}</span>
                                         </div> :
-                                        <Btn onClick={() => setShowAddLinkModal(true)} link={false}>Add Referral</Btn>
 
+                                        <div className='text-center text-md-start mt- pt-2'>
+
+                                            <Btn onClick={() => setShowAddRefcodeModal(true)} color="var(--blue)" link={false}>
+                                                Add Referral
+                                            </Btn>
+                                        </div>
                                 }
-
                             </>
-
                 }
             </SubWrapper>
 
             <Modal
                 title="Add Referral Code"
-                show={showAddLinkModal}
-                onHide={setShowAddLinkModal}
+                show={showAddRefcodeModal}
+                onHide={setShowAddRefcodeModal}
             >
-                Add refcode form
+                <AddRefcode />
             </Modal>
 
         </Wrapper>
@@ -155,50 +156,5 @@ const Skeletons = styled.div`
     width: 100%;
     background: #fff;
     padding: 20px;
-    box-shadow: 2px 2px 4px #ccc;
-
-    .header {
-        .stat {
-            width: 200px;
-            height: 100px;
-            padding-bottom: 10px;
-        }
-        .search-wrapper {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .search {
-            height: 40px;
-            width: 250px;
-            max-width: 300px;
-        }
-    }
-
-    .table {
-        padding: 0;
-        width: 100%;
-        margin: 0px auto 10px auto;
-
-        .text {
-            width: 100%;
-            height: 30px;
-            margin: 20px 0;
-            padding-bottom: 3px;
-        }
-    }
-
-    .view-more {
-        display: flex;
-        height: 40px;
-        justify-content: center;
-        align-items: center;
-
-        .more{
-            border-radius: 5px;
-            height: 100%;
-            width: 130px;
-        }
-    }
-
+   
 `
