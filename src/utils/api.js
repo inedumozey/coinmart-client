@@ -736,6 +736,69 @@ class apiClass {
         }
     }
 
+    //user referral
+    fetchReferralHx = async (setFetchReferralHxLoading, setReferralHxData, setFetchReferralHxSuccess) => {
+
+        setFetchReferralHxLoading(true);
+        try {
+            const { data } = await axios.get(`${BASE_URL}/referral/get-all-hx`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+
+            setReferralHxData(data.data)
+            setFetchReferralHxLoading(false)
+            setFetchReferralHxSuccess(true)
+
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchReferralHxLoading(false);
+                setFetchReferralHxSuccess(false);
+            }
+            else {
+                setFetchReferralHxLoading(false);
+                setFetchReferralHxSuccess(false);
+            }
+        }
+    }
+
+    addReferral = async (
+        refcode,
+        setAddingReferral,
+        setProfileData,
+        setProfileLoadingAgain,
+        setFetchProfileSuccess,
+        setFetchProfileMsg
+    ) => {
+
+        setAddingReferral(true);
+        try {
+            const { data } = await axios.put(`${BASE_URL}/referral/add-referral`, { refcode }, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+
+            setAddingReferral(false)
+            toast(data.msg, { type: 'success' })
+
+            // fetch profile if successful
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain, setFetchProfileSuccess, setFetchProfileMsg)
+
+        }
+        catch (err) {
+            if (err.response) {
+                setAddingReferral(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setAddingReferral(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+        }
+    }
 
 }
 export default apiClass;

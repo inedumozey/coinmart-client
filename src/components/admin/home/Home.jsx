@@ -25,12 +25,6 @@ export default function Home() {
         configData,
     } = config;
 
-    const initialState = {
-        referralContestStarts: "2022-12-00T00:00",
-        referralContestStops: "2022-12-00T00:00",
-    }
-
-
     return (
         <Wrapper>
 

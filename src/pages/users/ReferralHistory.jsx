@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import History_C from '../../components/user/referral/History';
 
 export default function ReferralHistory() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function ReferralHistory() {
             navigate("/auth/signin")
         }
     }, [])
-    return (
-        <div>Referral History</div>
-    )
+    return <History_C />
 }

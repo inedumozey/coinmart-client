@@ -26,6 +26,7 @@ export default function Referral({ initialState }) {
 
     const [inp, setInp] = useState({
         referralBonusPercentage: initialState.referralBonusPercentage,
+        referralBonusLimit: initialState.referralBonusLimit,
         referralContestPercentage: initialState.referralContestPercentage,
         allowReferralContest: initialState.allowReferralContest,
         startContestReg: initialState.startContestReg,
@@ -63,6 +64,21 @@ export default function Referral({ initialState }) {
                     min={0}
                     value={inp.referralBonusPercentage || ''}
                     onChange={(e) => setInp({ ...inp, referralBonusPercentage: e.target.value })}
+                />
+            </InputWrapper>
+
+            <InputWrapper>
+                <label>
+                    Referral Bonus Limit: {" "}
+                    <span className='tag'>
+                        {initialState.referralBonusLimit}
+                    </span>
+                </label>
+                <input
+                    type="number"
+                    min={0}
+                    value={inp.referralBonusLimit || ''}
+                    onChange={(e) => setInp({ ...inp, referralBonusLimit: e.target.value })}
                 />
             </InputWrapper>
 

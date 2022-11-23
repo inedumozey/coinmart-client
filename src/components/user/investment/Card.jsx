@@ -95,7 +95,7 @@ const CardStyle = styled.div`
     align-items: center;   
     
     .progres{
-      width:  ${({ type }) => type === 'active' ? `50%` : `100%`};
+      width:  ${({ type }) => type?.toLowerCase() === 'active' ? `50%` : `100%`};
       height: 2px;
       background: var(--blue);
     }

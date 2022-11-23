@@ -151,6 +151,14 @@ function ContextApi() {
     const [transferLoading_checkUser, setTransferLoading_checkUser] = useState(false);
     const [transferLoading_payUser, setTransferLoading_payUser] = useState(false);
 
+    //referral
+    const [fetchReferralHxLoading, setFetchReferralHxLoading] = useState(false);
+    const [referralHxData, setReferralHxData] = useState([]);
+    const [addReferral, setAddingReferral] = useState(false);
+    const [fetchReferralHxSuccess, setFetchReferralHxSuccess] = useState(false);
+    const [showAddLinkModal, setShowAddLinkModal] = useState(false);
+
+
     const links = [
         { url: '/dashboard/my-packages', name: 'My Packages', icon: DashboardIcon },
         { url: '/dashboard/withdrawal', name: 'Withdrawal', icon: PaidIcon },
@@ -169,7 +177,6 @@ function ContextApi() {
     ]
 
     const referralLinks = [
-        { url: '/dashboard/downlines', name: 'Downlines', icon: GroupAddIcon },
         { url: '/dashboard/referral-history', name: 'Referral History', icon: ManageHistoryIcon },
         { url: '/dashboard/referral-contest', name: 'Referral Contest', icon: SportsKabaddiIcon },
     ]
@@ -211,6 +218,18 @@ function ContextApi() {
                 setChangePasswordLoading,
                 changePasswordSuccess,
                 setChangePasswordSuccess
+            },
+            referral: {
+                fetchReferralHxLoading,
+                setFetchReferralHxLoading,
+                fetchReferralHxSuccess,
+                setFetchReferralHxSuccess,
+                referralHxData,
+                setReferralHxData,
+                addReferral,
+                setAddingReferral,
+                showAddLinkModal,
+                setShowAddLinkModal
             },
             transfer: {
                 transferLoading_checkUser,

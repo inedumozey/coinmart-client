@@ -242,7 +242,7 @@ const Wrapper = styled.div`
             .icon {
                 color: var(--blue-deep);
             }
-            height : ${({ expandReferral }) => expandReferral ? '150px' : '0px'};
+            height : ${({ expandReferral }) => expandReferral ? '100px' : '0px'};
             opacity : ${({ expandReferral }) => expandReferral ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }

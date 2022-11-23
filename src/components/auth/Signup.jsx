@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
-import { MDBContainer, MDBCol, MDBRow, MDBCheckbox } from 'mdb-react-ui-kit';
+import { Link, useLocation } from "react-router-dom";
+import { MDBContainer, MDBCol, MDBRow } from 'mdb-react-ui-kit';
 import styled from 'styled-components';
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
@@ -17,6 +17,10 @@ import { toast } from 'react-toastify';
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
 export default function Signup_C() {
+    const location = useLocation()
+    const { search } = location
+    const refcode = search.split("=")[1]
+
     const [showPassword, setShowPassword] = useState(false);
     const [showCPassword, setShowCPassword] = useState(false);
     const [sending, setSending] = useState(false);
@@ -44,7 +48,6 @@ export default function Signup_C() {
         }
     }, [email, username, password, cpassword, phone, country, address, acceptTerm])
 
-
     // submit form
     const submit = async (e) => {
         e.preventDefault();
@@ -53,7 +56,7 @@ export default function Signup_C() {
 
         const data_ = { email, username, password, cpassword, phone, country, address }
         try {
-            const { data } = await axios.post(`${BASE_URL}/auth/signup`, { ...data_ });
+            const { data } = await axios.post(`${BASE_URL}/auth/signup/?refcode=${refcode}`, { ...data_ });
             toast(data.msg, { type: 'success' })
 
             // if the backend is dev mode, token will be sent here instead of to the email
@@ -196,7 +199,7 @@ export default function Signup_C() {
                                     id="checkbox"
                                     onChange={(e) => setAcceptTerm(e.target.checked)}
                                 />
-                                <label style={{ fontSize: '.7rem', paddingLeft: '3px' }} for="checkbox">Accept Terms</label>
+                                <label style={{ fontSize: '.7rem', paddingLeft: '3px' }} htmlFor="checkbox">Accept Terms</label>
                             </div>
 
                             <div className='text-center text-md-start mt- pt-2'>
@@ -215,7 +218,6 @@ export default function Signup_C() {
                                     Have an account? <Link to="/auth/signin" className="link-danger">Sign in</Link>
                                 </p>
                             </div>
-
                         </form>
 
                     </MDBCol>

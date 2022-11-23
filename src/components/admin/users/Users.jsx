@@ -73,8 +73,8 @@ export default function Users() {
                             <div className="more"><Skeleton /></div>
                         </div>
                     </Skeletons> :
-                    !fetchingUsersSuccess_initial ? <div className="tag">{fetchingUsersSuccess_initial}</div> :
-                        userData.length < 1 ? <div className="tag">No users at the moment</div> :
+                    !fetchingUsersSuccess_initial ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
+                        userData.data.length < 1 ? <div className="tag">No users at the moment</div> :
                             <UserData />
             }
         </Wrapper>

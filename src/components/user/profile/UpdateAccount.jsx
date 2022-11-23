@@ -139,6 +139,13 @@ const Form = ({ initiastate }) => {
                 </div>
             </InputWrapper>
 
+            <InputWrapper className='no-shadow'>
+                <div className="wrap">
+                    <div className="tag">Referral Code: </div>
+                    <div className="value">{profileData.referralCode}</div>
+                </div>
+            </InputWrapper>
+
             <InputWrapper>
                 <InputIcon right="" left="0">
                     <EmailRoundedIcon className='icon' />
