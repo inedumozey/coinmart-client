@@ -344,110 +344,11 @@ function ContextApi() {
     }, 1000)
     return (
         <Context.Provider value={state}>
-            {
-                configData && !load && fetchingPlansSuccess ?
-                    <Layout>
-                        <Pages />
-                    </Layout> :
-                    <Preloader />
-
-            }
+            <Layout>
+                <Pages />
+            </Layout>
         </Context.Provider>
     )
 }
-
-
-function Preloader() {
-    return (
-        <PreloaderStyle>
-            {/* header */}
-            <div className="header"><Skeleton /></div>
-            <div className="main">
-                <span className="aside">
-                    <Skeleton />
-                    <div className="image">
-                        <div className="child"><Skeleton type="round" /></div>
-                    </div>
-                </span>
-                <span className="mainWrapper">
-                    <div className="canvas"><Skeleton /></div>
-                    <div className="footer"><Skeleton /></div>
-                </span>
-            </div>
-        </PreloaderStyle>
-    )
-}
-const PreloaderStyle = styled.div`
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    background: #ddd;
-
-    .header {
-        width: 100%;
-        height: 70px;
-        padding: 0 0 5px 0
-    }
-    .main {
-        height: calc(100% - 70px);
-        width: 100%;
-
-        .aside {
-            width: 150px;
-            height: 100%;
-            display: inline-block;
-            padding: 0 5px 0 0;
-            position: relative;
-
-            .image {
-                position: absolute;
-                width: 80px;
-                height: 80px;
-                border-radius: 50%;
-                left: 50%;
-                display: flex;
-                padding: 5px;
-                justify-content: center;
-                align-items: center;
-                background: #ddd;
-                z-index: 2;
-                top: 10px;
-                transform: translateX(-50%);
-
-                .child {
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 50%;
-
-                }
-            }
-
-            @media (max-width: ${({ theme }) => theme.md_screen}){
-                display: none;
-            }
-        }
-
-        .mainWrapper {
-            width: calc(100% - 150px);
-            height: 100%;
-            display: inline-block;
-
-            @media (max-width: ${({ theme }) => theme.md_screen}){
-                width: 100%;
-            }
-
-            .footer {
-                width: 100%;
-                height: 70px;
-            }
-            .canvas {
-                height: calc(100% - 70px);
-                width: 100%;
-                padding: 0 0 5px 0
-            }
-        }
-    }
-`
-
 
 export { ContextApi, Context }

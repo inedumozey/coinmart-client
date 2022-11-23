@@ -16,6 +16,7 @@ import Btn from '../../Btn/Btn';
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
+import Copy from '../../CopyToClipboard';
 
 const api = new apiClass()
 
@@ -135,14 +136,17 @@ const Form = ({ initiastate }) => {
             <InputWrapper className='no-shadow'>
                 <div className="wrap">
                     <div className="tag">Acct No: </div>
-                    <div className="value">{profileData.accountNumber}</div>
+                    <div className="value">
+                        <Copy copyText={profileData.accountNumber}>{profileData.accountNumber}</Copy>
+
+                    </div>
                 </div>
             </InputWrapper>
 
             <InputWrapper className='no-shadow'>
                 <div className="wrap">
                     <div className="tag">Referral Code: </div>
-                    <div className="value">{profileData.referralCode}</div>
+                    <Copy copyText={profileData.referralCode}>{profileData.referralCode}</Copy>
                 </div>
             </InputWrapper>
 

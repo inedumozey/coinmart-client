@@ -81,6 +81,7 @@ class apiClass {
     }
 
     fetchProfile = async (setProfileData, setProfileLoading, setFetchProfileSuccess, setFetchProfileMsg) => {
+        setProfileLoading(true)
         try {
             const { data } = await axios.get(`${BASE_URL}/auth/get-profile`, {
                 headers: {
@@ -111,6 +112,31 @@ class apiClass {
 
             // logout
             // this.logout()
+        }
+    }
+
+    fetchProfileAgain = async (setProfileData, setProfileLoadingAgain) => {
+        setProfileLoadingAgain(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/auth/get-profile`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+            setProfileData(data.data);
+            setProfileLoadingAgain(false);
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setProfileLoadingAgain(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setProfileLoadingAgain(false)
+                // toast(err.message, { type: 'error' })
+            }
+
         }
     }
 
@@ -146,30 +172,6 @@ class apiClass {
                 setProfileImageLoading(false);
                 toast(err.response.data.msg, { type: 'error' })
             }
-        }
-    }
-
-    fetchProfileAgain = async (setProfileData, setProfileLoadingAgain) => {
-        try {
-            const { data } = await axios.get(`${BASE_URL}/auth/get-profile`, {
-                headers: {
-                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
-                }
-            });
-            setProfileData(data.data);
-            setProfileLoadingAgain(false);
-            // toast(data.msg, { type: 'success' })
-        }
-        catch (err) {
-            if (err.response) {
-                setProfileLoadingAgain(false)
-                // toast(err.response.data.msg, { type: 'error' })
-            }
-            else {
-                setProfileLoadingAgain(false)
-                // toast(err.message, { type: 'error' })
-            }
-
         }
     }
 

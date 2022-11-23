@@ -24,6 +24,8 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
         profileData,
         profileLoading,
         fetchProfileSuccess,
+        profileLoadingAgain,
+        setProfileLoadingAgain
     } = user.profile
 
     const {
@@ -50,16 +52,19 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                     <>
                                         <div className="img">
                                             {
-                                                profileImageLoading ? <div className="changeProfile center"><Spinner_ size="sm" /></div> :
+                                                profileImageLoading || profileLoadingAgain ? <div className="changeProfile center"><Spinner_ size="sm" /></div> :
+
                                                     <label htmlFor='file' className="changeProfile">
                                                         <AddAPhotoIcon style={{ fontSize: '1.2rem', color: '#888' }} />
                                                     </label>
                                             }
+
                                             <ChangeProfileImage />
                                             <Link to="/dashboard/account">
-                                                <img src={profileData.profile.profilePicUrl} alt="profile" />
+                                                <img src={profileData.profile?.profilePicUrl} alt="profile" />
                                             </Link>
                                         </div>
+
 
                                         <Link to="/dashboard/account" className="metadata">
                                             {/* if username is more than 20 characters, show only the first 17 charactesr */}

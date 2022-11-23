@@ -26,8 +26,8 @@ export default function ChangeProfileImage() {
                 api.changeProfileImage(
                     setProfileImageLoading,
                     e.target.files[0],
-                    setProfileData,
                     setProfileLoadingAgain,
+                    setProfileData,
                 )
             }, 2000);
         }
@@ -35,8 +35,8 @@ export default function ChangeProfileImage() {
             api.changeProfileImage(
                 setProfileImageLoading,
                 e.target.files[0],
-                setProfileData,
                 setProfileLoadingAgain,
+                setProfileData,
             )
         }
     }
