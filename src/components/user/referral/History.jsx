@@ -9,6 +9,7 @@ import { Table } from '../../../styles/globalStyles'
 import HistoryData from './HistoryData'
 import Btn from '../../Btn/Btn'
 import Modal from '../../Modal'
+import Copy from '../../CopyToClipboard'
 import AddRefcode from './AddReferrer'
 
 const api = new apiClass()
@@ -88,7 +89,13 @@ export default function History() {
                         </Skeletons> :
                         !setFetchProfileSuccess ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
                             <>
-                                <div className="tag">Metadata</div>
+                                <div>
+                                    <div>
+                                        <span style={{ fontWeight: 'bold' }}>Your Referral Code:</span> {" "}
+                                        <span><Copy copyText={profileData.referralCode}>{profileData.referralCode}</Copy></span>
+                                    </div>
+
+                                </div>
                                 {
                                     profileData.referrerUsername ?
                                         <div>

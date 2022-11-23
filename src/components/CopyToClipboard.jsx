@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 
@@ -20,6 +21,9 @@ export default function Copy({ children, copyText, animatedText }) {
                 {
                     isCopied ? <div className="copy">{animatedText ? animatedText : "Copied"}</div> : ''
                 }
+                <div className="copy-icon">
+                    <ContentCopyIcon style={{ fontSize: '.9rem' }} />
+                </div>
             </Wrapper>
         </CopyToClipboard>
     )
@@ -38,6 +42,7 @@ const Wrapper = styled.span`
         position: absolute;
         color: red;
         animation: copy 0.5s ease-out alternate;
+        z-index: 5;
 
     }
 
@@ -60,5 +65,12 @@ const Wrapper = styled.span`
             top: -30px;
             right: -15px;
         };
+    }
+
+    .copy-icon {
+        position: absolute;
+        top: -13px;
+        right: -13px;
+
     }
 `

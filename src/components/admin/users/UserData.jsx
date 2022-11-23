@@ -16,10 +16,9 @@ const api = new apiClass()
 export default function UserData() {
     const navigate = useNavigate()
     const { snap } = useSnap(.5)
-    const { config, admin } = useContext(Context);
+    const { config, admin, num } = useContext(Context);
     const [inp, setInp] = useState('')
 
-    const num = 3
     const [count, setCount] = useState(num);
     const [opening, setOpening] = useState(false);
     const [loadingToggleAdmin, setLoadingToggleAdmin] = useState(false);

@@ -23,8 +23,10 @@ const staticData = {
     },
     countryUrl: "https://restcountries.eu/rest/v2/all",
 
-    movingText: [`How are you my Friend?`, `Welcome to Drmo.`, `Have a nice day!`]
+    movingText: [`How are you my Friend?`, `Welcome to Drmo.`, `Have a nice day!`],
     // movingText: [`Thanks for investing with Extratcoinmart.`, `Have a nice day!`]
+
+    num: 2
 }
 
 export default staticData

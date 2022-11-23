@@ -7,14 +7,13 @@ import Spinner_ from '../../spinner/Spinner';
 import { ScrollBar } from '../../../styles/globalStyles';
 
 export default function HistoryData() {
-    const { config, user } = useContext(Context);
+    const { config, user, num } = useContext(Context);
     const { snap } = useSnap(.5)
     const [inp, setInp] = useState('')
     const {
         referralHxData,
     } = user.referral
 
-    const num = 1
     const [count, setCount] = useState(num);
     const [opening, setOpening] = useState(false);
     const [filteredData, setFilter] = useState(referralHxData);
@@ -55,7 +54,7 @@ export default function HistoryData() {
             <div className="container">
 
                 <div className="panel header">
-                    Total bonus {"==>"}
+                    Total bonus {"==> "}
                     <span>
                         {
                             (function () {
@@ -75,7 +74,7 @@ export default function HistoryData() {
 
                 {
                     filteredData?.slice(0, count).map((data, i) => {
-                        return <div key={i} className="panel">{data.referreeUsername} {"==>"} <span>{data.rewards} {data.currency}</span></div>
+                        return <div key={i} className="panel">{data.referreeUsername} {"==> "} <span>{data.rewards} {data.currency}</span></div>
                     })
                 }
             </div>

@@ -185,7 +185,7 @@ export default function Signin_C() {
                                 </div>
 
                                 <p className="small fw-bold mt-2 pt-1 mb-2">
-                                    Don't have an account? <Link to="/auth/signup" className="link-danger">Sign Up</Link>
+                                    Don't have an account? <Link to="/auth/signup" className="link-danger">Sign In</Link>
                                 </p>
                             </div>
 
