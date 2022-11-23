@@ -124,12 +124,12 @@ export default function Header({ openMenu, setOpenMenu }) {
                                 </Link>
                                 <div className="right">
                                     <div className='link' style={{ margin: '0 10px' }}><Links link={link} /></div>
-                                    <div className="login"><Btn>LOGIN</Btn></div>
+                                    <div className="login"><Btn url="/auth">LOGIN</Btn></div>
                                 </div>
                             </div>
                             <div className="overlay overlay3">
                                 <div>{info.secure} <br /> {info.invest}</div>
-                                <Btn padding={"15px 25px"}>GET STARTED</Btn>
+                                <Btn url="/auth/signup" padding={"15px 25px"}>GET STARTED</Btn>
                             </div>
                         </Container>
                         <div>
@@ -148,7 +148,7 @@ export default function Header({ openMenu, setOpenMenu }) {
                             </Link>
                             <div className="right">
                                 <div className='link' style={{ margin: '0 10px' }}><Links link={link} /></div>
-                                <div className="login"><Btn>LOGIN</Btn></div>
+                                <div className="login"><Btn url="/auth">LOGIN</Btn></div>
                             </div>
                         </div>
                         <div className="overlay overlay4">

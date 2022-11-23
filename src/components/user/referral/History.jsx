@@ -106,7 +106,7 @@ export default function History() {
                             loading...
                         </Skeletons> :
                         !fetchReferralHxSuccess ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
-                            referralHxData.length < 1 ? <div className="tag">Refer users to enjoy the referral bonus packages</div> :
+                            referralHxData.length < 1 ? <div className="tag">Refere users to enjoy the referral bonus packages</div> :
                                 <>
                                     <div className="tag">You have <span style={{ color: 'red' }}>{`(${referralHxData.length})`}</span> downlines</div>
                                     <HistoryData />

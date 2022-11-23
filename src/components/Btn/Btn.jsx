@@ -9,7 +9,8 @@ export default function Btn({
     onClick,
     color = "var(--yellow)",
     link = true,
-    disabled
+    disabled,
+    url
 
 }) {
     const { snap } = useSnap(.5);
@@ -17,7 +18,7 @@ export default function Btn({
     return (
         <Wrapper disabled={disabled} className="btn" onClick={onClick} {...snap()} padding={padding} color={color}>
             {
-                link ? <Link to="/auth/signin" >{children}</Link> : children
+                link ? <Link to={url} >{children}</Link> : children
             }
         </Wrapper>
     )
