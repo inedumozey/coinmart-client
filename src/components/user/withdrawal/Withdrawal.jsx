@@ -44,6 +44,7 @@ export default function Withdrawal() {
 
     const initiastate = {
         amount: null,
+        walletAddress: '',
         coin: ''
     }
 
@@ -128,7 +129,7 @@ export default function Withdrawal() {
                         <form onSubmit={submitform} action="">
                             <Note />
 
-                            <label htmlFor="">Enter Amount</label>
+                            <label htmlFor="">Amount</label>
                             <InputWrapper>
                                 <input
                                     type="number"
@@ -138,6 +139,17 @@ export default function Withdrawal() {
                                     onChange={(e) => setInp({ ...inp, amount: e.target.value })}
                                 />
                             </InputWrapper>
+
+                            <label htmlFor="">Wallet Address</label>
+                            <InputWrapper>
+                                <input
+                                    autoFocus
+                                    placeholder='Wallet Address'
+                                    value={inp.walletAddress || ''}
+                                    onChange={(e) => setInp({ ...inp, walletAddress: e.target.value })}
+                                />
+                            </InputWrapper>
+
                             <InputWrapper>
                                 <label> Select Coin:</label>
                                 <Select
