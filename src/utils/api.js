@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import { Navigate } from "react-router";
 import { toast } from 'react-toastify';
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
+// toast(data.msg, { type: 'success' })
 
 class apiClass {
     constructor() { }
@@ -607,30 +608,58 @@ class apiClass {
         }
     }
 
-    getUsers = async (setFetchingUsers_initial, setFetchingUsersSuccess_initial, setUserData) => {
-        setFetchingUsers_initial(true)
+    // transfer
+    verifyAccountNo = async (data_, setVerifyAccountNoLoading, setVerifyAccountNoData, setShowPayUserModal) => {
+        setVerifyAccountNoLoading(true)
         try {
-            const { data } = await axios.get(`${BASE_URL}/auth/get-users`, {
+            const { data } = await axios.post(`${BASE_URL}/transfer/verify-acccount-no`, data_, {
                 headers: {
                     'authorization': `Bearer ${Cookies.get('accesstoken')}`,
-                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
                 }
             });
-            setUserData(data)
-            setFetchingUsers_initial(false)
-            setFetchingUsersSuccess_initial(true)
+            setVerifyAccountNoData(data.data)
+            setVerifyAccountNoLoading(false);
+            setShowPayUserModal(true)
+            toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
-                setFetchingUsers_initial(false)
-                setFetchingUsersSuccess_initial(false)
+                setVerifyAccountNoLoading(false);
+                toast(err.response.data.msg, { type: 'error' })
             }
             else {
-                setFetchingUsers_initial(false)
-                setFetchingUsersSuccess_initial(false)
+                setVerifyAccountNoLoading(false);
+                toast(err.message, { type: 'error' })
             }
         }
     }
+
+    payUser = async (data_, setPayLoading, setTransferSuccess) => {
+        setPayLoading(true)
+        try {
+            const { data } = await axios.post(`${BASE_URL}/transfer/pay-user`, data_, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+            setPayLoading(false);
+            setTransferSuccess(true)
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setPayLoading(false);
+                setTransferSuccess(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setPayLoading(false);
+                setTransferSuccess(false)
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
 
     refreshUsers = async (setFetchingUsers_refresh, setUserData) => {
         setFetchingUsers_refresh(true)

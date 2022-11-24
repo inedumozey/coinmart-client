@@ -148,8 +148,12 @@ function ContextApi() {
     const [changePasswordSuccess, setChangePasswordSuccess] = useState(false);
 
     //transfer
-    const [transferLoading_checkUser, setTransferLoading_checkUser] = useState(false);
-    const [transferLoading_payUser, setTransferLoading_payUser] = useState(false);
+    const [fetchingTransferData, setFetchingTransferData] = useState(false);
+    const [verifyAccountNoLoading, setVerifyAccountNoLoading] = useState(false);
+    const [verifyAccountNoData, setVerifyAccountNoData] = useState('');
+    const [showPayUserModal, setShowPayUserModal] = useState(false);
+    const [payLoading, setPayLoading] = useState(false);
+    const [transferSuccess, setTransferSuccess] = useState(false);
 
     //referral
     const [fetchReferralHxLoading, setFetchReferralHxLoading] = useState(false);
@@ -232,10 +236,18 @@ function ContextApi() {
                 setAddingRefcode,
             },
             transfer: {
-                transferLoading_checkUser,
-                setTransferLoading_checkUser,
-                transferLoading_payUser,
-                setTransferLoading_payUser
+                verifyAccountNoLoading,
+                setVerifyAccountNoLoading,
+                verifyAccountNoData,
+                setVerifyAccountNoData,
+                payLoading,
+                setPayLoading,
+                fetchingTransferData,
+                setFetchingTransferData,
+                showPayUserModal,
+                setShowPayUserModal,
+                transferSuccess,
+                setTransferSuccess,
             }
         },
 

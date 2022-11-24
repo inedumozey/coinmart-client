@@ -4,17 +4,17 @@ import { Context } from '../../../context/Context';
 import Spinner_ from '../../spinner/Spinner';
 import apiClass from '../../../utils/api';
 import Skeleton from '../../Skeleton';
-import PersonIcon from '@mui/icons-material/Person';
 import Cookies from 'js-cookie'
 import Btn from '../../Btn/Btn';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import PinIcon from '@mui/icons-material/Pin';
+import Modal from '../../Modal';
 
 const api = new apiClass()
 
 
 export default function Transfer() {
-    const { user, skeleton } = useContext(Context);
+
+    const { user, config } = useContext(Context);
+    const { configData } = config
     const {
         profileData,
         profileLoading,
@@ -27,78 +27,116 @@ export default function Transfer() {
     } = user.profile;
 
     const {
-        transferLoading_checkUser,
-        setTransferLoading_checkUser,
-        transferLoading_payUser,
-        setTransferLoading_payUser
+        verifyAccountNoLoading,
+        setVerifyAccountNoLoading,
+        payLoading,
+        setPayLoading,
+        verifyAccountNoData,
+        setVerifyAccountNoData,
+        showPayUserModal,
+        setShowPayUserModal,
+        transferSuccess,
+        setTransferSuccess
     } = user.transfer
 
-    const { preparing, setPreparing } = skeleton;
+    const [loading, setLoading] = useState(true);
 
     const initiastate = {
-        amount: null,
         accountNumber: null
     }
 
     const [inp, setInp] = useState(initiastate);
-    const [restrict, setRestrict] = useState(false)
 
     useEffect(() => {
         setTimeout(() => {
-            setPreparing(false)
-        }, 500)
+            setLoading(false)
+        }, 1000)
     }, [])
 
-
-    useEffect(() => {
-        // if inp.amount is more than total balance, restrict
-        if (inp.amount > profileData.amount) {
-            setRestrict(true)
-        }
-        else if (!inp.amount || !inp.accountNumber) {
-            setRestrict(true)
-        }
-        else {
-            setRestrict(false)
-        }
-
-
-        // if inp.amount is not amoung the listed amount for transfer, restrict
-    }, [inp.amount, inp.accountNumber]);
-
     // submit data
-    const submitForm = () => {
-        // if accesstoken not there, refresh it before proceeding to get profile, otherwise, get profile straight up
+    const verify = (e) => {
+        e.preventDefault()
+        setVerifyAccountNoLoading(true)
+
+        // if accesstoken not there, refresh it before proceeding, otherwise, proceed straight up
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.transfer_checkUser(inp, setTransferLoading_checkUser)
+                api.verifyAccountNo(inp, setVerifyAccountNoLoading, setVerifyAccountNoData, setShowPayUserModal)
             }, 2000);
         }
         else {
-            api.transfer_checkUser(inp, setTransferLoading_checkUser)
+            api.verifyAccountNo(inp, setVerifyAccountNoLoading, setVerifyAccountNoData, setShowPayUserModal)
         }
     }
 
-    // submit data
-    // const submitForm = () => {
-    //     // if accesstoken not there, refresh it before proceeding to get profile, otherwise, get profile straight up
-    //     if (!Cookies.get('accesstoken')) {
-    //         api.refreshToken()
-    //         setTimeout(() => {
-    //             api.transfer_payUser(setProfileData, setProfileLoadingAgain, setFetchProfileSuccess, setFetchProfileMsg, inp, setTransferLoading_checkUser)
-    //         }, 2000);
-    //     }
-    //     else {
-    //         api.transfer_payUser(setProfileData, setProfileLoadingAgain, setFetchProfileSuccess, setFetchProfileMsg, inp, setTransferLoading_checkUser)
-    //     }
-    // }
+    const handlePayUser = (e) => {
+        e.preventDefault()
+        setPayLoading(true)
+
+        // if accesstoken not there, refresh it before proceeding, otherwise, proceed straight up
+        if (!Cookies.get('accesstoken')) {
+            api.refreshToken()
+            setTimeout(() => {
+                api.payUser(inp, setPayLoading, setTransferSuccess)
+            }, 2000);
+        }
+        else {
+            api.payUser(inp, setPayLoading, setTransferSuccess)
+        }
+    }
+
+    useEffect(() => {
+        if (transferSuccess) {
+            setInp(initiastate)
+
+            // close the modal
+            setShowPayUserModal(false)
+        }
+
+    }, [transferSuccess])
+
+    useEffect(() => {
+        if (transferSuccess) {
+            setInp(initiastate)
+
+            // close the modal
+            setShowPayUserModal(false)
+        }
+
+    }, [])
+
+    const TransferNote = () => {
+        return configData.transferableFactors.length === 1 && configData.transferableFactors[0] === 1 ?
+            'Any amout can be transfer' :
+            <div style={{ fontSize: '.7rem', marginBottom: '20px' }}>
+                <div>
+                    Min Transferrable Amount:
+                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.minTransferableLimit} {configData.curreny}</span>
+                </div>
+                <div>
+                    Transferrable Common Diff:
+                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.transferableCommonDiff}  {configData.curreny}</span>
+                </div>
+                <div>
+                    Max Transferrable Amount:
+                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.maxTransferableLimit} {configData.curreny}</span>
+                </div>
+            </div>
+    }
+
+    // remove the inp.amount when modal is closed
+    useEffect(() => {
+        if (!showPayUserModal) {
+            setInp({ ...inp, amount: null })
+        }
+    }, [showPayUserModal])
 
 
     return (
         <Wrapper>
             {
-                preparing || profileLoading ?
+                loading || !configData ?
                     <>
                         <SubWrapper>
                             <div className="amount">
@@ -107,53 +145,60 @@ export default function Transfer() {
                         </SubWrapper>
                     </>
                     :
-                    !fetchProfileSuccess ?
-                        <div style={{ color: 'red', fontSize: '.7rem' }} className="center">
-                            Failed to fetch data! Please refresh
-                        </div> :
-                        <>
-                            <SubWrapper>
-                                <div className="amount">
-                                    <div>
-                                        <span className="tag">Total Balance: </span><span>{profileData.amount} {profileData.currency}</span>
-                                    </div>
-                                </div>
-                                <form onSubmit={submitForm} action="">
-                                    <InputWrapper>
-                                        <InputIcon right="" left="0">
-                                            <PinIcon className='icon' />
-                                        </InputIcon>
-                                        <input
-                                            type="number"
-                                            placeholder='Account Number'
-                                            value={inp.accountNumber || ''}
-                                            onChange={(e) => setInp({ ...inp, accountNumber: e.target.value })}
-                                        />
-                                    </InputWrapper>
+                    <SubWrapper>
+                        <form onSubmit={verify} action="">
+                            <TransferNote />
+                            <label htmlFor="">Enter Acccount Number</label>
+                            <InputWrapper>
+                                <input
+                                    type="number"
+                                    autoFocus
+                                    placeholder='Enter Account Number'
+                                    value={inp.accountNumber || ''}
+                                    onChange={(e) => setInp({ ...inp, accountNumber: e.target.value })}
+                                />
+                            </InputWrapper>
 
-                                    <InputWrapper>
-                                        <InputIcon right="" left="0">
-                                            <AttachMoneyIcon className='icon' />
-                                        </InputIcon>
-                                        <input
-                                            type="number"
-                                            placeholder='Amout'
-                                            value={inp.amount || ''}
-                                            onChange={(e) => setInp({ ...inp, amount: e.target.value })}
-                                        />
-                                    </InputWrapper>
+                            <div className='text-center text-md-start mt- pt-2'>
 
-                                    <div className='text-center text-md-start mt- pt-2'>
+                                <Btn disabled={!inp.accountNumber} color="var(--blue)" link={false}>
+                                    {verifyAccountNoLoading || showPayUserModal ? <Spinner_ size="sm" /> : "Verify Account"}
+                                </Btn>
+                            </div>
 
-                                        <Btn disabled={restrict} color="var(--blue)" link={false}>
-                                            {transferLoading_checkUser || profileLoadingAgain ? <Spinner_ size="sm" /> : "Update Account"}
-                                        </Btn>
-                                    </div>
-
-                                </form>
-                            </SubWrapper>
-                        </>
+                        </form>
+                    </SubWrapper>
             }
+
+            <Modal
+                title="Transfer"
+                show={showPayUserModal}
+                onHide={setShowPayUserModal}
+            >
+                <form onSubmit={handlePayUser} action="">
+                    <TransferNote />
+                    <div>
+                        Receiver: <span style={{ fontWeight: 600 }}>{verifyAccountNoData.username} </span>
+                    </div>
+                    <InputWrapper>
+                        <input
+                            type="number"
+                            autoFocus
+                            placeholder='Enter Amount'
+                            value={inp.amount || ''}
+                            onChange={(e) => setInp({ ...inp, amount: e.target.value })}
+                        />
+                    </InputWrapper>
+
+                    <div className='text-center text-md-start mt- pt-2'>
+
+                        <Btn disabled={!inp.accountNumber} color="var(--blue)" link={false}>
+                            {payLoading || profileLoadingAgain ? <Spinner_ size="sm" /> : "Proceed"}
+                        </Btn>
+                    </div>
+
+                </form>
+            </Modal>
 
         </Wrapper>
     )
@@ -203,53 +248,23 @@ const SubWrapper = styled.div`
 
 const InputWrapper = styled.div`
     width: 100%;
-    box-shadow: 2px 2px 4px #ccc;
     height: 45px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     position: relative;
-    
-    
+
+
     input {
-        border: none;
-        border-right: none;
+        border: 1px solid #ccc;
         padding: 12px 30px 12px 30px;
         height: 100%;
         width: 100%;
         display: block;
+        border-radius: 8px;
         font-size: .9rem;
 
         &: focus{
             outline: none;
-            border-bottom: 2px solid var(--blue);
+            border: 2px solid var(--blue);
         }
-    } 
-
-    input[type="submit"]{
-        border-radius: 20px;
-        color: #fff;
-        border: none;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        background: var(--blue);
-    }
-`
-
-const InputIcon = styled.div`
-    position: absolute;
-    padding: 3px;
-    width: 30px;
-    z-index: 1;
-    bottom: 0;
-    left: ${({ left }) => left};
-    right: ${({ right }) => right};
-    font-size: .8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-
-    .icon {
-        font-size: 1rem;
     }
 `
