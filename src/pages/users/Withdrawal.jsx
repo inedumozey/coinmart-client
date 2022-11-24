@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Withdrawal_C from '../../components/user/withdrawal/Withdrawal';
 
 export default function Withdrawal() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function Withdrawal() {
             navigate("/auth/signin")
         }
     }, [])
-    return (
-        <div>Withdrawal</div>
-    )
+    return <Withdrawal_C />
 }

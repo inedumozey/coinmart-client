@@ -6,12 +6,13 @@ import apiClass from '../../../utils/api';
 import Skeleton from '../../Skeleton';
 import Cookies from 'js-cookie'
 import Btn from '../../Btn/Btn';
-import Modal from '../../Modal';
+import Select from 'react-select'
+import resolve from '../../../utils/resolve';
 
 const api = new apiClass()
 
 
-export default function Transfer() {
+export default function Withdrawal() {
 
     const { user, config } = useContext(Context);
     const { configData } = config
@@ -42,11 +43,12 @@ export default function Transfer() {
     const [loading, setLoading] = useState(true);
 
     const initiastate = {
-        accountNumber: null,
         amount: null,
+        coin: ''
     }
 
     const [inp, setInp] = useState(initiastate);
+
 
     useEffect(() => {
         setTimeout(() => {
@@ -55,73 +57,49 @@ export default function Transfer() {
     }, [])
 
     // submit data
-    const verify = (e) => {
-        e.preventDefault()
-        setVerifyAccountNoLoading(true)
 
-        // if accesstoken not there, refresh it before proceeding, otherwise, proceed straight up
-        if (!Cookies.get('accesstoken')) {
-            api.refreshToken()
-            setTimeout(() => {
-                api.verifyAccountNo(inp, setVerifyAccountNoLoading, setVerifyAccountNoData, setShowPayUserModal)
-            }, 2000);
-        }
-        else {
-            api.verifyAccountNo(inp, setVerifyAccountNoLoading, setVerifyAccountNoData, setShowPayUserModal)
-        }
-    }
-
-    const handlePayUser = (e) => {
+    const submitform = (e) => {
         e.preventDefault()
         setPayLoading(true)
+        console.log(inp)
 
         // if accesstoken not there, refresh it before proceeding, otherwise, proceed straight up
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.payUser(inp, setPayLoading, setTransferSuccess)
+                // api.payUser(inp, setPayLoading, setTransferSuccess)
             }, 2000);
         }
         else {
-            api.payUser(inp, setPayLoading, setTransferSuccess)
+            // api.payUser(inp, setPayLoading, setTransferSuccess)
         }
     }
 
     useEffect(() => {
         if (transferSuccess) {
             setInp(initiastate)
-
-            // close the modal
-            setShowPayUserModal(false)
         }
 
     }, [transferSuccess])
 
-    useEffect(() => {
-        if (transferSuccess) {
-            setInp(initiastate)
+    // withdrawableCoins
 
-            // close the modal
-            setShowPayUserModal(false)
-        }
-
-    }, [])
 
     const Note = () => {
-        return configData.transferableFactors.length === 1 && configData.transferableFactors[0] === 1 ?
-            <div style={{ fontSize: '.7rem', marginBottom: '20px' }}>Any amout can be transfered</div> :
+        return configData.withdrawableFactors.length === 1 && configData.withdrawableFactors[0] === 1 ?
+            <div style={{ fontSize: '.7rem', marginBottom: '20px' }}>Any amout can be withdrawn</div> :
             <div style={{ fontSize: '.7rem', marginBottom: '20px' }}>
                 <div>
-                    Min Transferrable Amount:
-                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.minTransferableLimit} {configData.curreny}</span>
+                    Min Withdrawable Amount:
+                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.minWithdrawableLimit} {configData.curreny}</span>
                 </div>
                 <div>
-                    Transferrable Common Diff:
-                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.transferableCommonDiff}  {configData.curreny}</span>
+                    Withdrawable Common Diff:
+                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.withdrawableCommonDiff}  {configData.curreny}</span>
                 </div>
                 <div>
-                    Max Transferrable Amount:
-                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.maxTransferableLimit} {configData.curreny}</span>
+                    Max Withdrawable Amount:
+                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.maxWithdrawableLimit} {configData.curreny}</span>
                 </div>
             </div>
     }
@@ -147,60 +125,39 @@ export default function Transfer() {
                     </>
                     :
                     <SubWrapper>
-                        <form onSubmit={verify} action="">
+                        <form onSubmit={submitform} action="">
                             <Note />
-                            <label htmlFor="">Enter Acccount Number</label>
+
+                            <label htmlFor="">Enter Amount</label>
                             <InputWrapper>
                                 <input
                                     type="number"
                                     autoFocus
-                                    placeholder='Enter Account Number'
-                                    value={inp.accountNumber || ''}
-                                    onChange={(e) => setInp({ ...inp, accountNumber: e.target.value })}
+                                    placeholder='Enter Amount'
+                                    value={inp.amount || ''}
+                                    onChange={(e) => setInp({ ...inp, amount: e.target.value })}
+                                />
+                            </InputWrapper>
+                            <InputWrapper>
+                                <label> Select Coin:</label>
+                                <Select
+                                    options={resolve.makeReactSelectOptions(configData.withdrawableCoins)}
+                                    onChange={(selectedOption) => setInp({ ...inp, coin: selectedOption.value })}
                                 />
                             </InputWrapper>
 
+
                             <div className='text-center text-md-start mt- pt-2'>
 
-                                <Btn disabled={!inp.accountNumber} color="var(--blue)" link={false}>
-                                    {verifyAccountNoLoading || showPayUserModal ? <Spinner_ size="sm" /> : "Verify Account"}
+                                <Btn disabled={!inp.amount || !inp.coin} color="var(--blue)" link={false}>
+                                    {payLoading || profileLoadingAgain ? <Spinner_ size="sm" /> : "Proceed"}
                                 </Btn>
                             </div>
+
 
                         </form>
                     </SubWrapper>
             }
-
-            <Modal
-                title="Transfer"
-                show={showPayUserModal}
-                onHide={setShowPayUserModal}
-            >
-                <form onSubmit={handlePayUser} action="">
-                    <Note />
-                    <div>
-                        Receiver: <span style={{ fontWeight: 600 }}>{verifyAccountNoData.username} </span>
-                    </div>
-                    <InputWrapper>
-                        <input
-                            type="number"
-                            autoFocus
-                            placeholder='Enter Amount'
-                            value={inp.amount || ''}
-                            onChange={(e) => setInp({ ...inp, amount: e.target.value })}
-                        />
-                    </InputWrapper>
-
-                    <div className='text-center text-md-start mt- pt-2'>
-
-                        <Btn disabled={!inp.accountNumber} color="var(--blue)" link={false}>
-                            {payLoading || profileLoadingAgain ? <Spinner_ size="sm" /> : "Proceed"}
-                        </Btn>
-                    </div>
-
-                </form>
-            </Modal>
-
         </Wrapper>
     )
 }
