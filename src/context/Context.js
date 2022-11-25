@@ -116,6 +116,10 @@ function ContextApi() {
     const [userData_admin, setUserData_admin] = useState([]);
 
 
+    // credit user
+    const [openCreditUserModal, showOpenCreditUserModal] = useState(false);
+    const [creditingUser, setCreditingUser] = useState(false);
+
     useEffect(() => {
         api.fetchPlans(setPlans, setFetchingPlans, setFetchingPlansSuccess)
 
@@ -123,8 +127,6 @@ function ContextApi() {
         api.resolveInvestment()
 
     }, [])
-
-
 
 
     const admin_links = [
@@ -136,10 +138,6 @@ function ContextApi() {
     const admin_investmentLinks = [
         { url: '/admin/investment/plans', name: 'Plans', icon: CreditScoreIcon },
         { url: '/admin/investment/history', name: 'History', icon: CreditScoreIcon },
-    ]
-
-    const admin_transferLinks = [
-        { url: '/admin/transfer/history', name: 'History', icon: CreditScoreIcon },
     ]
 
     const admin_depositLinks = [
@@ -154,7 +152,6 @@ function ContextApi() {
     ]
 
     const admin_referralLinks = [
-        { url: '/admin/referral/history', name: 'History', icon: SavingsIcon },
         { url: '/admin/referral/contest', name: 'Contest', icon: CreditScoreIcon },
     ]
 
@@ -300,9 +297,8 @@ function ContextApi() {
                 setUserDataSuccess_user,
                 userDataSuccess_user,
                 userData_user,
-                setUserData_user
-
-            }
+                setUserData_user,
+            },
         },
 
         admin: {
@@ -320,7 +316,6 @@ function ContextApi() {
             },
             links: {
                 links: admin_links,
-                transferLinks: admin_transferLinks,
                 investmentLinks: admin_investmentLinks,
                 depositLinks: admin_depositLinks,
                 withdrawalLinks: admin_withdrawalLinks,
@@ -394,6 +389,12 @@ function ContextApi() {
                 setFetchingUserData_admin_refesh,
                 fetchingUserData_admin_refesh,
 
+            },
+            creditUser: {
+                openCreditUserModal,
+                showOpenCreditUserModal,
+                creditingUser,
+                setCreditingUser,
             }
         },
 

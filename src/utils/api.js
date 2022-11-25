@@ -1222,7 +1222,6 @@ class apiClass {
 
             setFetchingUserData_admin_refesh(false)
             setUserData_admin(data.data)
-            toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
@@ -1231,6 +1230,47 @@ class apiClass {
             }
             else {
                 setFetchingUserData_admin_refesh(false)
+            }
+        }
+    }
+
+    creaditUser = async (
+        data_,
+        id,
+        setCreditingUser,
+        showOpenCreditUserModal,
+        setUserData_admin,
+        setFetchingUserData_admin_refesh,
+        setInp
+    ) => {
+        setCreditingUser(true)
+
+        try {
+            const { data } = await axios.put(`${BASE_URL}/payusers/${id}`, data_, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            this.fetchUserHistory_admin_refresh(id, setUserData_admin, setFetchingUserData_admin_refesh)
+
+            setCreditingUser(false)
+            toast(data.msg, { type: 'success' });
+
+            showOpenCreditUserModal(false);
+            setInp({
+                amount: null,
+                action: ""
+            })
+        }
+        catch (err) {
+            if (err.response) {
+                setCreditingUser(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setCreditingUser(false)
                 toast(err.message, { type: 'error' })
             }
         }

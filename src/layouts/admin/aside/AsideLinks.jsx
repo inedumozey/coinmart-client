@@ -13,7 +13,6 @@ export default function AsideLinks({ isExpanded }) {
     const location = useLocation()
     const [expandInvestment, setExpandInvestment] = useState(false)
     const [expandDeposit, setExpandDeposit] = useState(false)
-    const [expandTransfer, setExpandTransfer] = useState(false)
     const [expandWithdrawal, setExpandWithdrawal] = useState(false)
     const [expandReferral, setExpandReferral] = useState(false)
     const { admin } = useContext(Context);
@@ -22,7 +21,6 @@ export default function AsideLinks({ isExpanded }) {
     const isVestmentActive = location.pathname.includes('/admin/investment/plans') || location.pathname.includes('/admin/investment/history');
 
     const isDepositActive = location.pathname.includes('/admin/deposit/new') || location.pathname.includes('/admin/deposit/confiremed');
-    const isTransferActive = location.pathname.includes('/admin/transfer/config') || location.pathname.includes('/admin/transfer/history');
 
     const isWithdrawalActive = location.pathname.includes('/admin/withdrawal/request') || location.pathname.includes('/admin/withdrawal/confirmed') || location.pathname.includes('/admin/withdrawal/rejected');
 
@@ -33,7 +31,7 @@ export default function AsideLinks({ isExpanded }) {
         deposit: '100px',
         transfer: '50px',
         withdrawal: '150px',
-        referral: '100px'
+        referral: '50px'
     }
 
 
@@ -41,7 +39,6 @@ export default function AsideLinks({ isExpanded }) {
         <Wrapper
             isExpanded={isExpanded}
             expandDeposit={expandDeposit}
-            expandTransfer={expandTransfer}
             expandWithdrawal={expandWithdrawal}
             expandInvestment={expandInvestment}
             expandReferral={expandReferral}
@@ -113,35 +110,6 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="deposit-dropdwon-menu">
                     {
                         links.depositLinks?.map((link, i) => {
-                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
-                                <div className="icon1">
-                                    <link.icon className='icon' />
-                                </div>
-                                <div className="name">{link.name}</div>
-                            </Link>
-                        })
-                    }
-                </div>
-            </div>
-
-            {/* transferLinks */}
-            <div className='linkWrapper' onClick={() => setExpandTransfer(!expandTransfer)}>
-                <Link title="Transfer" className={isTransferActive ? 'link activeLink' : 'link'}>
-                    <div className="icon1">
-                        <PersonIcon className='icon' />
-                    </div>
-                    <div className="name">
-                        Transfer
-                        <div className="icon">
-                            {
-                                expandTransfer ? < ArrowDropUpIcon /> : <ArrowDropDownIcon />
-                            }
-                        </div>
-                    </div>
-                </Link>
-                <div className="transfer-dropdwon-menu">
-                    {
-                        links.transferLinks?.map((link, i) => {
                             return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />

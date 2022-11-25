@@ -22,13 +22,12 @@ import Actions from './Actions';
 const api = new apiClass()
 
 
-export default function User() {
+export default function User({ selectedUser }) {
     const { admin, config } = useContext(Context);
 
     const [load, setLoading] = useState(true)
 
     const {
-        selectedUser,
         fetchingUserData_admin,
         userDataSuccess_admin,
         setFetchingUserData_admin,
