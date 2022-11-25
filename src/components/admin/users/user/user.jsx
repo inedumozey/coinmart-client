@@ -42,7 +42,7 @@ export default function User({ selectedUser }) {
         // userData_user,
         // setUserData_user,
 
-    } = admin.userHistory
+    } = admin.userHistory;
 
     useEffect(() => {
         setFetchingUserData_admin(true)
