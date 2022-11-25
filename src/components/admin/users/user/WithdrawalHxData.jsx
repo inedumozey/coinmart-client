@@ -139,7 +139,7 @@ export default function WithdrawalHxData({ data }) {
             <div className="header">
                 <div className="stat-wrapper">
                     <div className="stat">
-                        <div>Total: {pendingWithdrawalData?.length}</div>
+                        <div>Total: {data?.length}</div>
                     </div>
                 </div>
                 <div className="search-wrapper">

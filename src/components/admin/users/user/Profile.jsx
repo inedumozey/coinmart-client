@@ -56,16 +56,33 @@ export default function Profile({ data }) {
             </div>
             <div className='user'>
                 <span className="name">Role: </span>
-                <span className="value">{data.Role} {data.isSupperAdmin ? `(SUPPER ADMIN)` : ''}</span>
+                <span className="value"
+                    style={
+                        (function () {
+                            if (data.role == 'AMDIN' && !data.isSupperAdmin) {
+                                return { color: 'var(--blue)' }
+                            }
+                            if (data.role == 'ADMIN' && data.isSupperAdmin) {
+                                return { color: 'red' }
+                            }
+                            else {
+                                return { color: 'inherit' }
+                            }
+                        }())
+                    }>{data.Role} {data.isSupperAdmin ? `(SUPPER ADMIN)` : ''}</span>
             </div>
             <div className='user'>
                 <span className="name">Referred By: </span>
                 <span className="value">{data.referrerUsername} </span>
             </div>
+            <div className='user'>
+                <span className="name">Referral Contest Rewards: </span>
+                <span className="value"><span style={{ color: 'red' }}>{data.referralContestRewards} {data.currency}</span></span>
+            </div>
 
             {
-                data.isBlocked ? <div className='user'>
-                    <div className="name">User Account is Deactivated</div>
+                data.isBlocked ? <div style={{ marginTop: '20px' }} className='user'>
+                    <div className="name" style={{ color: 'red' }}>User Account is Deactivated</div>
                 </div> : ''
             }
 

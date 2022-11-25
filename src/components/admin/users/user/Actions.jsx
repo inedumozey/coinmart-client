@@ -11,8 +11,8 @@ import Select from 'react-select'
 const api = new apiClass()
 
 
-export default function Actions({ data }) {
-    const { admin, config } = useContext(Context);
+export default function Actions({ selectedUser }) {
+    const { admin } = useContext(Context);
 
     const initialState = {
         amount: null,
@@ -21,7 +21,6 @@ export default function Actions({ data }) {
     const [inp, setInp] = useState(initialState)
 
     const {
-        selectedUser,
         userData_admin,
         setUserData_admin,
         fetchingUserData_admin_refesh,

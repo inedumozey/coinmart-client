@@ -1,14 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Context } from '../../../../context/Context';
-import Spinner_ from '../../../spinner/Spinner';
 import apiClass from '../../../../utils/api';
 import Skeleton from '../../../Skeleton';
-import PersonIcon from '@mui/icons-material/Person';
 import Cookies from 'js-cookie'
-import Btn from '../../../Btn/Btn';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import PinIcon from '@mui/icons-material/Pin';
 
 import TransferHx from './TransferHx';
 import WithdrawalHx from './WithdrawalHx';
@@ -137,7 +132,7 @@ export default function User({ selectedUser }) {
 
                             <SubWrapper>
                                 <div className="tag">Actions</div>
-                                <Actions />
+                                <Actions selectedUser={selectedUser} />
                             </SubWrapper>
                         </>
             }
@@ -180,7 +175,7 @@ const Wrapper = styled.div`
 const SubWrapper = styled.div`
     background: #fff;
     min-height: 60px;
-    padding: 20px 10px;
+    padding: 20px;
     width: 100%;
     margin: 10px auto 40px auto;
     box-shadow: 2px 2px 5px #ccc;

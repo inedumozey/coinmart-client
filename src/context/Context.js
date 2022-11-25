@@ -120,6 +120,9 @@ function ContextApi() {
     const [openCreditUserModal, showOpenCreditUserModal] = useState(false);
     const [creditingUser, setCreditingUser] = useState(false);
 
+
+    // referral contest
+
     useEffect(() => {
         api.fetchPlans(setPlans, setFetchingPlans, setFetchingPlansSuccess)
 
