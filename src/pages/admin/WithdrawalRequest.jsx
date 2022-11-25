@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Pending_C from '../../components/admin/withdrawals/pending/Pending';
 
 export default function WithdrawalRequest() {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function WithdrawalRequest() {
             navigate("/dashboard")
         }
     }, [])
-    return (
-        <div>Withdrawal Request</div>
-    )
+
+    return <Pending_C />
 }
+

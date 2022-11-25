@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Confirmed_C from '../../components/admin/withdrawals/confirmed/Confirmed';
 
 export default function WithdrawalConfirmed() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function WithdrawalConfirmed() {
             navigate("/dashboard")
         }
     }, [])
-    return (
-        <div>Withdrawal Confirmed</div>
-    )
+    return <Confirmed_C />
 }

@@ -85,7 +85,7 @@ export default function Header({ openMenu, setOpenMenu }) {
                     <div
                         style={{ marginTop: '35px' }}
                         className="login">
-                        <Btn>LOGIN</Btn>
+                        <Btn url="/auth">LOGIN</Btn>
                     </div>
                 </div>
             </div>

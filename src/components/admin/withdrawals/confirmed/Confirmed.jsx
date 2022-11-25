@@ -1,40 +1,40 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Cookies from 'js-cookie'
-import { Context } from '../../../context/Context'
-import apiClass from '../../../utils/api'
-import Skeleton from '../../Skeleton'
-import UserData from './UserData'
+import Cookies from 'js-cookie';
+import { Context } from '../../../../context/Context'
+import apiClass from '../../../../utils/api'
+import Skeleton from '../../../Skeleton';
+import ConfirmedData from './ConfirmedData';
+
 
 const api = new apiClass()
 
-export default function Users() {
+export default function Confirmed() {
     const { config, admin } = useContext(Context);
 
     const {
-        fetchingUsers_initial,
-        setFetchingUsers_initial,
-        fetchingUsersSuccess_initial,
-        setFetchingUsersSuccess_initial,
-        userData,
-        setUserData
-    } = admin.userMgt
-
+        fetchingConfirmedWithdrawalData_initial,
+        setFetchingConfirmedWithdrawalData_initial,
+        confirmedWithdrawalDataSuccess,
+        setConfirmedWithdrawalDataSuccess,
+        confirmedWithdrawalData,
+        setConfirmedWithdrawalData,
+    } = admin.withdrawal
 
     const [load, setLoading] = useState(true)
 
     useEffect(() => {
-        setFetchingUsers_initial(true)
+        setFetchingConfirmedWithdrawalData_initial(true)
 
         // if accesstoken not there, refresh it before proceeding data, otherwise, get data straight up
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.getUsers(setFetchingUsers_initial, setFetchingUsersSuccess_initial, setUserData)
+                api.getConfirmedWithdrawal_initial(setFetchingConfirmedWithdrawalData_initial, setConfirmedWithdrawalDataSuccess, setConfirmedWithdrawalData)
             }, 2000);
         }
         else {
-            api.getUsers(setFetchingUsers_initial, setFetchingUsersSuccess_initial, setUserData)
+            api.getConfirmedWithdrawal_initial(setFetchingConfirmedWithdrawalData_initial, setConfirmedWithdrawalDataSuccess, setConfirmedWithdrawalData)
         }
     }, []);
 
@@ -47,35 +47,24 @@ export default function Users() {
     return (
         <Wrapper>
             {
-                fetchingUsers_initial || load || !config.configData ?
+                fetchingConfirmedWithdrawalData_initial || load || !config.configData ?
                     <Skeletons>
                         <div className="header">
-                            <div className="stat-wrapper">
-                                {
-                                    [1, 2, 3, 4].map((item, i) => {
-                                        return <div key={i} className="stat"><Skeleton /></div>
-                                    })
-                                }
-                            </div>
+                            <div className="stat"><Skeleton /></div>
                             <div className="search-wrapper">
                                 <div className="search"><Skeleton /></div>
                             </div>
-
                         </div>
                         <div className="table">
                             {
-                                [1, 2, 3, 4].map((item, i) => {
+                                [1, 2, 3].map((item, i) => {
                                     return <div key={i} className="text"><Skeleton /></div>
                                 })
                             }
                         </div>
-                        <div className="view-more">
-                            <div className="more"><Skeleton /></div>
-                        </div>
                     </Skeletons> :
-                    !fetchingUsersSuccess_initial ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
-                        userData.data.length < 1 ? <div className="tag">No users at the moment</div> :
-                            <UserData />
+                    !confirmedWithdrawalDataSuccess ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
+                        confirmedWithdrawalData.length < 1 ? <div className="tag">No comfirmed withdrawals at the moment</div> : <ConfirmedData />
             }
         </Wrapper>
     )
@@ -112,7 +101,7 @@ const Skeletons = styled.div`
 
     .header {
         .stat {
-            width: 70px;
+            width: 50px;
             height: 30px;
             padding-bottom: 10px;
         }
@@ -122,9 +111,10 @@ const Skeletons = styled.div`
         }
 
         .search {
-            height: 40px;
-            width: 250px;
+            height: 30px;
+            width: 40%;
             max-width: 300px;
+            min-width: 200px;
         }
     }
 
@@ -132,12 +122,12 @@ const Skeletons = styled.div`
         padding: 0;
         width: 100%;
         margin: 0px auto 10px auto;
+        margin-top: 10px;
 
         .text {
             width: 100%;
             height: 30px;
-            margin: 20px 0;
-            padding-bottom: 3px;
+            margin: 4px 0;
         }
     }
 

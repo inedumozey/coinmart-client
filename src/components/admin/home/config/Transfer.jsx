@@ -117,7 +117,7 @@ export default function Transfer({ initialState }) {
                 </label>
                 <Select
                     options={resolve.makeReactSelectOptions(initialState.transferableFactors)}
-                    value={resolve.makeReactSelectOptions(initialState.transferableFactors)[0]}
+                    value={initialState.transferableFactors ? resolve.makeReactSelectOptions(initialState.transferableFactors)[0] : ''}
                 />
             </InputWrapper>
 

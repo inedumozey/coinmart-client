@@ -2,12 +2,12 @@ import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Context } from '../../../context/Context';
 import Spinner_ from '../../spinner/Spinner';
-import apiClass from '../../../utils/api';
 import Skeleton from '../../Skeleton';
 import Cookies from 'js-cookie'
 import Btn from '../../Btn/Btn';
 import Select from 'react-select'
 import resolve from '../../../utils/resolve';
+import apiClass from '../../../utils/api';
 
 const api = new apiClass()
 
@@ -16,29 +16,13 @@ export default function Withdrawal() {
 
     const { user, config } = useContext(Context);
     const { configData } = config
-    const {
-        profileData,
-        profileLoading,
-        fetchProfileSuccess,
-        profileLoadingAgain,
-        setProfileLoadingAgain,
-        setProfileData,
-        setFetchProfileSuccess,
-        setFetchProfileMsg,
-    } = user.profile;
 
     const {
-        verifyAccountNoLoading,
-        setVerifyAccountNoLoading,
-        payLoading,
-        setPayLoading,
-        verifyAccountNoData,
-        setVerifyAccountNoData,
-        showPayUserModal,
-        setShowPayUserModal,
-        transferSuccess,
-        setTransferSuccess
-    } = user.transfer
+        withdrawalLoading,
+        setWithdrawalLoading,
+        withdrawalSuccess,
+        setWithdrawalSuccess,
+    } = user.withdrawal
 
     const [loading, setLoading] = useState(true);
 
@@ -58,32 +42,28 @@ export default function Withdrawal() {
     }, [])
 
     // submit data
-
     const submitform = (e) => {
         e.preventDefault()
-        setPayLoading(true)
-        console.log(inp)
+        setWithdrawalLoading(true)
 
         // if accesstoken not there, refresh it before proceeding, otherwise, proceed straight up
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                // api.payUser(inp, setPayLoading, setTransferSuccess)
+                api.userWithdrawal(inp, setWithdrawalLoading, setWithdrawalSuccess)
             }, 2000);
         }
         else {
-            // api.payUser(inp, setPayLoading, setTransferSuccess)
+            api.userWithdrawal(inp, setWithdrawalLoading, setWithdrawalSuccess)
         }
     }
 
     useEffect(() => {
-        if (transferSuccess) {
+        if (withdrawalSuccess) {
             setInp(initiastate)
         }
 
-    }, [transferSuccess])
-
-    // withdrawableCoins
+    }, [withdrawalSuccess])
 
 
     const Note = () => {
@@ -105,12 +85,6 @@ export default function Withdrawal() {
             </div>
     }
 
-    // remove the inp.amount when modal is closed
-    useEffect(() => {
-        if (!showPayUserModal) {
-            setInp({ ...inp, amount: null })
-        }
-    }, [showPayUserModal])
 
 
     return (
@@ -143,7 +117,6 @@ export default function Withdrawal() {
                             <label htmlFor="">Wallet Address</label>
                             <InputWrapper>
                                 <input
-                                    autoFocus
                                     placeholder='Wallet Address'
                                     value={inp.walletAddress || ''}
                                     onChange={(e) => setInp({ ...inp, walletAddress: e.target.value })}
@@ -154,6 +127,7 @@ export default function Withdrawal() {
                                 <label> Select Coin:</label>
                                 <Select
                                     options={resolve.makeReactSelectOptions(configData.withdrawableCoins)}
+                                    defaultMenuIsOpen={inp.coin}
                                     onChange={(selectedOption) => setInp({ ...inp, coin: selectedOption.value })}
                                 />
                             </InputWrapper>
@@ -161,8 +135,8 @@ export default function Withdrawal() {
 
                             <div className='text-center text-md-start mt- pt-2'>
 
-                                <Btn disabled={!inp.amount || !inp.coin} color="var(--blue)" link={false}>
-                                    {payLoading || profileLoadingAgain ? <Spinner_ size="sm" /> : "Proceed"}
+                                <Btn disabled={!inp.amount || !inp.coin || !inp.walletAddress} color="var(--blue)" link={false}>
+                                    {withdrawalLoading ? <Spinner_ size="sm" /> : "Proceed"}
                                 </Btn>
                             </div>
 

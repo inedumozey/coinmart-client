@@ -11,7 +11,7 @@ import { Context } from '../../../context/Context';
 
 const api = new apiClass()
 
-export default function AsideLinks({ isExpanded }) {
+export default function AsideLinks({ isExpanded, setExpanded }) {
     const location = useLocation()
     const [expandProfile, setExpandProfile] = useState(false)
     const [expandReferral, setExpandReferral] = useState(false)
@@ -46,7 +46,11 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="profile-dropdwon-menu">
                     {
                         links.profileLinks?.map((link, i) => {
-                            return <Link title={link.name} key={i} to={link.url} className={location.pathname.includes(link.url) ? 'link active-link' : 'link'}>
+                            return <Link
+                                title={link.name}
+                                key={i} to={link.url}
+                                onClick={() => setExpanded(true)}
+                                className={location.pathname.includes(link.url) ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -62,6 +66,7 @@ export default function AsideLinks({ isExpanded }) {
                         <Link
                             title={link.name}
                             to={link.url}
+                            onClick={() => setExpanded(true)}
                             className={location.pathname.includes(link.url) ? 'link activeLink' : 'link'}>
                             <div className="icon1">
                                 {link.name === 'Notifications' && profile.newNotifications ? <span style={{ color: '#fff', fontSize: '.7rem', position: 'absolute' }}>{profile.newNotificationCounts}</span> : ''}
@@ -96,7 +101,11 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="referral-dropdwon-menu">
                     {
                         links.referralLinks?.map((link, i) => {
-                            return <Link title={link.name} key={i} to={link.url} className={location.pathname.includes(link.url) ? 'link active-link' : 'link'}>
+                            return <Link
+                                title={link.name}
+                                key={i} to={link.url}
+                                onClick={() => setExpanded(true)}
+                                className={location.pathname.includes(link.url) ? 'link active-link' : 'link'}>
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Rejected_C from '../../components/admin/withdrawals/rejected/Rejected';
 
 export default function WithdrawalRejected() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function WithdrawalRejected() {
             navigate("/dashboard")
         }
     }, [])
-    return (
-        <div>Withdrawal Rejected</div>
-    )
+    return <Rejected_C />
 }

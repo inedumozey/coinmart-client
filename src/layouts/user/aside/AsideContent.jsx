@@ -16,7 +16,7 @@ import AdminLogin from './AdminLogin';
 const api = new apiClass()
 const asideHeaderheight = '85px';
 
-export default function AsideContent({ expandedAside, shrinkedAside, isExpanded, headerHeight, }) {
+export default function AsideContent({ expandedAside, shrinkedAside, setExpanded, isExpanded, headerHeight, }) {
     const { user, modal } = useContext(Context);
     const navigate = useNavigate();
 
@@ -25,7 +25,6 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
         profileLoading,
         fetchProfileSuccess,
         profileLoadingAgain,
-        setProfileLoadingAgain
     } = user.profile
 
     const {
@@ -93,7 +92,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                         </Link>
                                     </> :
                                     <>
-                                        <div style={{ color: 'red', fontSize: '.6rem' }}>Failed to fetch data. Refresh</div>
+                                        <div style={{ color: 'red', fontSize: '.6rem' }}>Failed to fetch data. please refresh</div>
                                     </>
                         }
                     </div>
@@ -121,7 +120,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                 headerHeight={headerHeight}
                 asideHeaderheight={asideHeaderheight}
             >
-                <AsideLinks isExpanded={isExpanded} />
+                <AsideLinks isExpanded={isExpanded} setExpanded={setExpanded} />
             </Content>
             <Footer headerHeight={headerHeight}></Footer>
         </Wrapper >

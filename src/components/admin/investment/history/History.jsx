@@ -47,13 +47,29 @@ export default function History() {
     return (
         <Wrapper>
             {
-                fetchingInvestments_admin || load ?
-                    <div className='skeleton'>
-                        <Skeleton />
-                    </div>
+                fetchingInvestments_admin || load || !config.configData ?
+                    <Skeletons>
+                        <div className="header">
+                            {
+                                [1, 2, 3].map((item, i) => {
+                                    return <div key={i} className="stat"><Skeleton /></div>
+                                })
+                            }
+                            <div className="search-wrapper">
+                                <div className="search"><Skeleton /></div>
+                            </div>
+                        </div>
+                        <div className="table">
+                            {
+                                [1, 2, 3].map((item, i) => {
+                                    return <div key={i} className="text"><Skeleton /></div>
+                                })
+                            }
+                        </div>
+                    </Skeletons>
                     :
                     investmentData_admin?.length ?
-                        <HistoryData data={investmentData_admin.data} /> :
+                        <HistoryData data={investmentData_admin} /> :
                         <div className="tag">No any investment made at the moment</div>
             }
         </Wrapper>
@@ -90,4 +106,57 @@ const Wrapper = styled.div`
         font-size: .65rem;
         color: red;
     }
+`
+
+const Skeletons = styled.div`
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 2px 2px 4px #ccc;
+
+    .header {
+        .stat {
+            width: 60px;
+            height: 30px;
+            padding-bottom: 10px;
+        }
+        .search-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .search {
+            height: 30px;
+            width: 40%;
+            max-width: 300px;
+            min-width: 200px;
+        }
+    }
+
+    .table {
+        padding: 0;
+        width: 100%;
+        margin: 0px auto 10px auto;
+        margin-top: 10px;
+
+        .text {
+            width: 100%;
+            height: 30px;
+            margin: 4px 0;
+        }
+    }
+
+    .view-more {
+        display: flex;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+
+        .more{
+            border-radius: 5px;
+            height: 100%;
+            width: 130px;
+        }
+    }
+
 `

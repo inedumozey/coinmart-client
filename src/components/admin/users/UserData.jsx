@@ -25,7 +25,6 @@ export default function UserData() {
     const [selectedData, setSelectedData] = useState('');
 
     const {
-        fetchingUsers_refresh,
         setFetchingUsers_refresh,
         userData,
         setUserData,
@@ -296,11 +295,12 @@ const Wrapper = styled.div`
         .search {
             display: inline-block;
             margin-bottom: 10px;
-            width: 140px;
+            width: 40%;
             max-width: 300px;
+            min-width: 200px;
     
             input {
-                padding: 10px;
+                padding: 6px;
                 border-radius: 5px;
                 width: 100%;
                 border: 1px solid #ccc;

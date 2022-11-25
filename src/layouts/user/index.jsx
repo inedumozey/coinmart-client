@@ -6,8 +6,6 @@ import Cookies from 'js-cookie';
 import { Context } from '../../context/Context';
 import apiClass from '../../utils/api';
 import Copyright from '../../components/Copyright';
-import MainHeader from './header/MainHeader';
-import Trade from '../../components/tradeView/Ticker';
 import TickerTap from '../../components/tradeView/TickerTape';
 import { useLocation } from 'react-router-dom'
 import Typewriter from 'typewriter-effect';

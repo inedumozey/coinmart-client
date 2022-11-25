@@ -168,10 +168,6 @@ export default function HistoryData({ data }) {
 
 
 const Wrapper = styled.div`
-    width: 100%;
-    background: #fff;
-    padding: 20px;
-    box-shadow: 2px 2px 4px #ccc;
 
     .header {
         .search-wrapper {

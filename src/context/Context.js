@@ -2,7 +2,6 @@ import { useState, useEffect, createContext } from 'react';
 import Pages from '../pages';
 import Layout from '../layouts';
 import staticData from '../utils/staticData';
-import styled from 'styled-components'
 import SavingsIcon from '@mui/icons-material/Savings';
 import PaidIcon from '@mui/icons-material/Paid';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
@@ -11,14 +10,10 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import SendIcon from '@mui/icons-material/Send';
-import VerifiedIcon from '@mui/icons-material/Verified';
-import LockIcon from '@mui/icons-material/Lock';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
 import PersonIcon from '@mui/icons-material/Person';
 import apiClass from '../utils/api';
-import Skeleton from '../components/Skeleton';
 
 const api = new apiClass()
 
@@ -85,6 +80,41 @@ function ContextApi() {
     const [toggleBlockUserLoading, setToggleBockUserLoading] = useState(false);
     const [toggleMakeAdminLoading, setToggleMakeAdminLoading] = useState(false);
     const [deleteUserLoading, setDeleteUserLoading] = useState(false);
+
+    // fetch pending withdrawal data
+    const [fetchingPendingWithdrawalData_initial, setFetchingPendingWithdrawalData_initial] = useState(false);
+    const [fetchingPendingWithdrawalData_refresh, setFetchingPendingWithdrawalData_refresh] = useState(false);
+    const [pendingWithdrawalDataSuccess, setPendingWithdrawalDataSuccess] = useState(false);
+    const [pendingWithdrawalData, setPendingWithdrawalData] = useState([]);
+    const [showPendingWithdrawalModal, setShowPendingWithdrawalModal] = useState(false);
+
+    // fetch rejected withdrawal data
+    const [fetchingRejectedWithdrawalData_initial, setFetchingRejectedWithdrawalData_initial] = useState(false);
+    const [fetchingRejectedWithdrawalData_refresh, setFetchingRejectedWithdrawalData_refresh] = useState(false);
+    const [rejectedWithdrawalDataSuccess, setRejectedWithdrawalDataSuccess] = useState(false);
+    const [rejectedWithdrawalData, setRejectedWithdrawalData] = useState([]);
+
+    // fetch confirmed withdrawal data
+    const [fetchingConfirmedWithdrawalData_initial, setFetchingConfirmedWithdrawalData_initial] = useState(false);
+    const [fetchingConfirmedWithdrawalData_refresh, setFetchingConfirmedWithdrawalData_refresh] = useState(false);
+    const [confirmedWithdrawalDataSuccess, setConfirmedWithdrawalDataSuccess] = useState(false);
+    const [confirmedWithdrawalData, setConfirmedWithdrawalData] = useState([]);
+
+    // reject withdrawal
+    const [rejectingWithdrawal, setRejectingWithdrawal] = useState(false);
+    const [rejectingWithdrawalSuccess, setRejectingWithdrawalSuccess] = useState(false);
+
+    // comfirm withdrawal
+    const [confirmingWithdrawal, setConfirmingWithdrawal] = useState(false);
+    const [confirmingWithdrawalSuccess, setConfirmingWithdrawalSuccess] = useState(false);
+
+    // admin get user transaction history
+    const [selectedUser, setSelectedUser] = useState("");
+    const [fetchingUserData_admin, setFetchingUserData_admin] = useState(false);
+    const [fetchingUserData_admin_refesh, setFetchingUserData_admin_refesh] = useState(false);
+    const [userDataSuccess_admin, setUserDataSuccess_admin] = useState(false);
+    const [userData_admin, setUserData_admin] = useState([]);
+
 
     useEffect(() => {
         api.fetchPlans(setPlans, setFetchingPlans, setFetchingPlansSuccess)
@@ -155,12 +185,21 @@ function ContextApi() {
     const [payLoading, setPayLoading] = useState(false);
     const [transferSuccess, setTransferSuccess] = useState(false);
 
+    //withdrawal
+    const [withdrawalLoading, setWithdrawalLoading] = useState(false);
+    const [withdrawalSuccess, setWithdrawalSuccess] = useState(false);
+
     //referral
     const [fetchReferralHxLoading, setFetchReferralHxLoading] = useState(false);
     const [referralHxData, setReferralHxData] = useState([]);
     const [fetchReferralHxSuccess, setFetchReferralHxSuccess] = useState(false);
     const [showAddRefcodeModal, setShowAddRefcodeModal] = useState(false);
     const [addingRefcode, setAddingRefcode] = useState(false);
+
+    // user get user transaction history
+    const [fetchingUserData_user, setFetchingUserData_user] = useState(false);
+    const [userDataSuccess_user, setUserDataSuccess_user] = useState(false);
+    const [userData_user, setUserData_user] = useState([]);
 
 
     const links = [
@@ -248,6 +287,21 @@ function ContextApi() {
                 setShowPayUserModal,
                 transferSuccess,
                 setTransferSuccess,
+            },
+            withdrawal: {
+                withdrawalLoading,
+                setWithdrawalLoading,
+                withdrawalSuccess,
+                setWithdrawalSuccess,
+            },
+            userHistory: {
+                fetchingUserData_user,
+                setFetchingUserData_user,
+                setUserDataSuccess_user,
+                userDataSuccess_user,
+                userData_user,
+                setUserData_user
+
             }
         },
 
@@ -288,6 +342,58 @@ function ContextApi() {
                 setToggleMakeAdminLoading,
                 deleteUserLoading,
                 setDeleteUserLoading,
+            },
+            withdrawal: {
+                fetchingRejectedWithdrawalData_initial,
+                setFetchingRejectedWithdrawalData_initial,
+                fetchingRejectedWithdrawalData_refresh,
+                setFetchingRejectedWithdrawalData_refresh,
+                rejectedWithdrawalDataSuccess,
+                setRejectedWithdrawalDataSuccess,
+                rejectedWithdrawalData,
+                setRejectedWithdrawalData,
+
+                fetchingPendingWithdrawalData_initial,
+                setFetchingPendingWithdrawalData_initial,
+                fetchingPendingWithdrawalData_refresh,
+                setFetchingPendingWithdrawalData_refresh,
+                pendingWithdrawalDataSuccess,
+                setPendingWithdrawalDataSuccess,
+                pendingWithdrawalData,
+                setPendingWithdrawalData,
+                showPendingWithdrawalModal,
+                setShowPendingWithdrawalModal,
+
+                fetchingConfirmedWithdrawalData_initial,
+                setFetchingConfirmedWithdrawalData_initial,
+                fetchingConfirmedWithdrawalData_refresh,
+                setFetchingConfirmedWithdrawalData_refresh,
+                confirmedWithdrawalDataSuccess,
+                setConfirmedWithdrawalDataSuccess,
+                confirmedWithdrawalData,
+                setConfirmedWithdrawalData,
+
+                rejectingWithdrawal,
+                setRejectingWithdrawal,
+                rejectingWithdrawalSuccess,
+                setRejectingWithdrawalSuccess,
+                confirmingWithdrawal,
+                setConfirmingWithdrawal,
+                confirmingWithdrawalSuccess,
+                setConfirmingWithdrawalSuccess,
+            },
+            userHistory: {
+                selectedUser,
+                setSelectedUser,
+                fetchingUserData_admin,
+                setFetchingUserData_admin,
+                setUserDataSuccess_admin,
+                userDataSuccess_admin,
+                userData_admin,
+                setUserData_admin,
+                setFetchingUserData_admin_refesh,
+                fetchingUserData_admin_refesh,
+
             }
         },
 

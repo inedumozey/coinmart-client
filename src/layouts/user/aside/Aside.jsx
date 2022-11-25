@@ -9,6 +9,7 @@ export default function Aside({ headerHeight, expandedAside, shrinkedAside, isEx
             expandedAside={expandedAside}
             shrinkedAside={shrinkedAside}
             isExpanded={isExpanded}
+            setExpanded={setExpanded}
         >
             <div onClick={() => setExpanded(!isExpanded)} className="handle"></div>
 
@@ -17,6 +18,7 @@ export default function Aside({ headerHeight, expandedAside, shrinkedAside, isEx
                 shrinkedAside={shrinkedAside}
                 isExpanded={isExpanded}
                 headerHeight={headerHeight}
+                setExpanded={setExpanded}
             />
         </AsideStyle>
     )

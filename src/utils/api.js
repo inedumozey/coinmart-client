@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
-import { Navigate } from "react-router";
 import { toast } from 'react-toastify';
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 // toast(data.msg, { type: 'success' })
@@ -539,7 +538,7 @@ class apiClass {
                     'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
                 }
             });
-            setInvestmentData_admin(data)
+            setInvestmentData_admin(data.data)
             setFetchingInvestments_admin(false)
             setFetchInvestmentsMsg_admin(data.msg)
         }
@@ -660,6 +659,60 @@ class apiClass {
         }
     }
 
+    // withdrawal
+    userWithdrawal = async (data_, setWithdrawalLoading, setWithdrawalSuccess) => {
+        setWithdrawalLoading(true);
+        try {
+            const { data } = await axios.post(`${BASE_URL}/withdrawal/request`, data_, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+            setWithdrawalLoading(false);
+            setWithdrawalSuccess(true)
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setWithdrawalLoading(false);
+                setWithdrawalSuccess(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setWithdrawalLoading(false);
+                setWithdrawalSuccess(false)
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    getUsers = async (setFetchingUsers_initial, setFetchingUsersSuccess_initial, setUserData) => {
+        setFetchingUsers_initial(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/auth/get-users`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setUserData(data)
+            setFetchingUsersSuccess_initial(true)
+            setFetchingUsers_initial(false)
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingUsers_initial(false)
+                setFetchingUsersSuccess_initial(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingUsers_initial(false)
+                setFetchingUsersSuccess_initial(false)
+                // toast(err.message, { type: 'error' })
+            }
+        }
+    }
 
     refreshUsers = async (setFetchingUsers_refresh, setUserData) => {
         setFetchingUsers_refresh(true)
@@ -695,11 +748,13 @@ class apiClass {
                     'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
                 }
             });
+
+            //refresh user data
+            this.refreshUsers(setFetchingUsers_refresh, setUserData);
+
             toggleMakeAdminLoading(false)
             toast(data.msg, { type: 'success' })
 
-            //refresh user data
-            this.refreshUsers(setFetchingUsers_refresh, setUserData)
         }
         catch (err) {
             if (err.response) {
@@ -722,11 +777,13 @@ class apiClass {
                     'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
                 }
             });
+
+            //refresh user data
+            this.refreshUsers(setFetchingUsers_refresh, setUserData);
+
             setToggleBockUserLoading(false)
             toast(data.msg, { type: 'success' })
 
-            //refresh user data
-            this.refreshUsers(setFetchingUsers_refresh, setUserData)
         }
         catch (err) {
             if (err.response) {
@@ -749,11 +806,12 @@ class apiClass {
                     'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
                 }
             });
-            setDeleteUserLoading(false)
-            toast(data.msg, { type: 'success' })
 
             //refresh user data
-            this.refreshUsers(setFetchingUsers_refresh, setUserData)
+            this.refreshUsers(setFetchingUsers_refresh, setUserData);
+
+            setDeleteUserLoading(false)
+            toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
@@ -805,11 +863,11 @@ class apiClass {
                 }
             });
 
-            setAddingRefcode(false)
-            toast(data.msg, { type: 'success' })
-
             // fetch profile if successful
             this.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
+
+            setAddingRefcode(false)
+            toast(data.msg, { type: 'success' })
 
         }
         catch (err) {
@@ -824,5 +882,359 @@ class apiClass {
         }
     }
 
+    // admin withdrawal handler section
+    getPendingWithdrawal_initial = async (
+        setFetchingPendingWithdrawalData_initial,
+        setPendingWithdrawalDataSuccess,
+        setPendingWithdrawalData
+    ) => {
+        setFetchingPendingWithdrawalData_initial(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/withdrawal/get-all-transactions/?status=pending`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setPendingWithdrawalData(data.data)
+            setFetchingPendingWithdrawalData_initial(false)
+            setPendingWithdrawalDataSuccess(true)
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingPendingWithdrawalData_initial(false)
+                setPendingWithdrawalDataSuccess(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingPendingWithdrawalData_initial(false)
+                setPendingWithdrawalDataSuccess(false)
+                // toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    getPendingWithdrawal_refresh = async (
+        setFetchingPendingWithdrawalData_refresh,
+        setPendingWithdrawalData
+    ) => {
+        setFetchingPendingWithdrawalData_refresh(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/withdrawal/get-all-transactions/?status=pending`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setPendingWithdrawalData(data.data)
+            setFetchingPendingWithdrawalData_refresh(false)
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingPendingWithdrawalData_refresh(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingPendingWithdrawalData_refresh(false)
+                // toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    getRejectedWithdrawal_initial = async (
+        setFetchingRejectedWithdrawalData_initial,
+        setRejectedWithdrawalDataSuccess,
+        setRejectedWithdrawalData
+    ) => {
+        setFetchingRejectedWithdrawalData_initial(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/withdrawal/get-all-transactions/?status=rejected`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setRejectedWithdrawalData(data.data)
+            setFetchingRejectedWithdrawalData_initial(false)
+            setRejectedWithdrawalDataSuccess(true)
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingRejectedWithdrawalData_initial(false)
+                setRejectedWithdrawalDataSuccess(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingRejectedWithdrawalData_initial(false)
+                setRejectedWithdrawalDataSuccess(false)
+                // toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    getRejectedWithdrawal_refresh = async (
+        setFetchingRejectedWithdrawalData_refresh,
+        setRejectedWithdrawalData
+    ) => {
+        setFetchingRejectedWithdrawalData_refresh(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/withdrawal/get-all-transactions/?status=rejected`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setRejectedWithdrawalData(data.data)
+            setFetchingRejectedWithdrawalData_refresh(false)
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingRejectedWithdrawalData_refresh(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingRejectedWithdrawalData_refresh(false)
+                // toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    getConfirmedWithdrawal_initial = async (
+        setFetchingConfirmedWithdrawalData_initial,
+        setConfirmedWithdrawalDataSuccess,
+        setConfirmedWithdrawalData,
+    ) => {
+        setFetchingConfirmedWithdrawalData_initial(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/withdrawal/get-all-transactions/?status=confirmed`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setConfirmedWithdrawalData(data.data)
+            setFetchingConfirmedWithdrawalData_initial(false)
+            setConfirmedWithdrawalDataSuccess(true)
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingConfirmedWithdrawalData_initial(false)
+                setConfirmedWithdrawalDataSuccess(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingConfirmedWithdrawalData_initial(false)
+                setConfirmedWithdrawalDataSuccess(false)
+                // toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    getConfirmedWithdrawal_refresh = async (
+        setFetchingConfirmedWithdrawalData_refresh,
+        setConfirmedWithdrawalData
+    ) => {
+        setFetchingConfirmedWithdrawalData_refresh(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/withdrawal/get-all-transactions/?status=confirmed`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setConfirmedWithdrawalData(data.data)
+            setFetchingConfirmedWithdrawalData_refresh(false)
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingConfirmedWithdrawalData_refresh(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingConfirmedWithdrawalData_refresh(false)
+                // toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    confirmWithdrawal = async (
+        id,
+        setConfirmingWithdrawal,
+        setConfirmingWithdrawalSuccess,
+        setFetchingPendingWithdrawalData_refresh,
+        setPendingWithdrawalData,
+        setShowPendingWithdrawalModal,
+        setSelectedData
+    ) => {
+        setConfirmingWithdrawal(true)
+        try {
+            const { data } = await axios.put(`${BASE_URL}/withdrawal/confirm/${id}`, {}, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            // refresh confirmed transactions
+            this.getPendingWithdrawal_refresh(setFetchingPendingWithdrawalData_refresh, setPendingWithdrawalData)
+
+            setConfirmingWithdrawal(false)
+            setConfirmingWithdrawalSuccess(true)
+            toast(data.msg, { type: 'success' });
+            setShowPendingWithdrawalModal(false);
+            setSelectedData("")
+        }
+        catch (err) {
+            if (err.response) {
+                setConfirmingWithdrawal(false)
+                setConfirmingWithdrawalSuccess(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setConfirmingWithdrawal(false)
+                setConfirmingWithdrawalSuccess(false)
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    rejectWithdrawal = async (
+        id,
+        setRejectingWithdrawal,
+        setRejectingWithdrawalSuccess,
+        setFetchingPendingWithdrawalData_refresh,
+        setPendingWithdrawalData,
+        setShowPendingWithdrawalModal,
+        setSelectedData
+    ) => {
+        setRejectingWithdrawal(true)
+        try {
+            const { data } = await axios.put(`${BASE_URL}/withdrawal/reject/${id}`, {}, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            // refresh pending transactions
+            this.getPendingWithdrawal_refresh(setFetchingPendingWithdrawalData_refresh, setPendingWithdrawalData)
+            setRejectingWithdrawal(false)
+            setRejectingWithdrawalSuccess(true)
+
+            toast(data.msg, { type: 'success' })
+            setShowPendingWithdrawalModal(false);
+            setSelectedData("")
+        }
+        catch (err) {
+            if (err.response) {
+                setRejectingWithdrawal(false)
+                setRejectingWithdrawalSuccess(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setRejectingWithdrawal(false)
+                setRejectingWithdrawalSuccess(false)
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    fetchUserHistory_user = async (
+        id,
+        setUserData_user,
+        setFetchingUserData_user,
+        setUserDataSuccess_user,
+    ) => {
+        setFetchingUserData_user(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/user/user/${id}`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+
+            setFetchingUserData_user(false)
+            setUserDataSuccess_user(true)
+            setUserData_user(data.data)
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingUserData_user(false)
+                setUserDataSuccess_user(false)
+            }
+            else {
+                setFetchingUserData_user(false)
+                setUserDataSuccess_user(false)
+            }
+        }
+    }
+
+    fetchUserHistory_admin = async (
+        id,
+        setUserData_admin,
+        setFetchingUserData_admin,
+        setUserDataSuccess_admin,
+    ) => {
+        setFetchingUserData_admin(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/admin/user/${id}`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setFetchingUserData_admin(false)
+            setUserDataSuccess_admin(true)
+            setUserData_admin(data.data)
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingUserData_admin(false)
+                setUserDataSuccess_admin(false)
+            }
+            else {
+                setFetchingUserData_admin(false)
+                setUserDataSuccess_admin(false)
+            }
+        }
+    }
+
+    fetchUserHistory_admin_refresh = async (
+        id,
+        setUserData_admin,
+        setFetchingUserData_admin_refesh,
+    ) => {
+        setFetchingUserData_admin_refesh(true)
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/admin/user/${id}`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            setFetchingUserData_admin_refesh(false)
+            setUserData_admin(data.data)
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingUserData_admin_refesh(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingUserData_admin_refesh(false)
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
 }
+
 export default apiClass;

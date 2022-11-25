@@ -162,7 +162,7 @@ export default function Withdrawal({ initialState }) {
                 </label>
                 <Select
                     options={resolve.makeReactSelectOptions(initialState.withdrawableFactors)}
-                    value={resolve.makeReactSelectOptions(initialState.withdrawableFactors)[0]}
+                    value={initialState.withdrawableFactors ? resolve.makeReactSelectOptions(initialState.withdrawableFactors)[0] : ''}
                 />
             </InputWrapper>
 
