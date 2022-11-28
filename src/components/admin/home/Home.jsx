@@ -1,14 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Context } from '../../../context/Context';
-import Spinner_ from '../../spinner/Spinner';
-import apiClass from '../../../utils/api';
 import Skeleton from '../../Skeleton';
-import PersonIcon from '@mui/icons-material/Person';
-import Cookies from 'js-cookie'
-import Btn from '../../Btn/Btn';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import PinIcon from '@mui/icons-material/Pin';
 import Transfer from './config/Transfer';
 import Withdrawal from './config/Withdrawal';
 import Investment from './config/Investment';
@@ -16,75 +9,92 @@ import MemberManagement from './config/MemberManagement';
 import Referral from './config/Referral';
 import AdminResetPassword from './config/AdminResetPassword';
 
-const api = new apiClass()
-
 
 export default function Home() {
-    const { admin, skeleton, config } = useContext(Context);
-    const {
-        configData,
-    } = config;
+    const { config } = useContext(Context);
+    const [load, setLoading] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    }, [])
 
     return (
         <Wrapper>
 
-            <SubWrapper>
-                <div className="tag">Transfer Config</div>
-                <Transfer initialState={configData} />
-            </SubWrapper>
+            {
+                load || !config.configData ?
+                    <Skeletons>
+                        {
+                            [1, 2, 3, 4].map((item, i) => {
+                                return <SubWrapper key={i} className='user'>
+                                    <div className="type"><Skeleton /></div>
+                                </SubWrapper>
+                            })
+                        }
+                    </Skeletons> :
 
-            <SubWrapper>
-                <div className="tag">Withdrawal Config</div>
-                <Withdrawal initialState={configData} />
-            </SubWrapper>
+                    <>
+                        <SubWrapper>
+                            <div className="tag">Transfer Config</div>
+                            <Transfer initialState={config.configData} />
+                        </SubWrapper>
 
-            <SubWrapper>
-                <div className="tag">Investment Config</div>
-                <Investment initialState={configData} />
-            </SubWrapper>
+                        <SubWrapper>
+                            <div className="tag">Withdrawal Config</div>
+                            <Withdrawal initialState={config.configData} />
+                        </SubWrapper>
 
-            <SubWrapper>
-                <div className="tag">Member's Management</div>
-                <MemberManagement initialState={configData} />
-            </SubWrapper>
+                        <SubWrapper>
+                            <div className="tag">Investment Config</div>
+                            <Investment initialState={config.configData} />
+                        </SubWrapper>
 
-            <SubWrapper>
-                <div className="tag">Referral Control</div>
-                <Referral initialState={configData} />
-            </SubWrapper>
+                        <SubWrapper>
+                            <div className="tag">Member's Management</div>
+                            <MemberManagement initialState={config.configData} />
+                        </SubWrapper>
 
-            <SubWrapper>
-                <div className="tag">Reset Admin Password</div>
-                <AdminResetPassword />
-            </SubWrapper>
+                        <SubWrapper>
+                            <div className="tag">Referral Control</div>
+                            <Referral initialState={config.configData} />
+                        </SubWrapper>
 
+                        <SubWrapper>
+                            <div className="tag">Reset Admin Password</div>
+                            <AdminResetPassword />
+                        </SubWrapper>
+                    </>
+
+            }
         </Wrapper>
     )
 }
 
 
 const Wrapper = styled.div`
-width: 100vw;
-margin: auto;
-max-width: 800px;
-min-height: 70vh;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+    width: 100vw;
+    margin: auto;
+    max-width: 800px;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-padding: 10px ${({ theme }) => theme.lg_padding};
-@media (max-width: ${({ theme }) => theme.md_screen}){
-    padding: 10px ${({ theme }) => theme.md_padding};
-}
-@media (max-width: ${({ theme }) => theme.sm_screen}){
-    padding: 10px ${({ theme }) => theme.sm_padding};
-}
+    padding: 10px ${({ theme }) => theme.lg_padding};
+    @media (max-width: ${({ theme }) => theme.md_screen}){
+        padding: 10px ${({ theme }) => theme.md_padding};
+    }
+    @media (max-width: ${({ theme }) => theme.sm_screen}){
+        padding: 10px ${({ theme }) => theme.sm_padding};
+    }
 
-.tag { 
-    font-weight: bold;
-    margin-bottom: 20px;
-}
+    .tag { 
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
 `
 
 const SubWrapper = styled.div`
@@ -104,56 +114,15 @@ const SubWrapper = styled.div`
     }
 `
 
-
-const InputWrapper = styled.div`
+const Skeletons = styled.div`
     width: 100%;
-    box-shadow: 2px 2px 4px #ccc;
-    height: 45px;
-    margin-bottom: 15px;
-    position: relative;
-    
-    
-    input {
-        border: none;
-        border-right: none;
-        padding: 12px 30px 12px 30px;
-        height: 100%;
-        width: 100%;
-        display: block;
-        font-size: .9rem;
 
-        &: focus{
-            outline: none;
-            border-bottom: 2px solid var(--blue);
-        }
-    } 
-
-    input[type="submit"]{
-        border-radius: 20px;
-        color: #fff;
-        border: none;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        background: var(--blue);
+    .user {
+        height: 100px;
     }
-`
 
-const InputIcon = styled.div`
-    position: absolute;
-    padding: 3px;
-    width: 30px;
-    z-index: 1;
-    bottom: 0;
-    left: ${({ left }) => left};
-    right: ${({ right }) => right};
-    font-size: .8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-
-    .icon {
-        font-size: 1rem;
+    .type {
+        width: 70px;
+        height: 20px;
     }
 `

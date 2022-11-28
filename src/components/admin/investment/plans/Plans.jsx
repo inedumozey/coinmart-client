@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import Modal from '../../../Modal';
 import { Context } from '../../../../context/Context';
@@ -9,22 +9,11 @@ export default function Plans() {
     const { investment } = useContext(Context);
 
     const {
-        plans,
-        setPlans,
         openAddPlanModal,
         setOpenAddPlanModal,
-        postingPlan,
-        setPostingPlan,
-        updatingPlan,
-        setUpdatingPlan,
-        deletingPlan,
-        setDeletingPlan,
-        refreshingPlans,
-        setRefreshingPlans,
         operationType,
         setOperationType,
         selectedPlan,
-        setSelectedPlan
     } = investment.plans
 
     return (

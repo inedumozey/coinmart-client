@@ -14,7 +14,6 @@ const api = new apiClass()
 export default function Investment({ initialState }) {
     const { config } = useContext(Context);
     const {
-        configData,
         setConfigData,
         updatingConfig,
         setUpdatingConfig,
@@ -117,23 +116,4 @@ const InputWrapper = styled.div`
             border: 3px solid var(--blue);
         }
     } 
-`
-
-const InputIcon = styled.div`
-    position: absolute;
-    padding: 3px;
-    width: 30px;
-    z-index: 1;
-    bottom: 0;
-    left: ${({ left }) => left};
-    right: ${({ right }) => right};
-    font-size: .8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-
-    .icon {
-        font-size: 1rem;
-    }
 `

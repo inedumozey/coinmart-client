@@ -1,13 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components'
-import apiClass from '../../../utils/api';
 import PersonIcon from '@mui/icons-material/Person';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { Context } from '../../../context/Context';
-
-const api = new apiClass()
 
 export default function AsideLinks({ isExpanded }) {
     const location = useLocation()
@@ -18,17 +15,17 @@ export default function AsideLinks({ isExpanded }) {
     const { admin } = useContext(Context);
     const { links } = admin
 
-    const isVestmentActive = location.pathname.includes('/admin/investment/plans') || location.pathname.includes('/admin/investment/history');
+    const isVestmentActive = location.pathname.includes('/admin/investment');
 
-    const isDepositActive = location.pathname.includes('/admin/deposit/new') || location.pathname.includes('/admin/deposit/confiremed');
+    const isDepositActive = location.pathname.includes('/admin/deposit')
 
-    const isWithdrawalActive = location.pathname.includes('/admin/withdrawal/request') || location.pathname.includes('/admin/withdrawal/confirmed') || location.pathname.includes('/admin/withdrawal/rejected');
+    const isWithdrawalActive = location.pathname.includes('/admin/withdrawal');
 
-    const isReferralActive = location.pathname.includes('/admin/referral/') || location.pathname.includes('/admin/referral/config') || location.pathname.includes('/admin/referral/contest');
+    const isReferralActive = location.pathname.includes('/admin/referral');
 
     const dropdwonHeight = {
         investment: '100px',
-        deposit: '100px',
+        deposit: '50px',
         transfer: '50px',
         withdrawal: '150px',
         referral: '50px'

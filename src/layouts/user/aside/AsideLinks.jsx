@@ -1,15 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components'
-import apiClass from '../../../utils/api';
 import PersonIcon from '@mui/icons-material/Person';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { Context } from '../../../context/Context';
 
 
-
-const api = new apiClass()
 
 export default function AsideLinks({ isExpanded, setExpanded }) {
     const location = useLocation()
@@ -18,9 +15,9 @@ export default function AsideLinks({ isExpanded, setExpanded }) {
     const { user } = useContext(Context);
     const { links, profile } = user
 
-    const isProfileActive = location.pathname.includes('account') || location.pathname.includes('security') || location.pathname.includes('verify-account');
+    const isProfileActive = location.pathname.includes('dashboard/account');
 
-    const isReferralActive = location.pathname.includes('referral-history') || location.pathname.includes('referral-contest');
+    const isReferralActive = location.pathname.includes('dashboard/referral')
 
     return (
         <Wrapper

@@ -40,8 +40,7 @@ import AdminDashboard from './admin/AdminDashboard';
 import AdminHome from './admin/Home';
 import AdminUsers from './admin/Users';
 import AdminUser from './admin/User';
-import AdminNewDeposit from "./admin/NewDeposit";
-import AdminConfirmedDeposit from "./admin/ConfirmedDeposit";
+import AdminDeposit from "./admin/Deposit";
 import AdminNotifications from './admin/Notifications';
 import AdminInvestmentHx from './admin/InvestmentHx';
 import AdminPlans from './admin/Plans';
@@ -111,8 +110,7 @@ export default function Pages() {
                 <Route path="users" element={<AdminUsers />} />
                 <Route path="users/:id" element={<AdminUser />} />
                 <Route path="transfer/history" element={<AdminTransferHistory />} />
-                <Route path="deposit/confirmed" element={<AdminConfirmedDeposit />} />
-                <Route path="deposit/new" element={<AdminNewDeposit />} />
+                <Route path="deposit" element={<AdminDeposit />} />
                 <Route path="notifications" element={<AdminNotifications />} />
                 <Route path="investment/history" element={<AdminInvestmentHx />} />
                 <Route path="investment/plans" element={<AdminPlans />} />

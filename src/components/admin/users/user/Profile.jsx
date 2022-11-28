@@ -1,20 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import EditLocationIcon from '@mui/icons-material/EditLocation';
-import PublicIcon from '@mui/icons-material/Public';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import PersonIcon from '@mui/icons-material/Person';
-import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
-import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
-import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
-import { Context } from '../../../../context/Context';
-import Copy from '../../../CopyToClipboard';
 
 
 export default function Profile({ data }) {
-    const { admin, config } = useContext(Context);
 
     return (
         <Wrapper>
@@ -69,7 +56,7 @@ export default function Profile({ data }) {
                                 return { color: 'inherit' }
                             }
                         }())
-                    }>{data.Role} {data.isSupperAdmin ? `(SUPPER ADMIN)` : ''}</span>
+                    }>{data.Role} {data.isSupperAdmin ? `(SUPPER ADMIN)` : `(${data.Role})`}</span>
             </div>
             <div className='user'>
                 <span className="name">Referred By: </span>

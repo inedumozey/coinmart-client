@@ -5,29 +5,25 @@ import Spinner_ from '../../spinner/Spinner';
 import Skeleton from '../../Skeleton';
 import Cookies from 'js-cookie'
 import Btn from '../../Btn/Btn';
-import Select from 'react-select'
-import resolve from '../../../utils/resolve';
 import apiClass from '../../../utils/api';
 
 const api = new apiClass()
 
 
-export default function Withdrawal() {
+export default function Deposit() {
 
     const { user, config } = useContext(Context);
     const { configData } = config
 
     const {
-        withdrawalLoading,
-        setWithdrawalLoading,
-    } = user.withdrawal
+        depositLoading,
+        setDepositLoading
+    } = user.deposit
 
     const [loading, setLoading] = useState(true);
 
     const [inp, setInp] = useState({
-        amount: null,
-        walletAddress: '',
-        coin: ''
+        amount: null
     });
 
 
@@ -40,39 +36,20 @@ export default function Withdrawal() {
     // submit data
     const submitform = (e) => {
         e.preventDefault()
-        setWithdrawalLoading(true)
+        setDepositLoading(true)
 
         // if accesstoken not there, refresh it before proceeding, otherwise, proceed straight up
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.userWithdrawal(inp, setWithdrawalLoading, setInp)
+                api.userDeposit(inp, setDepositLoading, setInp, window)
             }, 2000);
         }
         else {
-            api.userWithdrawal(inp, setWithdrawalLoading, setInp)
+            api.userDeposit(inp, setDepositLoading, setInp, window)
         }
     }
 
-
-    const Note = () => {
-        return configData.withdrawableFactors.length === 1 && configData.withdrawableFactors[0] === 1 ?
-            <div style={{ fontSize: '.7rem', marginBottom: '20px' }}>Any amout can be withdrawn</div> :
-            <div style={{ fontSize: '.7rem', marginBottom: '20px' }}>
-                <div>
-                    Min Withdrawable Amount:
-                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.minWithdrawableLimit} {configData.curreny}</span>
-                </div>
-                <div>
-                    Withdrawable Common Diff:
-                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.withdrawableCommonDiff}  {configData.curreny}</span>
-                </div>
-                <div>
-                    Max Withdrawable Amount:
-                    {" "}<span style={{ color: 'var(--blue-deep)' }}>{configData.maxWithdrawableLimit} {configData.curreny}</span>
-                </div>
-            </div>
-    }
 
     return (
         <Wrapper>
@@ -88,7 +65,6 @@ export default function Withdrawal() {
                     :
                     <SubWrapper>
                         <form onSubmit={submitform} action="">
-                            <Note />
 
                             <label htmlFor="">Amount</label>
                             <InputWrapper>
@@ -101,33 +77,12 @@ export default function Withdrawal() {
                                 />
                             </InputWrapper>
 
-                            <label htmlFor="">Wallet Address</label>
-                            <InputWrapper>
-                                <input
-                                    placeholder='Wallet Address'
-                                    value={inp.walletAddress || ''}
-                                    onChange={(e) => setInp({ ...inp, walletAddress: e.target.value })}
-                                />
-                            </InputWrapper>
-
-                            <InputWrapper>
-                                <label> Select Coin:</label>
-                                <Select
-                                    options={resolve.makeReactSelectOptions(configData.withdrawableCoins)}
-                                    defaultMenuIsOpen={inp.coin}
-                                    onChange={(selectedOption) => setInp({ ...inp, coin: selectedOption.value })}
-                                />
-                            </InputWrapper>
-
-
                             <div className='text-center text-md-start mt- pt-2'>
 
-                                <Btn disabled={!inp.amount || !inp.coin || !inp.walletAddress} color="var(--blue)" link={false}>
-                                    {withdrawalLoading ? <Spinner_ size="sm" /> : "Proceed"}
+                                <Btn disabled={!inp.amount || depositLoading} color="var(--blue)" link={false}>
+                                    {depositLoading ? <Spinner_ size="sm" /> : "Proceed"}
                                 </Btn>
                             </div>
-
-
                         </form>
                     </SubWrapper>
             }

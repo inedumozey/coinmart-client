@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Contest_C from '../../components/admin/referralContest/Contest';
 
 export default function ReferralContest() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function ReferralContest() {
             navigate("/dashboard")
         }
     }, [])
-    return (
-        <div>Referral Contest</div>
-    )
+    return <Contest_C />
 }

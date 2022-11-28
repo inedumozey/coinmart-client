@@ -1,60 +1,79 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Cookies from 'js-cookie'
-import { Context } from '../../../context/Context'
-import apiClass from '../../../utils/api'
-import Spinner_ from '../../spinner/Spinner'
-import Skeleton from '../../Skeleton'
+import Cookies from 'js-cookie';
+import { Context } from '../../../context/Context';
+import Skeleton from '../../Skeleton';
+import apiClass from '../../../utils/api';
+import DepositData from './DepositData';
 
 const api = new apiClass()
 
 export default function Deposit() {
-    const { config } = useContext(Context);
+    const { config, admin } = useContext(Context);
 
+    const {
+        setFetchingDepositData_initial,
+        fetchingDepositData_initial,
+        setDepositDataSuccess,
+        depositDataSuccess,
+        setDepositData,
+        depositData,
+    } = admin.deposit
 
     const [load, setLoading] = useState(true)
 
     useEffect(() => {
-        // setFetchingInvestments_admin(true)
+        setFetchingDepositData_initial(true)
 
         // if accesstoken not there, refresh it before proceeding data, otherwise, get data straight up
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                // api.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
+                api.getDepositAdmin_initial(setFetchingDepositData_initial, setDepositDataSuccess, setDepositData)
             }, 2000);
         }
         else {
-            // api.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
+            api.getDepositAdmin_initial(setFetchingDepositData_initial, setDepositDataSuccess, setDepositData)
         }
     }, []);
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 2000)
+        }, 1000)
     }, [])
+
 
     return (
         <Wrapper>
             {
-                load ?
-                    <div className='skeleton'>
-                        <Skeleton />
-                    </div>
-                    :
-                    <div className="tag">No Data</div>
+                fetchingDepositData_initial || load || !config.configData ?
+                    <Skeletons>
+                        <div className="header">
+                            <div className="stat"><Skeleton /></div>
+                            <div className="search-wrapper">
+                                <div className="search"><Skeleton /></div>
+                            </div>
+                        </div>
+                        <div className="table">
+                            {
+                                [1, 2, 3].map((item, i) => {
+                                    return <div key={i} className="text"><Skeleton /></div>
+                                })
+                            }
+                        </div>
+                    </Skeletons> :
+                    !depositDataSuccess ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
+                        depositData.length < 1 ? <div className="tag">No pending withdrawals at the moment</div> : <DepositData />
+
             }
         </Wrapper>
     )
 }
 
 
-
 const Wrapper = styled.div`
-    width: 100vw;
     margin: auto;
-    max-width: 800px;
     min-height: 70vh;
     display: flex;
     flex-direction: column;
@@ -66,19 +85,63 @@ const Wrapper = styled.div`
         }
         @media (max-width: ${({ theme }) => theme.sm_screen}){
             padding: 20px ${({ theme }) => theme.sm_padding};
-            grid-template-columns: repeat( auto-fit, minmax(170px, 1fr) );
         }
-    }
-
-    .skeleton {
-        width: 80vw;
-        margin: auto;
-        height: 80vh;
-        padding: 10px;
     }
     
     .tag {
         font-size: .65rem;
         color: red;
     }
+`
+
+const Skeletons = styled.div`
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 2px 2px 4px #ccc;
+
+    .header {
+        .stat {
+            width: 50px;
+            height: 30px;
+            padding-bottom: 10px;
+        }
+        .search-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .search {
+            height: 30px;
+            width: 40%;
+            max-width: 300px;
+            min-width: 200px;
+        }
+    }
+
+    .table {
+        padding: 0;
+        width: 100%;
+        margin: 0px auto 10px auto;
+        margin-top: 10px;
+
+        .text {
+            width: 100%;
+            height: 30px;
+            margin: 4px 0;
+        }
+    }
+    .view-more {
+        display: flex;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+
+        .more{
+            border-radius: 5px;
+            height: 100%;
+            width: 130px;
+        }
+    }
+
 `

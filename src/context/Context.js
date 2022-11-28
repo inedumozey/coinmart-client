@@ -120,6 +120,14 @@ function ContextApi() {
     const [openCreditUserModal, showOpenCreditUserModal] = useState(false);
     const [creditingUser, setCreditingUser] = useState(false);
 
+    // deposit
+    const [depositData, setDepositData] = useState([]);
+    const [fetchingDepositData_initial, setFetchingDepositData_initial] = useState(true);
+    const [depositDataSuccess, setDepositDataSuccess] = useState(false);
+    const [fetchingDepositData_refresh, setFetchingDepositData_refresh] = useState(false);
+    const [resolvingDeposit, setResolvingDeposit] = useState(false);
+    const [showResolvingDepositModal, setShowResolvingDepositModal] = useState(false);
+
 
     // referral contest
 
@@ -144,8 +152,7 @@ function ContextApi() {
     ]
 
     const admin_depositLinks = [
-        { url: '/admin/deposit/new', name: 'New', icon: SavingsIcon },
-        { url: '/admin/deposit/confirmed', name: 'Confimred', icon: CreditScoreIcon },
+        { url: '/admin/deposit', name: 'Deposit', icon: SavingsIcon },
     ]
 
     const admin_withdrawalLinks = [
@@ -175,7 +182,6 @@ function ContextApi() {
 
     // Reset Password
     const [changePasswordLoading, setChangePasswordLoading] = useState(false)
-    const [changePasswordSuccess, setChangePasswordSuccess] = useState(false);
 
     //transfer
     const [fetchingTransferData, setFetchingTransferData] = useState(false);
@@ -187,7 +193,9 @@ function ContextApi() {
 
     //withdrawal
     const [withdrawalLoading, setWithdrawalLoading] = useState(false);
-    const [withdrawalSuccess, setWithdrawalSuccess] = useState(false);
+
+    //Deposit
+    const [depositLoading, setDepositLoading] = useState(false);
 
     //referral
     const [fetchReferralHxLoading, setFetchReferralHxLoading] = useState(false);
@@ -259,8 +267,6 @@ function ContextApi() {
             passwordReset: {
                 changePasswordLoading,
                 setChangePasswordLoading,
-                changePasswordSuccess,
-                setChangePasswordSuccess
             },
             referral: {
                 fetchReferralHxLoading,
@@ -291,8 +297,10 @@ function ContextApi() {
             withdrawal: {
                 withdrawalLoading,
                 setWithdrawalLoading,
-                withdrawalSuccess,
-                setWithdrawalSuccess,
+            },
+            deposit: {
+                depositLoading,
+                setDepositLoading
             },
             userHistory: {
                 fetchingUserData_user,
@@ -380,6 +388,20 @@ function ContextApi() {
                 confirmingWithdrawalSuccess,
                 setConfirmingWithdrawalSuccess,
             },
+            deposit: {
+                resolvingDeposit,
+                setResolvingDeposit,
+                setFetchingDepositData_initial,
+                fetchingDepositData_initial,
+                setDepositDataSuccess,
+                depositDataSuccess,
+                setFetchingDepositData_refresh,
+                fetchingDepositData_refresh,
+                setDepositData,
+                depositData,
+                showResolvingDepositModal,
+                setShowResolvingDepositModal,
+            },
             userHistory: {
                 selectedUser,
                 setSelectedUser,
@@ -403,7 +425,7 @@ function ContextApi() {
 
         modal: { show, setShow },
 
-        skeleton: { preparing, setPreparing },
+        // skeleton: { preparing, setPreparing },
 
         config: {
             configData,
@@ -460,10 +482,6 @@ function ContextApi() {
         }
     }
 
-    const [load, setLoad] = useState(true)
-    setTimeout(() => {
-        setLoad(false)
-    }, 1000)
     return (
         <Context.Provider value={state}>
             <Layout>

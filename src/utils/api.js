@@ -240,9 +240,9 @@ class apiClass {
     }
 
     resetPassword = async (
-        setChangePasswordLoading,
         data_,
-        setChangePasswordSuccess
+        setChangePasswordLoading,
+        setInp
     ) => {
 
         setChangePasswordLoading(true);
@@ -254,18 +254,23 @@ class apiClass {
             });
 
             setChangePasswordLoading(false);
-            setChangePasswordSuccess(true)
+            // setChangePasswordSuccess(true)
             toast(data.msg, { type: 'success' })
+            setInp({
+                oldPassword: "",
+                newPassword: "",
+                newCpassword: ""
+            })
         }
         catch (err) {
             if (err.response) {
                 setChangePasswordLoading(false);
-                setChangePasswordSuccess(false);
+                // setChangePasswordSuccess(false);
                 toast(err.response.data.msg, { type: 'error' });
             }
             else {
                 setChangePasswordLoading(false);
-                setChangePasswordSuccess(false);
+                // setChangePasswordSuccess(false);
                 toast(err.response.data.msg, { type: 'error' })
             }
         }
@@ -660,7 +665,7 @@ class apiClass {
     }
 
     // withdrawal
-    userWithdrawal = async (data_, setWithdrawalLoading, setWithdrawalSuccess) => {
+    userWithdrawal = async (data_, setWithdrawalLoading, setInp) => {
         setWithdrawalLoading(true);
         try {
             const { data } = await axios.post(`${BASE_URL}/withdrawal/request`, data_, {
@@ -669,18 +674,51 @@ class apiClass {
                 }
             });
             setWithdrawalLoading(false);
-            setWithdrawalSuccess(true)
-            toast(data.msg, { type: 'success' })
+            setInp({
+                amount: null,
+                walletAddress: '',
+                coin: ''
+            })
+            toast(data.msg, { type: 'success' });
         }
         catch (err) {
             if (err.response) {
                 setWithdrawalLoading(false);
-                setWithdrawalSuccess(false)
                 toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setWithdrawalLoading(false);
-                setWithdrawalSuccess(false)
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    // deposit
+    userDeposit = async (data_, setDepositLoading, setInp, window) => {
+        setDepositLoading(true);
+        try {
+            const { data } = await axios.post(`${BASE_URL}/deposit/`, data_, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+            setDepositLoading(false);
+            setInp({ amount: null })
+            toast(data.msg, { type: 'success' })
+
+            // redirext user to pay via libk returned from backend
+            setTimeout(() => {
+                window.location.href = data.data.hostedUrl
+            }, 1000)
+
+        }
+        catch (err) {
+            if (err.response) {
+                setDepositLoading(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setDepositLoading(false);
                 toast(err.message, { type: 'error' })
             }
         }
@@ -878,6 +916,107 @@ class apiClass {
             else {
                 setAddingRefcode(false);
                 toast(err.response.data.msg, { type: 'error' })
+            }
+        }
+    }
+
+    // admin deposit handler section
+    getDepositAdmin_initial = async (
+        setFetchingDepositData_initial,
+        setDepositDataSuccess,
+        setDepositData
+    ) => {
+        setFetchingDepositData_initial(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/deposit/get-all-admin`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setFetchingDepositData_initial(false)
+            setDepositDataSuccess(true)
+            setDepositData(data.data)
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingDepositData_initial(false)
+                setDepositDataSuccess(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingDepositData_initial(false)
+                setDepositDataSuccess(false)
+                // toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    // admin deposit handler section
+    getDepositAdmin_refresh = async (
+        setFetchingDepositData_refresh,
+        setDepositData
+    ) => {
+        setFetchingDepositData_refresh(true)
+        try {
+            const { data } = await axios.get(`${BASE_URL}/deposit/get-all-admin`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setFetchingDepositData_refresh(false)
+            setDepositData(data.data)
+            // toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingDepositData_refresh(false)
+                // toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setFetchingDepositData_refresh(false)
+                // toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    // resolve deposit manually
+    resolveDepositAdmin = async (
+        amount,
+        id,
+        setResolvingDeposit,
+        setFetchingDepositData_refresh,
+        setDepositData,
+        setAmount,
+        setShowResolvingDepositModal,
+        setSelectedData
+    ) => {
+        setResolvingDeposit(true)
+        try {
+            const { data } = await axios.put(`${BASE_URL}/deposit/resolve/${id}`, { amount }, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            this.getDepositAdmin_refresh(setFetchingDepositData_refresh, setDepositData);
+
+            setResolvingDeposit(false)
+            toast(data.msg, { type: 'success' })
+            setShowResolvingDepositModal(false);
+            setAmount('');
+            setSelectedData('')
+        }
+        catch (err) {
+            if (err.response) {
+                setResolvingDeposit(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setResolvingDeposit(false)
+                toast(err.message, { type: 'error' })
             }
         }
     }

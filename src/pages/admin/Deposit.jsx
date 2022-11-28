@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Deposit_C from '../../components/admin/deposit/Deposit';
 
-export default function NewDeposit() {
+export default function Deposit() {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -10,7 +11,5 @@ export default function NewDeposit() {
             navigate("/dashboard")
         }
     }, [])
-    return (
-        <div>New Deposit</div>
-    )
+    return <Deposit_C />
 }

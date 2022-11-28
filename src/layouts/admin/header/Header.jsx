@@ -14,9 +14,7 @@ export default function Header({ isExpanded, setExpanded, headerHeight }) {
     if (location.pathname.includes('/admin/home')) currentRouteName = "Home"
     if (location.pathname.includes('/admin/users')) currentRouteName = "Users"
 
-    if (location.pathname.includes('/admin/deposit/config')) currentRouteName = "Deposit Config"
-    if (location.pathname.includes('/admin/deposit/confirmed')) currentRouteName = "Successful Deposit"
-    if (location.pathname.includes('/admin/deposit/new')) currentRouteName = "Initaited Deposit"
+    if (location.pathname.includes('/admin/deposit')) currentRouteName = "Deposit"
 
     if (location.pathname.includes('/admin/transfer/config')) currentRouteName = "Transfer Config"
     if (location.pathname.includes('/admin/transfer/history')) currentRouteName = "Transfer History"
