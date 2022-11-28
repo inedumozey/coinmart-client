@@ -80,7 +80,6 @@ const Wrapper = styled.div`
         height: 100px;
         border-radius: 50%;
         border: 1px solid #ccc;
-        border: 1px solid red;
         margin: 0px 0px 20px 0;
 
         @media (max-width: ${({ theme }) => theme.sm_screen}){

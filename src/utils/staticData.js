@@ -3,8 +3,8 @@ const staticData = {
         email: 'drmo@developer.api',
         mobile: '08036000347',
         address: '9Co Meath C15 T26E 14 Mullaghaboy Industrial Estate, Plymouth, Indiana',
-        name: 'DrMohdhdh',
-        investment: 'Dolor---'
+        name: 'DrMo',
+        investment: 'App'
 
         // email: 'admin@extractcoinmart.com',
         // mobile: '+1(918) 280-8396',
