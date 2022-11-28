@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import Contact_C from '../../components/landing/contact/Contact';
 
 export default function Contacts() {
     const navigate = useNavigate();
@@ -11,7 +12,5 @@ export default function Contacts() {
         }
     }, [])
 
-    return (
-        <div>Contacts Page</div>
-    )
+    return <Contact_C />
 }

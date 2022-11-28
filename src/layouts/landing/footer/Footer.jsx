@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { Link, useLocation } from "react-router-dom";
 import { Context } from '../../../context/Context';
 import Copyright from '../../../components/Copyright';
+import Email from '../../../components/Email';
+import Phone from '../../../components/Phone';
 
 export default function Footer() {
     const location = useLocation();
@@ -40,10 +42,10 @@ export default function Footer() {
                     <div className="info">
                         <h4>Information</h4>
                         <div>
-                            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                            <Email />
                         </div>
                         <div>
-                            <a href={`tel:+${contact.mobile}`}>{contact.mobile}</a>
+                            <Phone />
                         </div>
                     </div>
                     <div className="info">
