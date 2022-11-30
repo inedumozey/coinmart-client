@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components';
 import Cookies from 'js-cookie';
 import { Context } from '../../context/Context';
@@ -64,6 +64,7 @@ export default function BuyPlan() {
                     <div className="lifespan">{resolve.resolveSeconds(selectedInvestingPlan.lifespan)}</div>
                     <div className="amount">Minimun Amount: {selectedInvestingPlan.minAmount} {" "} {selectedInvestingPlan.currency}</div>
                     <div className="amount">Maximun Amount: {selectedInvestingPlan.maxAmount === 0 ? 'Unlimited' : `${selectedInvestingPlan.maxAmount} ${selectedInvestingPlan.currency}`}</div>
+                    <div className="amount">Point: {selectedInvestingPlan.point}</div>
                 </div>
 
                 {/* form */}

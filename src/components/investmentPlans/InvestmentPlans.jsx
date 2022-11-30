@@ -8,7 +8,6 @@ import Spinner_ from '../spinner/Spinner';
 import Skeleton from '../Skeleton';
 import resolve from '../../utils/resolve';
 import Modal from '../Modal';
-import { useNavigate } from 'react-router';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import BuyPlan from './BuyPlan';
