@@ -252,6 +252,10 @@ const Card = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+
+        .action-btn {
+            display: none;
+        }
     }
     .body {
         height: calc(100% - 100px - 50px);
@@ -269,6 +273,12 @@ const Card = styled.div`
             padding: 3px 10px;
             font-size: .7rem;
             font-weight: 600;
+        }
+    }
+
+    &:hover {
+        .action-btn {
+            display: block;
         }
     }
 `
