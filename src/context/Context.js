@@ -139,7 +139,6 @@ function ContextApi() {
 
     }, [])
 
-
     const admin_links = [
         { url: '/admin/home', name: 'Home', icon: DashboardIcon },
         { url: '/admin/users', name: 'Users', icon: PersonIcon },
@@ -453,7 +452,9 @@ function ContextApi() {
                 operationType,
                 setOperationType,
                 selectedPlan,
-                setSelectedPlan
+                setSelectedPlan,
+                fetchingPlans,
+                fetchingPlansSuccess
             },
             invest: {
                 openInvestModal,

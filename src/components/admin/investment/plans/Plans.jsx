@@ -18,7 +18,7 @@ export default function Plans() {
 
     return (
         <Wrapper>
-            <div onClick={() => { setOpenAddPlanModal(true); setOperationType('add-plan') }} className="add-plan">Add Plan Btn</div>
+            <div onClick={() => { setOpenAddPlanModal(true); setOperationType('add-plan') }} className="add-plan">Add Plan</div>
             <div className="list-plans"></div>
             <Modal
                 title={operationType === 'add-plan' ? "Add Plans" : `Updating ${selectedPlan.type}`}

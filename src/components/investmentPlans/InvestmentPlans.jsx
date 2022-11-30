@@ -17,24 +17,21 @@ const api = new apiClass()
 
 export default function InvestmentPlans() {
     const { investment } = useContext(Context)
-    const [laodSkeleton, setLoadSkeleton] = useState(true);
-    const navigate = useNavigate();
+    const [load, setLoading] = useState(true);
 
     const {
         plans,
         setPlans,
-        updatingPlan,
-        setUpdatingPlan,
         deletingPlan,
         setDeletingPlan,
         refreshingPlans,
         setRefreshingPlans,
-        operationType,
         setOperationType,
-        selectedPlan,
         setSelectedPlan,
         setOpenAddPlanModal,
-    } = investment.plans
+        fetchingPlans,
+        fetchingPlansSuccess
+    } = investment.plans;
 
     const {
         openInvestModal,
@@ -45,8 +42,8 @@ export default function InvestmentPlans() {
 
     useEffect(() => {
         setTimeout(() => {
-            setLoadSkeleton(false)
-        }, 1500)
+            setLoading(false)
+        }, 2000)
     }, [])
 
     const handleInvest = (plan) => {
@@ -79,28 +76,36 @@ export default function InvestmentPlans() {
     return (
         <Wrapper>
             {
-                laodSkeleton ?
-                    plans?.map((item, i) => {
+                load || fetchingPlans ?
+                    [1, 2, 3]?.map((item, i) => {
                         return (
                             <Card key={i}>
-                                <div className="header-skeleton">
-                                    <div className="title">
+                                <div className="header">
+                                    <div style={{ background: '#fff', height: '60px' }} className="title">
                                         <Skeleton />
                                     </div>
-                                    <div className="profit">
+                                    <div style={{ padding: '0' }} className="profit">
+                                        <div style={{ width: '80px', height: '30px', margin: 'auto' }} className="value">
+                                            <Skeleton />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="body">
+                                    <div style={{ width: '100px', height: '25px' }} className="lifespan">
+                                        <Skeleton />
+                                    </div>
+                                    <div style={{ width: '100%', height: '15px' }} className="lifespan">
+                                        <Skeleton />
+                                    </div>
+                                    <div style={{ width: '100%', height: '15px' }} className="lifespan">
+                                        <Skeleton />
+                                    </div>
+                                    <div style={{ width: '60px', height: '15px' }} className="lifespan">
                                         <Skeleton />
                                     </div>
                                 </div>
-                                <div className="body-skeleton">
-                                    <div className="lifespan">
-                                        <Skeleton />
-                                    </div>
-                                    <div className="amount"><Skeleton /></div>
-                                    <div style={{ width: '80%' }} className="amount"><Skeleton /></div>
-                                    <div className="amount"><Skeleton /></div>
-                                </div>
-                                <div className="footer-skeleton">
-                                    <div className="btn">
+                                <div className="footer">
+                                    <div style={{ width: '100px', height: '30px', margin: 'auto' }} className="value">
                                         <Skeleton />
                                     </div>
                                 </div>
@@ -108,62 +113,65 @@ export default function InvestmentPlans() {
                         )
                     }) :
 
-                    plans?.length ?
-                        plans?.map((plan, i) => {
-                            return (
-                                <Card key={plan._id}>
-                                    <div className="header">
-                                        <div className="title">{plan.type?.toUpperCase()}</div>
-                                        <div className="profit">
-                                            <span className="value">{plan.returnPercentage}%</span> {""}
-                                            <span>Profit</span>
+                    !fetchingPlansSuccess ?
+                        <div className="tag">Faild to fetch data, please refresh the brouser</div> :
+
+                        plans?.length ?
+                            plans?.map((plan, i) => {
+                                return (
+                                    <Card key={plan._id}>
+                                        <div className="header">
+                                            <div className="title">{plan.type?.toUpperCase()}</div>
+                                            <div className="profit">
+                                                <span className="value">{plan.returnPercentage}%</span> {""}
+                                                <span>Profit</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="body">
-                                        <div className="lifespan">{resolve.resolveSeconds(plan.lifespan)}</div>
-                                        <div className="amount">Minimun Amount: {plan.minAmount} {" "} {plan.currency}</div>
-                                        <div className="amount">Maximun Amount: {plan.maxAmount === 0 ? 'Unlimited' : `${plan.maxAmount} ${plan.currency}`}</div>
-                                        <div className="amount">Point: {plan.point}</div>
-                                    </div>
-                                    <div className="footer">
-                                        {/* add ediy button if role admin and extratoken exist in cookies */}
-                                        {
+                                        <div className="body">
+                                            <div className="lifespan">{resolve.resolveSeconds(plan.lifespan)}</div>
+                                            <div className="amount">Minimun Amount: {plan.minAmount} {" "} {plan.currency}</div>
+                                            <div className="amount">Maximun Amount: {plan.maxAmount === 0 ? 'Unlimited' : `${plan.maxAmount} ${plan.currency}`}</div>
+                                            <div className="amount">Point: {plan.point}</div>
+                                        </div>
+                                        <div className="footer">
+                                            {/* add ediy button if role admin and extratoken exist in cookies */}
+                                            {
 
-                                            Cookies.get('role')?.toLowerCase() === "admin" && Cookies.get('extratoken') ?
-                                                <div
-                                                    className='action-btn edit'
-                                                    color="var(--blue)"
-                                                    onClick={() => handleEdit(plan)}
-                                                >
-                                                    <EditIcon style={{ color: 'green' }} />
-                                                </div> : ''
-                                        }
+                                                Cookies.get('role')?.toLowerCase() === "admin" && Cookies.get('extratoken') ?
+                                                    <div
+                                                        className='action-btn edit'
+                                                        color="var(--blue)"
+                                                        onClick={() => handleEdit(plan)}
+                                                    >
+                                                        <EditIcon style={{ color: 'green' }} />
+                                                    </div> : ''
+                                            }
 
-                                        <Btn
-                                            color="var(--blue)"
-                                            link={false}
-                                            onClick={() => handleInvest(plan)}
-                                        >
-                                            Invest
-                                        </Btn>
+                                            <Btn
+                                                color="var(--blue)"
+                                                link={false}
+                                                onClick={() => handleInvest(plan)}
+                                            >
+                                                Invest
+                                            </Btn>
 
-                                        {/* add delete button if role admin and extratoken exist in cookies */}
-                                        {
-                                            Cookies.get('role')?.toLowerCase() === "admin" && Cookies.get('extratoken') ?
-                                                <div
-                                                    className='action-btn delete'
-                                                    color="var(--blue)"
-                                                    onClick={() => handleDelete(plan._id)}
-                                                >
-                                                    {deletingPlan || refreshingPlans ? <Spinner_ size='sm' /> : <DeleteForeverIcon style={{ color: 'red' }} />}
-                                                </div> : ''
-                                        }
+                                            {/* add delete button if role admin and extratoken exist in cookies */}
+                                            {
+                                                Cookies.get('role')?.toLowerCase() === "admin" && Cookies.get('extratoken') ?
+                                                    <div
+                                                        className='action-btn delete'
+                                                        color="var(--blue)"
+                                                        onClick={() => handleDelete(plan._id)}
+                                                    >
+                                                        {deletingPlan || refreshingPlans ? <Spinner_ size='sm' /> : <DeleteForeverIcon style={{ color: 'red' }} />}
+                                                    </div> : ''
+                                            }
 
-                                    </div>
-                                </Card>
-                            )
-                        }) :
-                        <div style={{ color: 'red' }} className="center">No Plans at the moment</div>
+                                        </div>
+                                    </Card>
+                                )
+                            }) :
+                            <div className="tag">No plans at the moment</div>
             }
 
             {/* open investing modal */}
@@ -174,22 +182,30 @@ export default function InvestmentPlans() {
             >
                 <BuyPlan />
             </Modal>
-        </Wrapper>
+        </Wrapper >
     )
 }
 
 
 const Wrapper = styled.div`
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    transition: ${({ theme }) => theme.transition};
+
     padding: 20px ${({ theme }) => theme.lg_padding};
         @media (max-width: ${({ theme }) => theme.md_screen}){
             padding: 20px ${({ theme }) => theme.md_padding};
         }
         @media (max-width: ${({ theme }) => theme.sm_screen}){
             padding: 20px ${({ theme }) => theme.sm_padding};
-            grid-template-columns: repeat( auto-fit, minmax(170px, 1fr) );
+        }
+
+        .tag {
+            font-size: .65rem;
+            color: red;
         }
     }
 `
@@ -199,13 +215,13 @@ const Card = styled.div`
     height: 300px;
     box-shadow: 2px 2px 4px #ccc, -2px -2px 4px #ccc;
     background: #fff;
-    // padding: 10px;
-    margin: 8px 0;;
-    justify-self: center;
+    padding: 10px;
+    margin: 10px;
+    
     position: relative;
 
     @media (max-width: ${({ theme }) => theme.sm_screen}){
-        width: 170px;
+        width: 90%;
         padding: 5px;
     }
 
@@ -239,6 +255,9 @@ const Card = styled.div`
     }
     .body {
         height: calc(100% - 100px - 50px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
         .lifespan {
             padding: 5px 10px;
@@ -251,74 +270,5 @@ const Card = styled.div`
             font-size: .7rem;
             font-weight: 600;
         }
-    }
-
-
-
-    .header-skeleton {
-        height: 100px;
-        .title {
-            height: 40%;
-            padding: 0 0 3px 0;
-        }
-    
-        .profit {
-            height: 60%;
-            padding: 3px 0;
-        }
-    }
-    .footer-skeleton {
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .btn {
-            height: 50px;
-            width: 70%;
-        }
-    }
-    .body-skeleton {
-        height: calc(100% - 100px - 50px);
-
-        .lifespan {
-            padding: 10px;
-            height: 30%;
-            width: 100%;
-        }
-
-        .amount {
-            padding: 10px;
-            height: 20%;
-            width: 100%;
-        }
-    }
-
-    .action-btn {
-        padding: 10px;
-        transition: .4s;
-        position: absolute;
-        top: 50%;
-        border-radius: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        visibility: hidden;
-
-        &:hover {
-            opacity: .6;
-        }
-    }
-
-    .edit {
-        left: 10px;
-        border: 1px solid green;
-    }
-    .delete {
-        right: 10px;
-        border: 1px solid red;
-    }
-
-    &:hover .action-btn {
-        visibility: visible;
     }
 `

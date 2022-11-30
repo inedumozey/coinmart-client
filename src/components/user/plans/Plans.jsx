@@ -12,7 +12,6 @@ export default function Plans() {
 
 
 const Wrapper = styled.div`
-    width: 100vw;
     margin: auto;
     max-width: 1200px;
     display: flex;
