@@ -25,9 +25,11 @@ export default function BuyPlan() {
         selectedInvestingPlan,
         investLoading,
         setInvestLoading,
+        setOpenInvestModal,
     } = investment.invest
 
-    const submitForm = (id) => {
+    const submitForm = (e, id) => {
+        e.preventDefault()
         const data = { amount, id }
 
         if (!Cookies.get('refreshtoken')) {
@@ -41,11 +43,11 @@ export default function BuyPlan() {
             if (!Cookies.get('accesstoken')) {
                 api.refreshToken()
                 setTimeout(() => {
-                    api.buyPlan(data, setInvestLoading, setProfileData, setProfileLoadingAgain)
+                    api.buyPlan(data, setInvestLoading, setProfileData, setProfileLoadingAgain, setAmount, setOpenInvestModal)
                 }, 2000);
             }
             else {
-                api.buyPlan(data, setInvestLoading, setProfileData, setProfileLoadingAgain)
+                api.buyPlan(data, setInvestLoading, setProfileData, setProfileLoadingAgain, setAmount, setOpenInvestModal)
             }
         }
     }
@@ -69,7 +71,7 @@ export default function BuyPlan() {
 
                 {/* form */}
 
-                <div style={{ marginTop: '20px' }}>
+                <form onSubmit={(e) => submitForm(e, selectedInvestingPlan._id)} style={{ marginTop: '20px' }}>
                     <InputWrapper>
                         <input
                             autoFocus
@@ -81,11 +83,11 @@ export default function BuyPlan() {
                     </InputWrapper>
 
                     <div className='center'>
-                        <Btn disabled={!amount} onClick={() => submitForm(selectedInvestingPlan._id)} color="var(--blue)" link={false}>
+                        <Btn disabled={!amount} color="var(--blue)" link={false}>
                             {investLoading || profileLoadingAgain ? <Spinner_ size="sm" /> : "Start"}
                         </Btn>
                     </div>
-                </div>
+                </form>
             </Card>
         </Wrapper>
     )

@@ -19,7 +19,8 @@ export default function Header({ isExpanded, setExpanded, headerHeight }) {
     if (location.pathname.includes('/admin/transfer/config')) currentRouteName = "Transfer Config"
     if (location.pathname.includes('/admin/transfer/history')) currentRouteName = "Transfer History"
 
-    if (location.pathname.includes('/admin/notifications')) currentRouteName = "send Notifications"
+    if (location.pathname.includes('/admin/notifications')) currentRouteName = "Notifications"
+    if (location.pathname === '/admin/notifications/send') currentRouteName = "Send Notifications"
 
     if (location.pathname.includes('/admin/investment/config')) currentRouteName = "Investment Config"
     if (location.pathname.includes('/admin/investment/plans')) currentRouteName = "Investment Plans"

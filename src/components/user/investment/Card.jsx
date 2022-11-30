@@ -80,6 +80,8 @@ const CardStyle = styled.div`
   padding: 10px;
   box-shadow: 2px 2px 4px #aaa, -2px -2px 4px #aaa;
 
+
+
   .title{
     text-align: left;
     height: 25px;

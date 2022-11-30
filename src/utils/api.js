@@ -489,7 +489,13 @@ class apiClass {
         }
     }
 
-    buyPlan = async (data_, setInvestLoading, setProfileData, setProfileLoadingAgain) => {
+    buyPlan = async (
+        data_, setInvestLoading,
+        setProfileData,
+        setProfileLoadingAgain,
+        setAmount,
+        setOpenInvestModal
+    ) => {
 
         try {
             const { data } = await axios.post(`${BASE_URL}/investment/invest/${data_.id}`, data_, {
@@ -498,6 +504,8 @@ class apiClass {
                 }
             });
             setInvestLoading(false);
+            setAmount("")
+            setOpenInvestModal(false)
             toast(data.msg, { type: 'success' })
 
             // refresh profile data
@@ -613,7 +621,11 @@ class apiClass {
     }
 
     // transfer
-    verifyAccountNo = async (data_, setVerifyAccountNoLoading, setVerifyAccountNoData, setShowPayUserModal) => {
+    verifyAccountNo = async (
+        data_, setVerifyAccountNoLoading,
+        setVerifyAccountNoData,
+        setShowPayUserModal,
+    ) => {
         setVerifyAccountNoLoading(true)
         try {
             const { data } = await axios.post(`${BASE_URL}/transfer/verify-acccount-no`, data_, {
@@ -638,7 +650,13 @@ class apiClass {
         }
     }
 
-    payUser = async (data_, setPayLoading, setTransferSuccess) => {
+    payUser = async (
+        data_,
+        setPayLoading,
+        setTransferSuccess,
+        setProfileData,
+        setProfileLoadingAgain
+    ) => {
         setPayLoading(true)
         try {
             const { data } = await axios.post(`${BASE_URL}/transfer/pay-user`, data_, {
@@ -648,7 +666,10 @@ class apiClass {
             });
             setPayLoading(false);
             setTransferSuccess(true)
-            toast(data.msg, { type: 'success' })
+            toast(data.msg, { type: 'success' });
+
+            // refresh profile data
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
         }
         catch (err) {
             if (err.response) {
@@ -665,7 +686,13 @@ class apiClass {
     }
 
     // withdrawal
-    userWithdrawal = async (data_, setWithdrawalLoading, setInp) => {
+    userWithdrawal = async (
+        data_,
+        setWithdrawalLoading,
+        setInp,
+        setProfileData,
+        setProfileLoadingAgain
+    ) => {
         setWithdrawalLoading(true);
         try {
             const { data } = await axios.post(`${BASE_URL}/withdrawal/request`, data_, {
@@ -680,6 +707,9 @@ class apiClass {
                 coin: ''
             })
             toast(data.msg, { type: 'success' });
+
+            // refresh profile data
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain);
         }
         catch (err) {
             if (err.response) {
@@ -1411,6 +1441,124 @@ class apiClass {
             else {
                 setCreditingUser(false)
                 toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    pushNotification_admin = async (
+        data_,
+        setSendingNotificatio_admin,
+        setInp,
+    ) => {
+        setSendingNotificatio_admin(true)
+
+        try {
+            const { data } = await axios.post(`${BASE_URL}/notifications/admin/push`, data_, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+            setSendingNotificatio_admin(false)
+            toast(data.msg, { type: 'success' });
+            setInp({ text: '', title: '' })
+        }
+        catch (err) {
+            if (err.response) {
+                setSendingNotificatio_admin(false)
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setSendingNotificatio_admin(false)
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    fetchNotification_admin = async (
+        setFetchingNotification_admin,
+        setFetchNotificationSuccess_admin,
+        setNotifications_admin,
+    ) => {
+        setFetchingNotification_admin(true)
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/notifications/admin/`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            setFetchingNotification_admin(false)
+            setFetchNotificationSuccess_admin(true)
+            setNotifications_admin(data.data)
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingNotification_admin(false);
+                setFetchNotificationSuccess_admin(false)
+            }
+            else {
+                setFetchingNotification_admin(false);
+                setFetchNotificationSuccess_admin(false)
+            }
+        }
+    }
+
+    fetchOneNotification_admin = async (
+        id,
+        setFetchingOneNotification_admin,
+        setFetchOneNotificationSuccess_admin,
+        setNotification_admin,
+    ) => {
+        setFetchingOneNotification_admin(true)
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/notifications/admin/${id}`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            setFetchingOneNotification_admin(false)
+            setFetchOneNotificationSuccess_admin(true)
+            setNotification_admin(data.data)
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingOneNotification_admin(false);
+                setFetchOneNotificationSuccess_admin(false)
+            }
+            else {
+                setFetchingOneNotification_admin(false);
+                setFetchOneNotificationSuccess_admin(false)
+            }
+        }
+    }
+
+    readNotification_user = async (id, setReadingNotification, setReadNotificationSuccess) => {
+        setReadingNotification(true)
+
+        try {
+            const { data } = await axios.put(`${BASE_URL}/notifications/read/${id}`, {}, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+
+            setReadingNotification(false)
+            setReadNotificationSuccess(true);
+        }
+        catch (err) {
+            if (err.response) {
+                setReadingNotification(false);
+                setReadNotificationSuccess(false)
+            }
+            else {
+                setReadingNotification(false);
+                setReadNotificationSuccess(false)
             }
         }
     }

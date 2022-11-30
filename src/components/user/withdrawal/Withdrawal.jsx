@@ -15,7 +15,16 @@ const api = new apiClass()
 export default function Withdrawal() {
 
     const { user, config } = useContext(Context);
-    const { configData } = config
+    const { configData } = config;
+
+    const {
+        profileData,
+        profileLoading,
+        fetchProfileSuccess,
+        profileLoadingAgain,
+        setProfileLoadingAgain,
+        setProfileData,
+    } = user.profile;
 
     const {
         withdrawalLoading,
@@ -29,6 +38,7 @@ export default function Withdrawal() {
         walletAddress: '',
         coin: ''
     });
+
 
 
     useEffect(() => {
@@ -46,11 +56,11 @@ export default function Withdrawal() {
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.userWithdrawal(inp, setWithdrawalLoading, setInp)
+                api.userWithdrawal(inp, setWithdrawalLoading, setInp, setProfileData, setProfileLoadingAgain)
             }, 2000);
         }
         else {
-            api.userWithdrawal(inp, setWithdrawalLoading, setInp)
+            api.userWithdrawal(inp, setWithdrawalLoading, setInp, setProfileData, setProfileLoadingAgain)
         }
     }
 

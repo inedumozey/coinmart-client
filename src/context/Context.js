@@ -23,9 +23,6 @@ function ContextApi() {
     // modal
     const [show, setShow] = useState(false);
 
-    // load skeleton
-    const [preparing, setPreparing] = useState(true);
-
     // config
     const [configData, setConfigData] = useState('')
     const [updatingConfig, setUpdatingConfig] = useState(false)
@@ -142,12 +139,16 @@ function ContextApi() {
     const admin_links = [
         { url: '/admin/home', name: 'Home', icon: DashboardIcon },
         { url: '/admin/users', name: 'Users', icon: PersonIcon },
-        { url: '/admin/notifications', name: 'Notifications', icon: NotificationsIcon },
     ]
 
     const admin_investmentLinks = [
         { url: '/admin/investment/plans', name: 'Plans', icon: CreditScoreIcon },
         { url: '/admin/investment/history', name: 'History', icon: CreditScoreIcon },
+    ]
+
+    const admin_notificationLinks = [
+        { url: '/admin/notifications', name: 'View', icon: NotificationsIcon },
+        { url: '/admin/notifications/send', name: 'Send', icon: NotificationsIcon },
     ]
 
     const admin_depositLinks = [
@@ -207,6 +208,18 @@ function ContextApi() {
     const [fetchingUserData_user, setFetchingUserData_user] = useState(false);
     const [userDataSuccess_user, setUserDataSuccess_user] = useState(false);
     const [userData_user, setUserData_user] = useState([]);
+
+    // notifications --admin
+    const [sendingNotificatio_admin, setSendingNotificatio_admin] = useState(false)
+    const [fetchingNotification_admin, setFetchingNotification_admin] = useState(false)
+    const [fetchNotificationSuccess_admin, setFetchNotificationSuccess_admin] = useState(false)
+    const [notifications_admin, setNotifications_admin] = useState([])
+
+
+    // notifications --user
+    const [fetchingNotification_user, setFetchingNotification_user] = useState(false)
+    const [fetchNotificationSuccess_user, setFetchNotificationSuccess_user] = useState(false)
+    const [notifications_user, setNotifications_user] = useState([])
 
 
     const links = [
@@ -330,6 +343,7 @@ function ContextApi() {
                 depositLinks: admin_depositLinks,
                 withdrawalLinks: admin_withdrawalLinks,
                 referralLinks: admin_referralLinks,
+                notificationLinks: admin_notificationLinks
             },
             userMgt: {
                 fetchingUsers_initial,
@@ -480,6 +494,16 @@ function ContextApi() {
                 fetchInvestmentsMsg_users,
                 setFetchInvestmentsMsg_users,
             }
+        },
+        notifications: {
+            sendingNotificatio_admin,
+            setSendingNotificatio_admin,
+            fetchingNotification_admin,
+            setFetchingNotification_admin,
+            fetchNotificationSuccess_admin,
+            setFetchNotificationSuccess_admin,
+            notifications_admin,
+            setNotifications_admin,
         }
     }
 

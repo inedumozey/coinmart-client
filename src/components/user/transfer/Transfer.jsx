@@ -22,8 +22,6 @@ export default function Transfer() {
         profileLoadingAgain,
         setProfileLoadingAgain,
         setProfileData,
-        setFetchProfileSuccess,
-        setFetchProfileMsg,
     } = user.profile;
 
     const {
@@ -79,11 +77,11 @@ export default function Transfer() {
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.payUser(inp, setPayLoading, setTransferSuccess)
+                api.payUser(inp, setPayLoading, setTransferSuccess, setProfileLoadingAgain, setProfileData)
             }, 2000);
         }
         else {
-            api.payUser(inp, setPayLoading, setTransferSuccess)
+            api.payUser(inp, setPayLoading, setTransferSuccess, setProfileLoadingAgain, setProfileData)
         }
     }
 

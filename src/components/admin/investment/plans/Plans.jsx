@@ -38,7 +38,7 @@ const Wrapper = styled.div`
     .add-plan {
         position: fixed;
         cursor: pointer;
-        padding: 5px;
+        padding: 1px 8px;
         font-size: .8rem;
         color: #fff;
         background: rgb(0 123 255 / 43%);

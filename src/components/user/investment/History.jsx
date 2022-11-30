@@ -47,21 +47,21 @@ export default function History() {
     }, [])
 
     return (
-        <>
+        <>{
+            load || fetchingInvestments_users ?
+                [1, 2, 3].map((data, i) => {
+                    return <Skeletons key={i} />
+                }) :
+                !investmentData_users ?
+                    <div className="tag red">
+                        Failed to load data. Please refresh
+                    </div> :
 
-            <Container>
-                <div className="tag title">Active Investment</div>
-                <Wrapper className="active">
-                    {
-                        load || fetchingInvestments_users ?
-                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((data, i) => {
-                                return <Skeletons key={i} />
-                            }) :
-                            !investmentData_users ?
-                                <div className="tag red">
-                                    Failed to load data. Please refresh
-                                </div> :
-                                (
+                    <>
+                        <Container>
+                            <div className="tag title">Active Investment</div>
+                            <Wrapper className="active">
+                                {
                                     investmentData_users.data.activeInvestment.length < 1 ?
                                         <div className="tag red">
                                             No any Active Investment at the moment
@@ -71,24 +71,15 @@ export default function History() {
                                                 return <Card key={i} data={data} type="active" />
                                             })
                                         )
-                                )
 
-                    }
-                </Wrapper>
-            </Container>
-            <Container>
-                <div className="tag title">Matured Investment</div>
-                <Wrapper className="matured">
-                    {
-                        load || fetchingInvestments_users ?
-                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((data, i) => {
-                                return <Skeletons key={i} />
-                            }) :
-                            !investmentData_users ?
-                                <div className="tag red">
-                                    Failed to load data. Please refresh
-                                </div> :
-                                (
+                                }
+                            </Wrapper>
+                        </Container>
+
+                        <Container>
+                            <div className="tag title">Matured Investment</div>
+                            <Wrapper className="matured">
+                                {
                                     investmentData_users.data.maturedInvestment.length < 1 ?
                                         <div className="tag red">
                                             No any matured Investment at the moment
@@ -98,11 +89,14 @@ export default function History() {
                                                 return <Card key={i} data={data} type="matured" />
                                             })
                                         )
-                                )
+                                }
+                            </Wrapper>
+                        </Container>
+                    </>
 
-                    }
-                </Wrapper>
-            </Container>
+        }
+
+
         </>
     )
 }
@@ -139,7 +133,6 @@ const Wrapper = styled.div`
         }
         @media (max-width: ${({ theme }) => theme.sm_screen}){
             padding: 20px ${({ theme }) => theme.sm_padding};
-            grid-template-columns: repeat( auto-fit, minmax(170px, 1fr) );
         }
     }
 `

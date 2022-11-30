@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { Context } from '../../../context/Context';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 export default function AsideLinks({ isExpanded }) {
     const location = useLocation()
@@ -12,6 +13,7 @@ export default function AsideLinks({ isExpanded }) {
     const [expandDeposit, setExpandDeposit] = useState(false)
     const [expandWithdrawal, setExpandWithdrawal] = useState(false)
     const [expandReferral, setExpandReferral] = useState(false)
+    const [expandNotification, setExpandNotification] = useState(false)
     const { admin } = useContext(Context);
     const { links } = admin
 
@@ -22,13 +24,15 @@ export default function AsideLinks({ isExpanded }) {
     const isWithdrawalActive = location.pathname.includes('/admin/withdrawal');
 
     const isReferralActive = location.pathname.includes('/admin/referral');
+    const isNotificationActive = location.pathname.includes('/admin/notification');
 
     const dropdwonHeight = {
         investment: '100px',
         deposit: '50px',
         transfer: '50px',
         withdrawal: '150px',
-        referral: '50px'
+        referral: '50px',
+        notification: '100px'
     }
 
 
@@ -39,6 +43,7 @@ export default function AsideLinks({ isExpanded }) {
             expandWithdrawal={expandWithdrawal}
             expandInvestment={expandInvestment}
             expandReferral={expandReferral}
+            expandNotification={expandNotification}
             dropdwonHeight={dropdwonHeight}
         >
             {
@@ -176,6 +181,37 @@ export default function AsideLinks({ isExpanded }) {
                     }
                 </div>
             </div>
+
+            {/* notification */}
+            <div className='linkWrapper' onClick={() => setExpandNotification(!expandNotification)}>
+                <Link title="NotificationS" className={isNotificationActive ? 'link activeLink' : 'link'}>
+                    <div className="icon1">
+                        <NotificationsIcon className='icon' />
+                    </div>
+                    <div className="name">
+                        Notification
+                        <div className="icon">
+                            {
+                                expandNotification ? < ArrowDropUpIcon /> : <ArrowDropDownIcon />
+                            }
+                        </div>
+                    </div>
+                </Link>
+
+                <div className="notification-dropdwon-menu">
+                    {
+                        links.notificationLinks?.map((link, i) => {
+                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                                <div className="icon1">
+                                    <link.icon className='icon' />
+                                </div>
+                                <div className="name">{link.name}</div>
+                            </Link>
+                        })
+                    }
+                </div>
+            </div>
+
 
         </Wrapper>
     )
@@ -421,6 +457,42 @@ const Wrapper = styled.div`
             }
             height : ${({ expandReferral, dropdwonHeight }) => expandReferral ? dropdwonHeight.referral : '0px'};
             opacity : ${({ expandReferral }) => expandReferral ? '1' : '0'};
+            transition: ${({ theme }) => theme.transition};
+        }
+
+        .notification-dropdwon-menu {
+            background: inherit;
+            a {
+                background: inherit;
+                color: #555;
+                display: block;
+                width: 100%;
+                border-radius: none;
+                box-shadow: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 5px;
+                padding-left:  ${({ isExpanded }) => isExpanded ? '20px' : '0px'};
+
+                @media (max-width: ${({ theme }) => theme.md_screen}){
+                    padding-left:  ${({ isExpanded }) => !isExpanded ? '20px' : '0px'};
+                }
+
+                &:hover {
+                    background: #ddd;
+                }
+            }
+
+            .active-link {
+                background: #ddd;
+            }
+
+            .icon {
+                color: var(--blue-deep);
+            }
+            height : ${({ expandNotification, dropdwonHeight }) => expandNotification ? dropdwonHeight.notification : '0px'};
+            opacity : ${({ expandNotification }) => expandNotification ? '1' : '0'};
             transition: ${({ theme }) => theme.transition};
         }
     }
