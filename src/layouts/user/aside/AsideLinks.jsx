@@ -66,10 +66,10 @@ export default function AsideLinks({ isExpanded, setExpanded }) {
                             onClick={() => setExpanded(true)}
                             className={location.pathname.includes(link.url) ? 'link activeLink' : 'link'}>
                             <div className="icon1">
-                                {link.name === 'Notifications' && profile.newNotifications ? <span style={{ color: '#fff', fontSize: '.7rem', position: 'absolute' }}>{profile.newNotificationCounts}</span> : ''}
+                                {link.name === 'Notifications' && profile.newNotificationCounts > 0 ? <span style={{ color: '#fff', fontSize: '.7rem', position: 'absolute' }}>{profile.newNotificationCounts}</span> : ''}
                                 <link.icon
                                     style={{
-                                        color: link.name === 'Notifications' && profile.newNotifications ? 'red' : '#fff'
+                                        color: link.name === 'Notifications' && profile.newNotificationCounts > 0 ? 'red' : '#fff'
                                     }}
                                     className='icon'
                                 />
