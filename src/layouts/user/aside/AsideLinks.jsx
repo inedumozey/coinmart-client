@@ -13,7 +13,7 @@ export default function AsideLinks({ isExpanded, setExpanded }) {
     const [expandProfile, setExpandProfile] = useState(false)
     const [expandReferral, setExpandReferral] = useState(false)
     const { user } = useContext(Context);
-    const { links, profile } = user
+    const { links, profile } = user;
 
     const isProfileActive = location.pathname.includes('dashboard/account');
 

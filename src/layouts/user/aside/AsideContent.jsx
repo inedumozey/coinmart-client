@@ -25,7 +25,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, setExpanded
         profileLoading,
         fetchProfileSuccess,
         profileLoadingAgain,
-    } = user.profile
+    } = user.profile;
 
     const {
         profileImageLoading,

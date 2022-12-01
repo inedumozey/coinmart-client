@@ -11,7 +11,7 @@ import MarkdownContent from '../../MarkdownContent';
 const api = new apiClass()
 
 export default function SendNotifications() {
-    const { notifications } = useContext(Context)
+    const { user, notifications } = useContext(Context)
     const [showModal, setShowModal] = useState(false)
     const [inp, setInp] = useState({
         subject: '',
@@ -27,7 +27,13 @@ export default function SendNotifications() {
         setFetchNotificationSuccess_admin,
         notifications_admin,
         setNotifications_admin,
-    } = notifications
+    } = notifications;
+
+
+    const {
+        setProfileLoadingAgain,
+        setProfileData,
+    } = user.profile;
 
     const submitForm = (e) => {
         e.preventDefault();
@@ -37,11 +43,11 @@ export default function SendNotifications() {
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.pushNotification_admin(inp, setSendingNotificatio_admin, setInp)
+                api.pushNotification_admin(inp, setSendingNotificatio_admin, setInp, setProfileData, setProfileLoadingAgain)
             }, 2000);
         }
         else {
-            api.pushNotification_admin(inp, setSendingNotificatio_admin, setInp)
+            api.pushNotification_admin(inp, setSendingNotificatio_admin, setInp, setProfileData, setProfileLoadingAgain)
         }
     }
 

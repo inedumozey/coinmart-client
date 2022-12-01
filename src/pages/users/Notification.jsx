@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate, useParams } from 'react-router-dom';
+import Notification_C from '../../components/user/notifications/Notification';
 
 export default function Notification() {
     const navigate = useNavigate();
@@ -11,7 +12,5 @@ export default function Notification() {
             navigate("/auth/signin")
         }
     }, [])
-    return (
-        <div>Selected Notification with id: {params.id}</div>
-    )
+    return <Notification_C id={params.id} />
 }

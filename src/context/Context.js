@@ -172,6 +172,8 @@ function ContextApi() {
     const [profileLoadingAgain, setProfileLoadingAgain] = useState(false); // subsequent call to get profile data
     const [fetchProfileSuccess, setFetchProfileSuccess] = useState(false);
     const [fetchProfileMsg, setFetchProfileMsg] = useState("");
+    const [readingNotification, setReadingNotification] = useState(false);
+    const [readingNotificationSuccess, setReadingNotificationSuccess] = useState(false);
 
     // profile image uplaod
     const [profileImageLoading, setProfileImageLoading] = useState(false);
@@ -214,13 +216,7 @@ function ContextApi() {
     const [fetchingNotification_admin, setFetchingNotification_admin] = useState(false)
     const [fetchNotificationSuccess_admin, setFetchNotificationSuccess_admin] = useState(false)
     const [notifications_admin, setNotifications_admin] = useState([])
-
-
-    // notifications --user
-    const [fetchingNotification_user, setFetchingNotification_user] = useState(false)
-    const [fetchNotificationSuccess_user, setFetchNotificationSuccess_user] = useState(false)
-    const [notifications_user, setNotifications_user] = useState([])
-
+    const [selectedNotification, setSelectedNotification] = useState('')
 
     const links = [
         { url: '/dashboard/my-packages', name: 'My Packages', icon: DashboardIcon },
@@ -263,7 +259,11 @@ function ContextApi() {
                 setEditProfileLoading,
                 editProfileLoading,
                 profileLoadingAgain,
-                setProfileLoadingAgain
+                setProfileLoadingAgain,
+                setReadingNotification,
+                readingNotification,
+                setReadingNotificationSuccess,
+                readingNotificationSuccess,
             },
             profileImage: {
                 setProfileImageLoading,
@@ -504,6 +504,8 @@ function ContextApi() {
             setFetchNotificationSuccess_admin,
             notifications_admin,
             setNotifications_admin,
+            setSelectedNotification,
+            selectedNotification
         }
     }
 

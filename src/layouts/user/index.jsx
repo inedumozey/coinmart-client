@@ -9,6 +9,7 @@ import Copyright from '../../components/Copyright';
 import TickerTap from '../../components/tradeView/TickerTape';
 import { useLocation } from 'react-router-dom'
 import Typewriter from 'typewriter-effect';
+import Profile from '../../components/admin/users/user/Profile';
 
 
 const api = new apiClass();
@@ -22,9 +23,14 @@ export default function User({ children }) {
     const { user, contact, movingText } = useContext(Context);
     const {
         setProfileData,
+        profileData,
         setProfileLoading,
         setFetchProfileSuccess,
-        setFetchProfileMsg
+        setFetchProfileMsg,
+        newNotifications,
+        setNewNotifications,
+        newNotificationCounts,
+        setNewNotificationCounts,
     } = user.profile;
 
     let currentRouteName;
@@ -40,7 +46,11 @@ export default function User({ children }) {
     if (location.pathname.includes('/dashboard/verify-account')) currentRouteName = "Account Verification"
     if (location.pathname.includes('/dashboard/tickets')) currentRouteName = "Tickets"
     if (location.pathname.includes('/dashboard/transactions')) currentRouteName = "Transactions"
-    if (location.pathname.includes('/dashboard/security')) currentRouteName = "Security";;
+    if (location.pathname.includes('/dashboard/security')) currentRouteName = "Security";
+
+    useEffect(() => {
+        setNewNotificationCounts(profileData.newNotifications?.length);
+    }, [profileData])
 
 
     useEffect(() => {

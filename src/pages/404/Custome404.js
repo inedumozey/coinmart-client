@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Image from 'react-bootstrap/Image';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function Custome404() {
     const navigate = useNavigate();
@@ -11,8 +11,6 @@ export default function Custome404() {
     setTimeout(() => {
         navigate('/')
     }, time)
-
-
 
 
     return (
