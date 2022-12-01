@@ -28,9 +28,10 @@ export default function Notifications() {
         setProfileLoadingAgain
     } = user.profile;
 
+
     const {
         setSelectedNotification,
-        selectedNotification
+        setFetchOneNotificationSuccess
     } = notifications
 
     useEffect(() => {
@@ -40,27 +41,26 @@ export default function Notifications() {
     }, [])
 
 
-    const handleRead = (id) => {
-        setSelectedId(id)
-        setReadingNotification(true)
+    const handleRead = (data) => {
+        setSelectedId(data._id)
+        setReadingNotification(true);
+
 
         // if accesstoken not there, refresh it before proceeding, otherwise, proceed straight up
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.readNotification_user(id, setReadingNotification, setReadingNotificationSuccess, setSelectedNotification, setProfileData, setProfileLoadingAgain, navigate)
+                api.readNotification_user(data, setReadingNotification, setReadingNotificationSuccess, setProfileData, setProfileLoadingAgain, navigate, setSelectedNotification, setFetchOneNotificationSuccess)
             }, 2000);
         }
         else {
             setTimeout(() => {
-                api.readNotification_user(id, setReadingNotification, setReadingNotificationSuccess, setSelectedNotification, setProfileData, setProfileLoadingAgain, navigate)
+                api.readNotification_user(data, setReadingNotification, setReadingNotificationSuccess, setProfileData, setProfileLoadingAgain, navigate, setSelectedNotification, setFetchOneNotificationSuccess)
             }, 1000);
         }
     }
 
     const openNotification = (id) => {
-        setSelectedNotification(id)
-
         // open notification
         navigate(`/dashboard/notifications/${id}`)
 
@@ -86,34 +86,36 @@ export default function Notifications() {
                             Failed to fetch data! Please refresh
                         </div> :
 
-                        <>
-                            {
-                                profileData.newNotifications.length ?
-                                    profileData.newNotifications.map((item, i) => {
-                                        return <SubWrapper
-                                            key={i}
-                                            onClick={() => handleRead(item._id)}
-                                        >
-                                            <Preview data={item} type="new" />
-                                            {
-                                                selectedId === item._id && readingNotification ? <div className="loading"><Spinner_ size="sm" /></div> : ''
-                                            }
+                        !profileData.newNotifications?.length && !profileData.readNotifications?.length ?
+                            <div className="tag">No notifications at the moment</div> :
+                            <>
+                                {
+                                    profileData.newNotifications?.length ?
+                                        profileData.newNotifications.map((item, i) => {
+                                            return <SubWrapper
+                                                key={i}
+                                                onClick={() => handleRead(item)}
+                                            >
+                                                <Preview data={item} type="new" />
+                                                {
+                                                    selectedId === item._id && readingNotification ? <div className="loading"><Spinner_ size="sm" /></div> : ''
+                                                }
 
-                                        </SubWrapper>
-                                    }) : ''
-                            }
+                                            </SubWrapper>
+                                        }) : ''
+                                }
 
-                            {
-                                profileData.readNotifications.length ?
-                                    profileData.readNotifications.map((item, i) => {
-                                        return <SubWrapper
-                                            key={i}
-                                            onClick={() => openNotification(item._id)}>
-                                            <Preview data={item} type="read" />
-                                        </SubWrapper>
-                                    }) : ''
-                            }
-                        </>
+                                {
+                                    profileData.readNotifications?.length ?
+                                        profileData.readNotifications.map((item, i) => {
+                                            return <SubWrapper
+                                                key={i}
+                                                onClick={() => openNotification(item._id)}>
+                                                <Preview data={item} type="read" />
+                                            </SubWrapper>
+                                        }) : ''
+                                }
+                            </>
 
             }
 
@@ -138,10 +140,10 @@ const Wrapper = styled.div`
     @media (max-width: ${({ theme }) => theme.sm_screen}){
         padding: 10px ${({ theme }) => theme.sm_padding};
     }
-
-    .tag { 
-        font-weight: bold;
-        margin-bottom: 20px;
+     
+    .tag {
+        font-size: .65rem;
+        color: red;
     }
 `
 

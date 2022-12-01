@@ -1,54 +1,94 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
-import Cookies from 'js-cookie'
-import { Context } from '../../../context/Context'
-import apiClass from '../../../utils/api'
-import Spinner_ from '../../spinner/Spinner'
-import Skeleton from '../../Skeleton'
+import { Context } from '../../../context/Context';
+import Preview from '../../notifications/Preview';
+import Cookies from 'js-cookie';
+import Spinner_ from '../../spinner/Spinner';
+import apiClass from '../../../utils/api';
+import { useNavigate } from 'react-router-dom'
+import Skeleton from '../../Skeleton';
 
 const api = new apiClass()
 
 export default function Notifications() {
-    const { config } = useContext(Context);
-
+    const { notifications } = useContext(Context);
+    const navigate = useNavigate()
 
     const [load, setLoading] = useState(true)
 
-    useEffect(() => {
-        // setFetchingInvestments_admin(true)
-
-        // if accesstoken not there, refresh it before proceeding data, otherwise, get data straight up
-        if (!Cookies.get('accesstoken')) {
-            api.refreshToken()
-            setTimeout(() => {
-                // api.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
-            }, 2000);
-        }
-        else {
-            // api.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
-        }
-    }, []);
+    const {
+        fetchingNotification_admin,
+        setFetchingNotification_admin,
+        fetchNotificationSuccess_admin,
+        setFetchNotificationSuccess_admin,
+        notificationData_admin,
+        setNotificationData_admin
+    } = notifications
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 2000)
+        }, 1000)
     }, [])
+
+
+    useEffect(() => {
+        setFetchingNotification_admin(true);
+
+        // if accesstoken not there, refresh it before proceeding, otherwise, proceed straight up
+        if (!Cookies.get('accesstoken')) {
+            api.refreshToken()
+            setTimeout(() => {
+                api.fetchNotification_admin(setFetchingNotification_admin, setFetchNotificationSuccess_admin, setNotificationData_admin)
+            }, 2000);
+        }
+        else {
+            setTimeout(() => {
+                api.fetchNotification_admin(setFetchingNotification_admin, setFetchNotificationSuccess_admin, setNotificationData_admin)
+            }, 1000);
+        }
+    }, [])
+
+    const openNotification = (id) => {
+        // open notification
+        navigate(`/admin/notifications/${id}`)
+
+    }
 
     return (
         <Wrapper>
             {
-                load ?
-                    <div className='skeleton'>
-                        <Skeleton />
-                    </div>
+                load || fetchingNotification_admin ?
+                    [1, 2, 3].map((item, i) => {
+                        return <SubWrapper key={i}>
+                            <div className="title">
+                                <div style={{ width: '50%', height: '20px', marginBottom: '10px' }}><Skeleton /></div>
+                            </div>
+                            <div className="title">
+                                <div style={{ width: '30%', height: '10px' }}><Skeleton /></div>
+                            </div>
+                        </SubWrapper>
+                    })
                     :
-                    <div className="tag">No messages sent yet</div>
+                    !fetchNotificationSuccess_admin ?
+                        <div style={{ color: 'red', fontSize: '.7rem' }} className="center">
+                            Failed to fetch data! Please refresh
+                        </div> :
+
+                        notificationData_admin?.length ?
+                            notificationData_admin.map((item, i) => {
+                                return <SubWrapper
+                                    key={i}
+                                    onClick={() => openNotification(item._id)}>
+                                    <Preview data={item} type="read" />
+                                </SubWrapper>
+                            }) : <div className="tag">No notifications at the moment</div>
+
             }
+
         </Wrapper>
     )
 }
-
 
 
 const Wrapper = styled.div`
@@ -58,27 +98,33 @@ const Wrapper = styled.div`
     min-height: 70vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 20px ${({ theme }) => theme.lg_padding};
-        @media (max-width: ${({ theme }) => theme.md_screen}){
-            padding: 20px ${({ theme }) => theme.md_padding};
-        }
-        @media (max-width: ${({ theme }) => theme.sm_screen}){
-            padding: 20px ${({ theme }) => theme.sm_padding};
-            grid-template-columns: repeat( auto-fit, minmax(170px, 1fr) );
-        }
+    
+    padding: 10px ${({ theme }) => theme.lg_padding};
+    @media (max-width: ${({ theme }) => theme.md_screen}){
+        padding: 10px ${({ theme }) => theme.md_padding};
+    }
+    @media (max-width: ${({ theme }) => theme.sm_screen}){
+        padding: 10px ${({ theme }) => theme.sm_padding};
     }
 
-    .skeleton {
-        width: 80vw;
-        margin: auto;
-        height: 80vh;
-        padding: 10px;
-    }
-    
     .tag {
         font-size: .65rem;
         color: red;
     }
+`
+
+const SubWrapper = styled.div`
+    background: #fff;
+    min-height: 60px;
+    padding: 20px;
+    width: 100%;
+    cursor: pointer;
+    margin: 10px auto;
+    box-shadow: 2px 2px 5px #ccc;
+
+    &:hover {
+        opacity: .4;
+    }
+
 `

@@ -1422,7 +1422,7 @@ class apiClass {
     fetchNotification_admin = async (
         setFetchingNotification_admin,
         setFetchNotificationSuccess_admin,
-        setNotifications_admin,
+        setNotificationData_admin,
     ) => {
         setFetchingNotification_admin(true)
 
@@ -1436,7 +1436,7 @@ class apiClass {
 
             setFetchingNotification_admin(false)
             setFetchNotificationSuccess_admin(true)
-            setNotifications_admin(data.data)
+            setNotificationData_admin(data.data)
         }
         catch (err) {
             if (err.response) {
@@ -1452,11 +1452,11 @@ class apiClass {
 
     fetchOneNotification_admin = async (
         id,
-        setFetchingOneNotification_admin,
-        setFetchOneNotificationSuccess_admin,
-        setNotification_admin,
+        setFetchingOneNotification,
+        setFetchOneNotificationSuccess,
+        setSelectedNotification
     ) => {
-        setFetchingOneNotification_admin(true)
+        setFetchingOneNotification(true)
 
         try {
             const { data } = await axios.get(`${BASE_URL}/notifications/admin/${id}`, {
@@ -1466,33 +1466,34 @@ class apiClass {
                 }
             });
 
-            setFetchingOneNotification_admin(false)
-            setFetchOneNotificationSuccess_admin(true)
-            setNotification_admin(data.data)
+            setFetchingOneNotification(false)
+            setFetchOneNotificationSuccess(true)
+            setSelectedNotification(data.data)
         }
         catch (err) {
             if (err.response) {
-                setFetchingOneNotification_admin(false);
-                setFetchOneNotificationSuccess_admin(false)
+                setFetchingOneNotification(false);
+                setFetchOneNotificationSuccess(false)
             }
             else {
-                setFetchingOneNotification_admin(false);
-                setFetchOneNotificationSuccess_admin(false)
+                setFetchingOneNotification(false);
+                setFetchOneNotificationSuccess(false)
             }
         }
     }
 
     readNotification_user = async (
-        id,
+        data_,
         setReadingNotification,
         setReadingNotificationSuccess,
-        setSelectedNotification,
         setProfileData,
         setProfileLoadingAgain,
-        navigate
+        navigate,
+        setSelectedNotification,
+        setFetchOneNotificationSuccess
     ) => {
         setReadingNotification(true)
-
+        const id = data_._id;
         try {
             const { data } = await axios.put(`${BASE_URL}/notifications/read/${id}`, {}, {
                 headers: {
@@ -1501,24 +1502,62 @@ class apiClass {
             });
             // refresh profile data
             this.fetchProfileAgain(setProfileData, setProfileLoadingAgain);
-
+            setSelectedNotification(data_)
             setReadingNotification(false)
             setReadingNotificationSuccess(true);
-            setSelectedNotification(id)
-            navigate(`/dashboard/notifications/${id}`)
+            setFetchOneNotificationSuccess(true)
+            navigate(`/dashboard/notifications/${data_._id}`)
 
         }
         catch (err) {
             if (err.response) {
                 setReadingNotification(false);
+                setFetchOneNotificationSuccess(false)
                 setReadingNotificationSuccess(false)
             }
             else {
                 setReadingNotification(false);
+                setFetchOneNotificationSuccess(false)
                 setReadingNotificationSuccess(false)
             }
         }
     }
+
+    deleteeNotification_user = async (
+        id,
+        setDeletetingNotification,
+        setProfileData,
+        setProfileLoadingAgain,
+        navigate
+    ) => {
+        setDeletetingNotification(true)
+
+        try {
+            const { data } = await axios.put(`${BASE_URL}/notifications/delete/${id}`, {}, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+            // refresh profile data
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain);
+            toast(data.msg, { type: 'success' });
+
+            setDeletetingNotification(false)
+            navigate(`/dashboard/notifications`)
+
+        }
+        catch (err) {
+            if (err.response) {
+                setDeletetingNotification(false);
+                toast(err.response.data.msg, { type: 'error' });
+            }
+            else {
+                setDeletetingNotification(false);
+                toast(err.message, { type: 'error' });
+            }
+        }
+    }
 }
+
 
 export default apiClass;

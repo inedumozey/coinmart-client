@@ -215,8 +215,11 @@ function ContextApi() {
     const [sendingNotificatio_admin, setSendingNotificatio_admin] = useState(false)
     const [fetchingNotification_admin, setFetchingNotification_admin] = useState(false)
     const [fetchNotificationSuccess_admin, setFetchNotificationSuccess_admin] = useState(false)
-    const [notifications_admin, setNotifications_admin] = useState([])
+    const [notificationData_admin, setNotificationData_admin] = useState([])
     const [selectedNotification, setSelectedNotification] = useState('')
+    const [fetchOneNotificationSuccess, setFetchOneNotificationSuccess] = useState(false)
+    const [fetchingOneNotification, setFetchingOneNotification] = useState(false)
+    const [deletetingNotification, setDeletetingNotification] = useState(false)
 
     const links = [
         { url: '/dashboard/my-packages', name: 'My Packages', icon: DashboardIcon },
@@ -502,10 +505,16 @@ function ContextApi() {
             setFetchingNotification_admin,
             fetchNotificationSuccess_admin,
             setFetchNotificationSuccess_admin,
-            notifications_admin,
-            setNotifications_admin,
+            notificationData_admin,
+            setNotificationData_admin,
             setSelectedNotification,
-            selectedNotification
+            selectedNotification,
+            setFetchOneNotificationSuccess,
+            fetchOneNotificationSuccess,
+            setFetchingOneNotification,
+            fetchingOneNotification,
+            setDeletetingNotification,
+            deletetingNotification,
         }
     }
 

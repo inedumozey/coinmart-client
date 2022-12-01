@@ -1,56 +1,76 @@
-
-
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
-import Cookies from 'js-cookie'
-import { Context } from '../../../context/Context'
-import apiClass from '../../../utils/api'
-import Spinner_ from '../../spinner/Spinner'
-import Skeleton from '../../Skeleton'
+import { Context } from '../../../context/Context';
+import Cookies from 'js-cookie';
+import apiClass from '../../../utils/api';
+import { useNavigate } from 'react-router-dom'
+import Skeleton from '../../Skeleton';
+import FullData from '../../notifications/FullData';
 
 const api = new apiClass()
 
 export default function Notification({ id }) {
-    const { config } = useContext(Context);
-
+    const { notifications } = useContext(Context);
 
     const [load, setLoading] = useState(true)
 
-    useEffect(() => {
-        // setFetchingInvestments_admin(true)
-
-        // if accesstoken not there, refresh it before proceeding data, otherwise, get data straight up
-        if (!Cookies.get('accesstoken')) {
-            api.refreshToken()
-            setTimeout(() => {
-                // api.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
-            }, 2000);
-        }
-        else {
-            // api.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
-        }
-    }, []);
+    const {
+        setSelectedNotification,
+        selectedNotification,
+        setFetchOneNotificationSuccess,
+        fetchOneNotificationSuccess,
+        setFetchingOneNotification,
+        fetchingOneNotification,
+    } = notifications
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 2000)
+        }, 1000)
+    }, [])
+
+
+    useEffect(() => {
+        setFetchingOneNotification(true);
+
+        // if accesstoken not there, refresh it before proceeding, otherwise, proceed straight up
+        if (!Cookies.get('accesstoken')) {
+            api.refreshToken()
+            setTimeout(() => {
+                api.fetchOneNotification_admin(id, setFetchingOneNotification, setFetchOneNotificationSuccess, setSelectedNotification)
+            }, 2000);
+        }
+        else {
+            setTimeout(() => {
+                api.fetchOneNotification_admin(id, setFetchingOneNotification, setFetchOneNotificationSuccess, setSelectedNotification)
+            }, 1000);
+        }
     }, [])
 
     return (
         <Wrapper>
             {
-                load ?
-                    <div className='skeleton'>
-                        <Skeleton />
-                    </div>
+                load || fetchingOneNotification || !selectedNotification ?
+                    [1].map((item, i) => {
+                        return <SubWrapper key={i}>
+                            <div className="title">
+                                <div style={{ width: '50%', height: '20px', marginBottom: '10px' }}><Skeleton /></div>
+                            </div>
+                            <div className="title">
+                                <div style={{ width: '30%', height: '10px' }}><Skeleton /></div>
+                            </div>
+                        </SubWrapper>
+                    })
                     :
-                    <div className="tag">Viewing Notification for {id} </div>
+                    !fetchOneNotificationSuccess ?
+                        <div style={{ color: 'red', fontSize: '.7rem' }} className="center">
+                            Failed to fetch data! Please refresh
+                        </div> : <FullData data={selectedNotification} />
             }
+
         </Wrapper>
     )
 }
-
 
 
 const Wrapper = styled.div`
@@ -60,27 +80,33 @@ const Wrapper = styled.div`
     min-height: 70vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 20px ${({ theme }) => theme.lg_padding};
-        @media (max-width: ${({ theme }) => theme.md_screen}){
-            padding: 20px ${({ theme }) => theme.md_padding};
-        }
-        @media (max-width: ${({ theme }) => theme.sm_screen}){
-            padding: 20px ${({ theme }) => theme.sm_padding};
-            grid-template-columns: repeat( auto-fit, minmax(170px, 1fr) );
-        }
+    
+    padding: 10px ${({ theme }) => theme.lg_padding};
+    @media (max-width: ${({ theme }) => theme.md_screen}){
+        padding: 10px ${({ theme }) => theme.md_padding};
+    }
+    @media (max-width: ${({ theme }) => theme.sm_screen}){
+        padding: 10px ${({ theme }) => theme.sm_padding};
     }
 
-    .skeleton {
-        width: 80vw;
-        margin: auto;
-        height: 80vh;
-        padding: 10px;
-    }
-    
     .tag {
         font-size: .65rem;
         color: red;
     }
+`
+
+const SubWrapper = styled.div`
+    background: #fff;
+    min-height: 60px;
+    padding: 20px;
+    width: 100%;
+    cursor: pointer;
+    margin: 10px auto;
+    box-shadow: 2px 2px 5px #ccc;
+
+    &:hover {
+        opacity: .4;
+    }
+
 `
