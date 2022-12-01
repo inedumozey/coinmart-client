@@ -7,6 +7,7 @@ import Modal from '../../Modal';
 import Btn from '../../Btn/Btn';
 import { Context } from '../../../context/Context';
 import MarkdownContent from '../../MarkdownContent';
+import InfoIcon from '@mui/icons-material/Info';
 
 const api = new apiClass()
 
@@ -53,7 +54,10 @@ export default function SendNotifications() {
 
     return (
         <Wrapper>
-            <div onClick={() => { setShowModal(true) }} className="add-plan">Preview</div>
+            <div className="actions">
+                <div onClick={() => { setShowModal(true) }} className="add-plan">Preview</div>
+                <div onClick={() => { window.open("https://www.markdownguide.org/cheat-sheet/", '_blank') }} className="help"> < InfoIcon /> </div>
+            </div>
             <Modal
                 title="Preview"
                 show={showModal}
@@ -132,25 +136,47 @@ const Wrapper = styled.div`
         }
     }
 
-    .add-plan {
+    .actions {
         position: fixed;
-        cursor: pointer;
-        padding: 1px 8px;
-        font-size: .8rem;
-        color: #fff;
-        background: rgb(0 123 255 / 43%);
-        border: 1px solid rgb(0 123 255 / 43%);
         top: 70px;
         right: 10px;
-        transition: ${({ theme }) => theme.transition};
         text-align: center;
         border-radius: 15px;
         z-index: 1000;
+        width: 90px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        &:hover {
-            background: rgb(255 255 255 / 43%);
+        .help {
+            cursor: pointer;
+            font-size: .8rem;
+            color: rgb(0 123 255 / 43%);
+            transition: ${({ theme }) => theme.transition};
+            text-align: center;
+            border-radius: 50%;
+
+            &:hover {
+                color: var(--blue);
+            }
+        }
+
+        .add-plan {
+            cursor: pointer;
+            padding: 1px 8px;
+            font-size: .8rem;
+            color: #fff;
+            background: rgb(0 123 255 / 43%);
             border: 1px solid rgb(0 123 255 / 43%);
-            color: var(--blue);
+            transition: ${({ theme }) => theme.transition};
+            text-align: center;
+            border-radius: 15px;
+
+            &:hover {
+                background: rgb(255 255 255 / 43%);
+                border: 1px solid rgb(0 123 255 / 43%);
+                color: var(--blue);
+            }
         }
     }
 
