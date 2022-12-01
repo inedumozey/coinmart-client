@@ -13,7 +13,9 @@ const api = new apiClass()
 export default function Notifications() {
     const { user, notifications } = useContext(Context);
     const [selectedId, setSelectedId] = useState('');
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [sortedData_new, setSortedData_new] = useState([])
+    const [sortedData_read, setSortedData_read] = useState([])
 
     const [load, setLoading] = useState(true)
 
@@ -40,6 +42,23 @@ export default function Notifications() {
         }, 1000)
     }, [])
 
+
+    useEffect(() => {
+        const data_read = profileData?.readNotifications?.sort((a, b) => {
+            if (a.createdAt > b.createdAt) return -1
+            if (a.createdAt < b.createdAt) return 1
+            if (a.createdAt == b.createdAt) return 0
+        })
+
+        const data_new = profileData?.newNotifications?.sort((a, b) => {
+            if (a.createdAt > b.createdAt) return -1
+            if (a.createdAt < b.createdAt) return 1
+            if (a.createdAt == b.createdAt) return 0
+        })
+
+        setSortedData_read(data_read)
+        setSortedData_new(data_new)
+    }, [profileData.readNotifications, profileData.newNotifications])
 
     const handleRead = (data) => {
         setSelectedId(data._id)
@@ -91,7 +110,7 @@ export default function Notifications() {
                             <>
                                 {
                                     profileData.newNotifications?.length ?
-                                        profileData.newNotifications.map((item, i) => {
+                                        sortedData_new.map((item, i) => {
                                             return <SubWrapper
                                                 key={i}
                                                 onClick={() => handleRead(item)}
@@ -107,7 +126,7 @@ export default function Notifications() {
 
                                 {
                                     profileData.readNotifications?.length ?
-                                        profileData.readNotifications.map((item, i) => {
+                                        sortedData_read.map((item, i) => {
                                             return <SubWrapper
                                                 key={i}
                                                 onClick={() => openNotification(item._id)}>

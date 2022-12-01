@@ -12,7 +12,8 @@ const api = new apiClass()
 
 export default function Notifications() {
     const { notifications } = useContext(Context);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [sortedData, setSortedData] = useState([])
 
     const [load, setLoading] = useState(true)
 
@@ -30,7 +31,6 @@ export default function Notifications() {
             setLoading(false)
         }, 1000)
     }, [])
-
 
     useEffect(() => {
         setFetchingNotification_admin(true);
@@ -76,14 +76,13 @@ export default function Notifications() {
                         </div> :
 
                         notificationData_admin?.length ?
-                            notificationData_admin.map((item, i) => {
+                        notificationData_admin.map((item, i) => {
                                 return <SubWrapper
                                     key={i}
                                     onClick={() => openNotification(item._id)}>
                                     <Preview data={item} type="read" />
                                 </SubWrapper>
                             }) : <div className="tag">No notifications at the moment</div>
-
             }
 
         </Wrapper>
