@@ -46,7 +46,7 @@ export default function FullData({ data }) {
     return (
         <SubWrapper showDropDown={showDropDown}>
             {
-                !Cookies.get('extratoken') && Cookies.get('accesstoken') ?
+                !Cookies.get('extratoken') && Cookies.get('refreshtoken') ?
 
                     <>
                         <div
