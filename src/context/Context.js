@@ -157,7 +157,7 @@ function ContextApi() {
 
     const admin_withdrawalLinks = [
         { url: '/admin/withdrawal/request', name: 'Request', icon: SavingsIcon },
-        { url: '/admin/withdrawal/confirmed', name: 'Confimred', icon: CreditScoreIcon },
+        { url: '/admin/withdrawal/confirmed', name: 'Confirmed', icon: CreditScoreIcon },
         { url: '/admin/withdrawal/rejected', name: 'Rejected', icon: CreditScoreIcon },
     ]
 
@@ -220,6 +220,9 @@ function ContextApi() {
     const [fetchOneNotificationSuccess, setFetchOneNotificationSuccess] = useState(false)
     const [fetchingOneNotification, setFetchingOneNotification] = useState(false)
     const [deletetingNotification, setDeletetingNotification] = useState(false)
+
+    // contact us
+    const [sendingMsg, setSendingMsg] = useState(false)
 
     const links = [
         { url: '/dashboard/my-packages', name: 'My Packages', icon: DashboardIcon },
@@ -325,6 +328,10 @@ function ContextApi() {
                 userData_user,
                 setUserData_user,
             },
+            contactUs: {
+                sendingMsg,
+                setSendingMsg,
+            }
         },
 
         admin: {

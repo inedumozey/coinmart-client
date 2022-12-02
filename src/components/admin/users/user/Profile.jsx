@@ -1,12 +1,11 @@
 import styled from 'styled-components'
 
-
 export default function Profile({ data }) {
 
     return (
         <Wrapper>
             <div className="user img">
-                <img src={data.profile && data.profile.profilePicUrl ? data.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile image" />
+                <img src={data.profile && data.profile.profilePicUrl} alt="profile image" />
             </div>
 
             <div className='user'>
@@ -56,7 +55,7 @@ export default function Profile({ data }) {
                                 return { color: 'inherit' }
                             }
                         }())
-                    }>{data.Role} {data.isSupperAdmin ? `(SUPPER ADMIN)` : `(${data.Role})`}</span>
+                    }>{data.Role} {data.isSupperAdmin ? `SUPER ADMIN` : data.Role}</span>
             </div>
             <div className='user'>
                 <span className="name">Referred By: </span>

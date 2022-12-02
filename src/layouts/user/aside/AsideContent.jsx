@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../../../context/Context';
@@ -83,7 +83,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, setExpanded
                                                     }())
                                                 }>
                                                     {" "}
-                                                    {`(${profileData.isSupperAdmin && profileData.role.toLowerCase() == 'admin' ? "SUPPER ADMIN" : profileData.role})`}
+                                                    {`(${profileData.isSupperAdmin && profileData.role.toLowerCase() == 'admin' ? "SUPER ADMIN" : profileData.role})`}
                                                 </span>
                                             </div>
 

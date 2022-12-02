@@ -16,9 +16,6 @@ export default function Transfer() {
     const { user, config } = useContext(Context);
     const { configData } = config
     const {
-        profileData,
-        profileLoading,
-        fetchProfileSuccess,
         profileLoadingAgain,
         setProfileLoadingAgain,
         setProfileData,

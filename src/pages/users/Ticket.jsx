@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Ticket_C from '../../components/user/ticket/Ticket';
 
 export default function Ticket() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function Ticket() {
             navigate("/auth/signin")
         }
     }, [])
-    return (
-        <div>Ticket</div>
-    )
+    return <Ticket_C />
 }

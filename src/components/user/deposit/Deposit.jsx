@@ -13,7 +13,12 @@ const api = new apiClass()
 export default function Deposit() {
 
     const { user, config } = useContext(Context);
-    const { configData } = config
+    const { configData } = config;
+
+    const {
+        setProfileLoadingAgain,
+        setProfileData,
+    } = user.profile;
 
     const {
         depositLoading,

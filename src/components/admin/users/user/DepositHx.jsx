@@ -1,7 +1,7 @@
 import React from 'react'
+import DepositHxData from './DepositHxData'
 
-export default function DepositHx({ data, type }) {
-    return (
-        <div>DepositHx</div>
-    )
+export default function WithdrawalHx({ data, selectedUser }) {
+
+    return <DepositHxData selectedUser={selectedUser} data={data} />
 }

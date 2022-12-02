@@ -4,7 +4,6 @@ import { Context } from '../../../../context/Context';
 import apiClass from '../../../../utils/api';
 import Skeleton from '../../../Skeleton';
 import Cookies from 'js-cookie'
-
 import TransferHx from './TransferHx';
 import WithdrawalHx from './WithdrawalHx';
 import InvestmentHx from './InvestmentHx';
@@ -29,6 +28,7 @@ export default function User({ selectedUser }) {
         setUserDataSuccess_admin,
         userData_admin,
         setUserData_admin,
+
 
         // fetchingUserData_user,
         // setFetchingUserData_user,
@@ -62,6 +62,8 @@ export default function User({ selectedUser }) {
         }, 2000)
     }, [])
 
+
+
     return (
         <Wrapper>
 
@@ -81,7 +83,6 @@ export default function User({ selectedUser }) {
                         <div className="tag-error">Faild to fetch data, please refresh the brouser</div> :
                         <>
                             <SubWrapper>
-                                <div className="tag">Profile</div>
                                 <Profile data={userData_admin.profile} type="profile" />
                             </SubWrapper>
 
@@ -90,7 +91,7 @@ export default function User({ selectedUser }) {
                                 {
                                     !userData_admin.deposit.length ?
                                         <div className="tag-error">Empty</div> :
-                                        <DepositHx data={userData_admin.deposit} type="deposit" />
+                                        <DepositHx selectedUser={selectedUser} data={userData_admin.deposit} type="deposit" />
                                 }
                             </SubWrapper>
 
@@ -108,7 +109,7 @@ export default function User({ selectedUser }) {
                                 {
                                     !userData_admin.investment.length ?
                                         <div className="tag-error">Empty</div> :
-                                        <InvestmentHx data={userData_admin.investment} type="investment" />
+                                        <InvestmentHx selectedUser={selectedUser} data={userData_admin.investment} type="investment" />
                                 }
                             </SubWrapper>
 
@@ -117,7 +118,7 @@ export default function User({ selectedUser }) {
                                 {
                                     !userData_admin.withdrawal.length ?
                                         <div className="tag-error">Empty</div> :
-                                        <WithdrawalHx data={userData_admin.withdrawal} type="withdrawal" />
+                                        <WithdrawalHx selectedUser={selectedUser} data={userData_admin.withdrawal} type="withdrawal" />
                                 }
                             </SubWrapper>
 

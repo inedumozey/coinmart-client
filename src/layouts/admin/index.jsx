@@ -70,7 +70,16 @@ export default function Admin({ children }) {
 }
 
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            opacity:.6
+        }
+    };
+`
 
 const MainStyle = styled.div`;
     position: absolute;

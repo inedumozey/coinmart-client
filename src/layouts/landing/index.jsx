@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from './header/Header';
 import Footer from './footer/Footer';
 import { useLocation } from "react-router-dom";
+import styled from 'styled-components';
 
 export default function Landing({ children }) {
     const location = useLocation();
@@ -12,7 +13,7 @@ export default function Landing({ children }) {
     const footerHeight = '300px'
 
     return (
-        <div>
+        <Wrapper>
             <div
                 style={{
                     width: '100vw',
@@ -40,6 +41,18 @@ export default function Landing({ children }) {
             >
                 <Footer />
             </div>
-        </div >
+        </Wrapper >
     )
 }
+
+
+const Wrapper = styled.div`
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            opacity:.6
+        }
+    };
+`

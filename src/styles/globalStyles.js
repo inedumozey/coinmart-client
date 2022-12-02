@@ -101,14 +101,14 @@ const GlobalStyle = createGlobalStyle`
             color: var(--major-cclicked={clicked} index={index} isActive={isActive}olor-purest);
         };
 
-        a {
-            color: inherit;
-            text-decoration: none;
+        // a {
+        //     color: inherit;
+        //     text-decoration: none;
 
-            &:hover {
-                opacity:.6
-            }
-        };
+        //     &:hover {
+        //         opacity:.6
+        //     }
+        // };
         
         .link {
             padding: 0;

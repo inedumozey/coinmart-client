@@ -18,10 +18,6 @@ export default function Withdrawal() {
     const { configData } = config;
 
     const {
-        profileData,
-        profileLoading,
-        fetchProfileSuccess,
-        profileLoadingAgain,
         setProfileLoadingAgain,
         setProfileData,
     } = user.profile;

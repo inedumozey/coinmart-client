@@ -3,16 +3,16 @@ import styled from 'styled-components'
 import Cookies from 'js-cookie'
 import { useSnap } from '@mozeyinedu/hooks-lab';
 import filter from "@mozeyinedu/filter";
-import Btn from '../../Btn/Btn';
-import { Table } from '../../../styles/globalStyles';
-import { Context } from '../../../context/Context';
-import apiClass from '../../../utils/api';
-import Spinner_ from '../../spinner/Spinner';
-import Modal from '../../Modal';
+import Btn from '../../../Btn/Btn';
+import { Table } from '../../../../styles/globalStyles';
+import apiClass from '../../../../utils/api';
+import { Context } from '../../../../context/Context';
+import Spinner_ from '../../../spinner/Spinner';
+import Modal from '../../../Modal';
 
 const api = new apiClass()
 
-export default function DepositData() {
+export default function DepositHxData({ data, selectedUser }) {
     const { snap } = useSnap(.5)
     const { config, admin, num } = useContext(Context);
     const [inp, setInp] = useState('')
@@ -29,22 +29,27 @@ export default function DepositData() {
         setFetchingDepositData_refresh,
         setDepositData,
         showResolvingDepositModal,
-        setShowResolvingDepositModal,
-        depositData,
+        setShowResolvingDepositModal
     } = admin.deposit
 
-    const [filteredData, setFilter] = useState(depositData);
+
+    const {
+        setUserData_admin,
+        setFetchingUserData_admin_refesh,
+    } = admin.userHistory;
+
+    const [filteredData, setFilter] = useState(data);
 
     useEffect(() => {
         const newData = filter({
-            data: depositData,
+            data: data,
             keys: ["username", "status", 'code', "amountExpected", "amountReceived", "link", "comment"],
             input: inp
         })
 
         setFilter(newData)
 
-    }, [inp, depositData])
+    }, [inp, data])
 
     const handleViewMore = () => {
         setOpening(true)
@@ -79,10 +84,10 @@ export default function DepositData() {
                     setAmount,
                     setShowResolvingDepositModal,
                     setSelectedData,
-                    '',
-                    '',
-                    '',
-                    '',
+                    'hx',
+                    selectedUser,
+                    setUserData_admin,
+                    setFetchingUserData_admin_refesh,
                 )
             }, 2000);
         }
@@ -96,10 +101,10 @@ export default function DepositData() {
                 setAmount,
                 setShowResolvingDepositModal,
                 setSelectedData,
-                '',
-                '',
-                '',
-                '',
+                'hx',
+                selectedUser,
+                setUserData_admin,
+                setFetchingUserData_admin_refesh,
             )
         }
     }
@@ -110,7 +115,7 @@ export default function DepositData() {
             <div className="header">
                 <div className="stat-wrapper">
                     <div className="stat">
-                        <div>Total: {depositData?.length}</div>
+                        <div>Total: {data?.length}</div>
                     </div>
                 </div>
                 <div className="search-wrapper">
@@ -193,7 +198,7 @@ export default function DepositData() {
                 </table>
             </Table>
             {
-                count >= depositData.length ? '' :
+                count >= data.length ? '' :
 
                     <ViewMore>
 

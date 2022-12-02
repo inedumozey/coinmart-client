@@ -81,7 +81,7 @@ export default function SendNotifications() {
                 />
 
                 <div className='text-center text-md-start mt- pt-2'>
-                    <Btn color="var(--blue)" link={false}>
+                    <Btn disabled={sendingNotificatio_admin} color="var(--blue)" link={false}>
                         {sendingNotificatio_admin ? <Spinner_ size="sm" /> : "Send"}
                     </Btn>
                 </div>

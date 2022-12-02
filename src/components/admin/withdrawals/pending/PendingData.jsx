@@ -26,6 +26,11 @@ export default function PendingData() {
         fetchingPendingWithdrawalData_refresh,
         setFetchingPendingWithdrawalData_refresh,
 
+        setFetchingRejectedWithdrawalData_refresh,
+        setRejectedWithdrawalData,
+        setFetchingConfirmedWithdrawalData_refresh,
+        setConfirmedWithdrawalData,
+
         pendingWithdrawalData,
         setPendingWithdrawalData,
         showPendingWithdrawalModal,
@@ -84,7 +89,11 @@ export default function PendingData() {
                     setFetchingPendingWithdrawalData_refresh,
                     setPendingWithdrawalData,
                     setShowPendingWithdrawalModal,
-                    setSelectedData
+                    setSelectedData,
+                    '',
+                    '',
+                    '',
+                    '',
                 )
             }, 2000);
         }
@@ -96,7 +105,11 @@ export default function PendingData() {
                 setFetchingPendingWithdrawalData_refresh,
                 setPendingWithdrawalData,
                 setShowPendingWithdrawalModal,
-                setSelectedData
+                setSelectedData,
+                '',
+                '',
+                '',
+                '',
             )
         }
     }
@@ -116,7 +129,11 @@ export default function PendingData() {
                     setFetchingPendingWithdrawalData_refresh,
                     setPendingWithdrawalData,
                     setShowPendingWithdrawalModal,
-                    setSelectedData
+                    setSelectedData,
+                    '',
+                    '',
+                    '',
+                    '',
                 )
             }, 2000);
         }
@@ -128,7 +145,11 @@ export default function PendingData() {
                 setFetchingPendingWithdrawalData_refresh,
                 setPendingWithdrawalData,
                 setShowPendingWithdrawalModal,
-                setSelectedData
+                setSelectedData,
+                '',
+                '',
+                '',
+                '',
             )
         }
     }

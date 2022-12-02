@@ -10,9 +10,9 @@ import { Table } from '../../../../styles/globalStyles';
 
 const api = new apiClass()
 
-export default function HistoryData({ data }) {
+export default function HistoryData({ data, selectedUser }) {
     const { snap } = useSnap(.5)
-    const { config, investment, num } = useContext(Context);
+    const { config, investment, num, admin } = useContext(Context);
     const [inp, setInp] = useState('')
 
     const [count, setCount] = useState(num);
@@ -26,6 +26,12 @@ export default function HistoryData({ data }) {
         setFetchingInvestments_admin,
         setFetchInvestmentsMsg_admin
     } = investment.invest;
+
+
+    const {
+        setUserData_admin,
+        setFetchingUserData_admin_refesh,
+    } = admin.userHistory;
 
     const [filteredData, setFilter] = useState(data);
 
@@ -57,11 +63,31 @@ export default function HistoryData({ data }) {
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.resolveInvestments(item._id, setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin, setResolvingInvestment)
+                api.resolveInvestments(
+                    item._id,
+                    setInvestmentData_admin,
+                    setFetchingInvestments_admin,
+                    setFetchInvestmentsMsg_admin,
+                    setResolvingInvestment,
+                    'hx',
+                    selectedUser,
+                    setUserData_admin,
+                    setFetchingUserData_admin_refesh,
+                )
             }, 2000);
         }
         else {
-            api.resolveInvestments(item._id, setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin, setResolvingInvestment)
+            api.resolveInvestments(
+                item._id,
+                setInvestmentData_admin,
+                setFetchingInvestments_admin,
+                setFetchInvestmentsMsg_admin,
+                setResolvingInvestment,
+                'hx',
+                selectedUser,
+                setUserData_admin,
+                setFetchingUserData_admin_refesh,
+            )
         }
     }
 

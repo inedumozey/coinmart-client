@@ -120,7 +120,9 @@ export default function User({ children }) {
 
 
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+    
+`
 
 const MainStyle = styled.div`;
     position: absolute;

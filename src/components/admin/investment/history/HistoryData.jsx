@@ -57,11 +57,31 @@ export default function HistoryData({ data }) {
         if (!Cookies.get('accesstoken')) {
             api.refreshToken()
             setTimeout(() => {
-                api.resolveInvestments(item._id, setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin, setResolvingInvestment)
+                api.resolveInvestments(
+                    item._id,
+                    setInvestmentData_admin,
+                    setFetchingInvestments_admin,
+                    setFetchInvestmentsMsg_admin,
+                    setResolvingInvestment,
+                    '',
+                    '',
+                    '',
+                    '',
+                )
             }, 2000);
         }
         else {
-            api.resolveInvestments(item._id, setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin, setResolvingInvestment)
+            api.resolveInvestments
+                (item._id,
+                    setInvestmentData_admin,
+                    setFetchingInvestments_admin,
+                    setFetchInvestmentsMsg_admin,
+                    setResolvingInvestment,
+                    '',
+                    '',
+                    '',
+                    '',
+                )
         }
     }
 

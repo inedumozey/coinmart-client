@@ -49,6 +49,16 @@ const HeaderStyle = styled.div`
     text-align: center;
     box-shadow: 0 0 5px rgb(18 23 39 / 50%);
     z-index: 3;
+    
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            opacity:.6
+        }
+    };
+
     padding: 15px ${({ theme }) => theme.lg_padding};
     @media (max-width: ${({ theme }) => theme.md_screen}){
         padding: 15px ${({ theme }) => theme.md_padding};

@@ -7,7 +7,9 @@ const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 class apiClass {
     constructor() { }
 
-    fetchConfig = async (setConfigData) => {
+    fetchConfig = async (
+        setConfigData
+    ) => {
         try {
             const { data } = await axios.get(`${BASE_URL}/config`);
             setConfigData(data.data)
@@ -18,7 +20,11 @@ class apiClass {
 
     }
 
-    setCookies = (accesstoken, refreshtoken, role) => {
+    setCookies = (
+        accesstoken,
+        refreshtoken,
+        role
+    ) => {
         Cookies.set("accesstoken", accesstoken, {
             expires: new Date(new Date().getTime() + 1000 * 60 * 3), // 3 minutes (this is the same time backend accesstoken expires))
             secure: true,
@@ -36,7 +42,9 @@ class apiClass {
         });
     }
 
-    logout = (navigate) => {
+    logout = (
+        navigate
+    ) => {
         Cookies.remove('accesstoken')
         Cookies.remove('refreshtoken')
         Cookies.remove('role')
@@ -44,14 +52,18 @@ class apiClass {
         navigate('/');
     }
 
-    setAdminCookies = (token) => {
+    setAdminCookies = (
+        token
+    ) => {
         Cookies.set('extratoken', token, {
             secure: true,
             sameSite: 'strict'
         })
     }
 
-    logoutAdmin = (navigate) => {
+    logoutAdmin = (
+        navigate
+    ) => {
         Cookies.remove('extratoken')
 
         navigate('/dashboard');
@@ -80,7 +92,12 @@ class apiClass {
         // }
     }
 
-    fetchProfile = async (setProfileData, setProfileLoading, setFetchProfileSuccess, setFetchProfileMsg) => {
+    fetchProfile = async (
+        setProfileData,
+        setProfileLoading,
+        setFetchProfileSuccess,
+        setFetchProfileMsg
+    ) => {
         setProfileLoading(true)
         try {
             const { data } = await axios.get(`${BASE_URL}/auth/get-profile`, {
@@ -115,7 +132,10 @@ class apiClass {
         }
     }
 
-    fetchProfileAgain = async (setProfileData, setProfileLoadingAgain) => {
+    fetchProfileAgain = async (
+        setProfileData,
+        setProfileLoadingAgain
+    ) => {
         setProfileLoadingAgain(true)
         try {
             const { data } = await axios.get(`${BASE_URL}/auth/get-profile`, {
@@ -210,7 +230,13 @@ class apiClass {
         }
     }
 
-    updateConfig = async (setUpdatingConfig, inp, setConfigData, setCategory, category) => {
+    updateConfig = async (
+        setUpdatingConfig,
+        inp,
+        setConfigData,
+        setCategory,
+        category
+    ) => {
         setCategory(category)
         setUpdatingConfig(true);
         try {
@@ -310,7 +336,11 @@ class apiClass {
     }
 
     // investment plan
-    fetchPlans = async (setPlans, setFetchingPlans, setFetchingPlansSuccess) => {
+    fetchPlans = async (
+        setPlans,
+        setFetchingPlans,
+        setFetchingPlansSuccess
+    ) => {
         setFetchingPlans(true)
         try {
             const { data } = await axios.get(`${BASE_URL}/investment/plans`);
@@ -330,7 +360,10 @@ class apiClass {
         }
     }
 
-    refreshPlans = async (setPlans, setRefreshingPlans) => {
+    refreshPlans = async (
+        setPlans,
+        setRefreshingPlans
+    ) => {
         setRefreshingPlans(true)
         try {
             const { data } = await axios.get(`${BASE_URL}/investment/plans`);
@@ -350,7 +383,12 @@ class apiClass {
         }
     }
 
-    postPlan = async (data_, setPostingPlan, setPlans, setRefreshingPlans) => {
+    postPlan = async (
+        data_,
+        setPostingPlan,
+        setPlans,
+        setRefreshingPlans
+    ) => {
         setPostingPlan(true)
         try {
             const { data } = await axios.post(`${BASE_URL}/investment/plans`, data_, {
@@ -376,7 +414,13 @@ class apiClass {
         }
     }
 
-    updatePlan = async (data_, id, setUpdatingPlan, setPlans, setRefreshingPlans) => {
+    updatePlan = async (
+        data_,
+        id,
+        setUpdatingPlan,
+        setPlans,
+        setRefreshingPlans
+    ) => {
         setUpdatingPlan(true)
         try {
             const { data } = await axios.put(`${BASE_URL}/investment/plans/${id}`, data_, {
@@ -402,7 +446,12 @@ class apiClass {
         }
     }
 
-    deletePlan = async (id, setDeletingPlan, setPlans, setRefreshingPlans) => {
+    deletePlan = async (
+        id,
+        setDeletingPlan,
+        setPlans,
+        setRefreshingPlans
+    ) => {
 
         try {
             const { data } = await axios.delete(`${BASE_URL}/investment/plans/${id}`, {
@@ -429,13 +478,14 @@ class apiClass {
     }
 
     buyPlan = async (
-        data_, setInvestLoading,
+        data_,
+        setInvestLoading,
         setProfileData,
         setProfileLoadingAgain,
         setAmount,
         setOpenInvestModal
     ) => {
-
+        setInvestLoading(true)
         try {
             const { data } = await axios.post(`${BASE_URL}/investment/invest/${data_.id}`, data_, {
                 headers: {
@@ -462,6 +512,7 @@ class apiClass {
         }
     }
 
+    // automatic resolve investment
     resolveInvestment = async () => {
 
         try {
@@ -481,7 +532,11 @@ class apiClass {
         }
     }
 
-    adminGetAllInvestments = async (setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin) => {
+    adminGetAllInvestments = async (
+        setInvestmentData_admin,
+        setFetchingInvestments_admin,
+        setFetchInvestmentsMsg_admin
+    ) => {
         setFetchingInvestments_admin(true)
         try {
             const { data } = await axios.get(`${BASE_URL}/investment/get-all-investments-admin`, {
@@ -506,7 +561,11 @@ class apiClass {
         }
     }
 
-    userGetAllInvestments = async (setInvestmentData_users, setFetchingInvestments_users, setFetchInvestmentsMsg_users) => {
+    userGetAllInvestments = async (
+        setInvestmentData_users,
+        setFetchingInvestments_users,
+        setFetchInvestmentsMsg_users
+    ) => {
         setFetchingInvestments_users(true)
         try {
             const { data } = await axios.get(`${BASE_URL}/investment/get-all-investments`, {
@@ -531,7 +590,17 @@ class apiClass {
     }
 
     // manual by the supper admin
-    resolveInvestments = async (id, setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin, setResolvingInvestment) => {
+    resolveInvestments = async (
+        id,
+        setInvestmentData_admin,
+        setFetchingInvestments_admin,
+        setFetchInvestmentsMsg_admin,
+        setResolvingInvestment,
+        type,
+        selectedUser,
+        setUserData_admin,
+        setFetchingUserData_admin_refesh,
+    ) => {
         setResolvingInvestment(true)
         try {
             const { data } = await axios.put(`${BASE_URL}/investment/resolve-manual/${id}`, {}, {
@@ -541,11 +610,12 @@ class apiClass {
                 }
             });
 
+            type === 'hx' ? this.fetchUserHistory_admin_refresh(selectedUser, setUserData_admin, setFetchingUserData_admin_refesh) :
+                this.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
+
             setInvestmentData_admin(data)
             setResolvingInvestment(false)
             toast(data.msg, { type: 'success' })
-
-            this.adminGetAllInvestments(setInvestmentData_admin, setFetchingInvestments_admin, setFetchInvestmentsMsg_admin)
         }
         catch (err) {
             if (err.response) {
@@ -593,8 +663,8 @@ class apiClass {
         data_,
         setPayLoading,
         setTransferSuccess,
-        setProfileData,
-        setProfileLoadingAgain
+        setProfileLoadingAgain,
+        setProfileData
     ) => {
         setPayLoading(true)
         try {
@@ -603,12 +673,13 @@ class apiClass {
                     'authorization': `Bearer ${Cookies.get('accesstoken')}`
                 }
             });
+
+            // refresh profile data
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain);
+
             setPayLoading(false);
             setTransferSuccess(true)
             toast(data.msg, { type: 'success' });
-
-            // refresh profile data
-            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
         }
         catch (err) {
             if (err.response) {
@@ -639,6 +710,10 @@ class apiClass {
                     'authorization': `Bearer ${Cookies.get('accesstoken')}`
                 }
             });
+
+            // refresh profile data
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain);
+
             setWithdrawalLoading(false);
             setInp({
                 amount: null,
@@ -646,9 +721,6 @@ class apiClass {
                 coin: ''
             })
             toast(data.msg, { type: 'success' });
-
-            // refresh profile data
-            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain);
         }
         catch (err) {
             if (err.response) {
@@ -663,7 +735,11 @@ class apiClass {
     }
 
     // deposit
-    userDeposit = async (data_, setDepositLoading, setInp, window) => {
+    userDeposit = async (
+        data_,
+        setDepositLoading,
+        setInp, window
+    ) => {
         setDepositLoading(true);
         try {
             const { data } = await axios.post(`${BASE_URL}/deposit/`, data_, {
@@ -693,7 +769,11 @@ class apiClass {
         }
     }
 
-    getUsers = async (setFetchingUsers_initial, setFetchingUsersSuccess_initial, setUserData) => {
+    getUsers = async (
+        setFetchingUsers_initial,
+        setFetchingUsersSuccess_initial,
+        setUserData
+    ) => {
         setFetchingUsers_initial(true)
         try {
             const { data } = await axios.get(`${BASE_URL}/auth/get-users`, {
@@ -721,7 +801,10 @@ class apiClass {
         }
     }
 
-    refreshUsers = async (setFetchingUsers_refresh, setUserData) => {
+    refreshUsers = async (
+        setFetchingUsers_refresh,
+        setUserData
+    ) => {
         setFetchingUsers_refresh(true)
         try {
             const { data } = await axios.get(`${BASE_URL}/auth/get-users`, {
@@ -746,7 +829,12 @@ class apiClass {
         }
     }
 
-    toggleAdmin = async (id, toggleMakeAdminLoading, setFetchingUsers_refresh, setUserData) => {
+    toggleAdmin = async (
+        id,
+        toggleMakeAdminLoading,
+        setFetchingUsers_refresh,
+        setUserData
+    ) => {
         toggleMakeAdminLoading(true)
         try {
             const { data } = await axios.put(`${BASE_URL}/auth/toggle-admin/${id}`, {}, {
@@ -775,7 +863,12 @@ class apiClass {
         }
     }
 
-    toggleDeactivate = async (id, setToggleBockUserLoading, setFetchingUsers_refresh, setUserData) => {
+    toggleDeactivate = async (
+        id,
+        setToggleBockUserLoading,
+        setFetchingUsers_refresh,
+        setUserData
+    ) => {
         setToggleBockUserLoading(true)
         try {
             const { data } = await axios.put(`${BASE_URL}/auth/toggle-block-user/${id}`, {}, {
@@ -804,7 +897,12 @@ class apiClass {
         }
     }
 
-    deleteUser = async (id, setDeleteUserLoading, setFetchingUsers_refresh, setUserData) => {
+    deleteUser = async (
+        id,
+        setDeleteUserLoading,
+        setFetchingUsers_refresh,
+        setUserData
+    ) => {
         setDeleteUserLoading(true)
         try {
             const { data } = await axios.put(`${BASE_URL}/auth/delete-many-accounts/`, { id }, {
@@ -833,7 +931,11 @@ class apiClass {
     }
 
     //user referral
-    fetchReferralHx = async (setFetchReferralHxLoading, setReferralHxData, setFetchReferralHxSuccess) => {
+    fetchReferralHx = async (
+        setFetchReferralHxLoading,
+        setReferralHxData,
+        setFetchReferralHxSuccess
+    ) => {
 
         setFetchReferralHxLoading(true);
         try {
@@ -860,7 +962,12 @@ class apiClass {
         }
     }
 
-    addRefecode = async (refcode, setAddingRefcode, setProfileData, setProfileLoadingAgain) => {
+    addRefecode = async (
+        refcode,
+        setAddingRefcode,
+        setProfileData,
+        setProfileLoadingAgain
+    ) => {
 
         setAddingRefcode(true);
         try {
@@ -960,7 +1067,11 @@ class apiClass {
         setDepositData,
         setAmount,
         setShowResolvingDepositModal,
-        setSelectedData
+        setSelectedData,
+        type,
+        selectedUser,
+        setUserData_admin,
+        setFetchingUserData_admin_refesh,
     ) => {
         setResolvingDeposit(true)
         try {
@@ -970,7 +1081,8 @@ class apiClass {
                     'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
                 }
             });
-            this.getDepositAdmin_refresh(setFetchingDepositData_refresh, setDepositData);
+            type === 'hx' ? this.fetchUserHistory_admin_refresh(selectedUser, setUserData_admin, setFetchingUserData_admin_refesh) :
+                this.getDepositAdmin_refresh(setFetchingDepositData_refresh, setDepositData);
 
             setResolvingDeposit(false)
             toast(data.msg, { type: 'success' })
@@ -1178,7 +1290,11 @@ class apiClass {
         setFetchingPendingWithdrawalData_refresh,
         setPendingWithdrawalData,
         setShowPendingWithdrawalModal,
-        setSelectedData
+        setSelectedData,
+        type,
+        selectedUser,
+        setUserData_admin,
+        setFetchingUserData_admin_refesh,
     ) => {
         setConfirmingWithdrawal(true)
         try {
@@ -1189,8 +1305,10 @@ class apiClass {
                 }
             });
 
-            // refresh confirmed transactions
-            this.getPendingWithdrawal_refresh(setFetchingPendingWithdrawalData_refresh, setPendingWithdrawalData)
+            // refresh transactions
+            type === 'hx' ?
+                this.fetchUserHistory_admin_refresh(selectedUser, setUserData_admin, setFetchingUserData_admin_refesh) :
+                this.getPendingWithdrawal_refresh(setFetchingPendingWithdrawalData_refresh, setPendingWithdrawalData)
 
             setConfirmingWithdrawal(false)
             setConfirmingWithdrawalSuccess(true)
@@ -1219,7 +1337,11 @@ class apiClass {
         setFetchingPendingWithdrawalData_refresh,
         setPendingWithdrawalData,
         setShowPendingWithdrawalModal,
-        setSelectedData
+        setSelectedData,
+        type,
+        selectedUser,
+        setUserData_admin,
+        setFetchingUserData_admin_refesh,
     ) => {
         setRejectingWithdrawal(true)
         try {
@@ -1230,8 +1352,12 @@ class apiClass {
                 }
             });
 
-            // refresh pending transactions
-            this.getPendingWithdrawal_refresh(setFetchingPendingWithdrawalData_refresh, setPendingWithdrawalData)
+            // refresh transactions
+            type === 'hx' ?
+                this.fetchUserHistory_admin_refresh(selectedUser, setUserData_admin, setFetchingUserData_admin_refesh) :
+                this.getPendingWithdrawal_refresh(setFetchingPendingWithdrawalData_refresh, setPendingWithdrawalData)
+
+
             setRejectingWithdrawal(false)
             setRejectingWithdrawalSuccess(true)
 
@@ -1553,6 +1679,36 @@ class apiClass {
             }
             else {
                 setDeletetingNotification(false);
+                toast(err.message, { type: 'error' });
+            }
+        }
+    }
+
+    contactAdmin = async (
+        inp,
+        setSendingMsg,
+        setInp
+    ) => {
+        setSendingMsg(true)
+
+        try {
+            const { data } = await axios.put(`${BASE_URL}/profile/contact-admin/`, inp, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+
+            setSendingMsg(false)
+            toast(data.msg, { type: 'success' });
+            setInp({ subject: '', message: '' })
+        }
+        catch (err) {
+            if (err.response) {
+                setSendingMsg(false);
+                toast(err.response.data.msg, { type: 'error' });
+            }
+            else {
+                setSendingMsg(false);
                 toast(err.message, { type: 'error' });
             }
         }

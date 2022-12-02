@@ -34,6 +34,15 @@ const AsideStyle = styled.div`
     display: flex;
     flex-direction: column;
 
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            opacity:.6
+        }
+    };
+
     align-items: center;
     background: #fff;
     box-shadow: 0 0 5px rgb(18 23 39 / 50%);

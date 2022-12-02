@@ -5,7 +5,6 @@ import { Context } from '../../../context/Context'
 import apiClass from '../../../utils/api'
 import Spinner_ from '../../spinner/Spinner'
 import { Table } from '../../../styles/globalStyles'
-import { ScrollBar } from '../../../styles/globalStyles'
 import { useSnap } from '@mozeyinedu/hooks-lab';
 import filter from "@mozeyinedu/filter";
 import { useNavigate, Link } from 'react-router-dom';
@@ -218,7 +217,7 @@ export default function UserData() {
                                         {
                                             toggleMakeAdminLoading && selectedData._id === data._id ?
                                                 <div className="center"><Spinner_ size="sm" /></div> :
-                                                (data.role?.toLowerCase() === 'admin' && data.isSupperAdmin) ? "SUPPER ADMIN" : data.role?.toUpperCase()
+                                                (data.role?.toLowerCase() === 'admin' && data.isSupperAdmin) ? "SUPER ADMIN" : data.role?.toUpperCase()
 
                                         }
                                     </td>

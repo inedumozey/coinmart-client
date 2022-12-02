@@ -12,7 +12,7 @@ import Btn from '../../../Btn/Btn'
 
 const api = new apiClass()
 
-export default function WithdrawalHxData({ data }) {
+export default function WithdrawalHxData({ data, selectedUser }) {
     const { snap } = useSnap(.5)
     const { config, admin, num } = useContext(Context);
     const [inp, setInp] = useState('')
@@ -25,8 +25,6 @@ export default function WithdrawalHxData({ data }) {
     const {
         fetchingPendingWithdrawalData_refresh,
         setFetchingPendingWithdrawalData_refresh,
-
-        pendingWithdrawalData,
         setPendingWithdrawalData,
         showPendingWithdrawalModal,
         setShowPendingWithdrawalModal,
@@ -40,12 +38,18 @@ export default function WithdrawalHxData({ data }) {
         setConfirmingWithdrawalSuccess,
     } = admin.withdrawal
 
+
+    const {
+        setUserData_admin,
+        setFetchingUserData_admin_refesh,
+    } = admin.userHistory;
+
     const [filteredData, setFilter] = useState(data);
 
     useEffect(() => {
         const newData = filter({
             data: data,
-            keys: ["username", "email", 'walletAddress', "amount", "coin"],
+            keys: ["username", "email", 'walletAddress', "amount", "coin", "status"],
             input: inp
         })
 
@@ -84,7 +88,11 @@ export default function WithdrawalHxData({ data }) {
                     setFetchingPendingWithdrawalData_refresh,
                     setPendingWithdrawalData,
                     setShowPendingWithdrawalModal,
-                    setSelectedData
+                    setSelectedData,
+                    'hx',
+                    selectedUser,
+                    setUserData_admin,
+                    setFetchingUserData_admin_refesh,
                 )
             }, 2000);
         }
@@ -96,7 +104,11 @@ export default function WithdrawalHxData({ data }) {
                 setFetchingPendingWithdrawalData_refresh,
                 setPendingWithdrawalData,
                 setShowPendingWithdrawalModal,
-                setSelectedData
+                setSelectedData,
+                'hx',
+                selectedUser,
+                setUserData_admin,
+                setFetchingUserData_admin_refesh,
             )
         }
     }
@@ -116,7 +128,11 @@ export default function WithdrawalHxData({ data }) {
                     setFetchingPendingWithdrawalData_refresh,
                     setPendingWithdrawalData,
                     setShowPendingWithdrawalModal,
-                    setSelectedData
+                    setSelectedData,
+                    'hx',
+                    selectedUser,
+                    setUserData_admin,
+                    setFetchingUserData_admin_refesh,
                 )
             }, 2000);
         }
@@ -128,7 +144,11 @@ export default function WithdrawalHxData({ data }) {
                 setFetchingPendingWithdrawalData_refresh,
                 setPendingWithdrawalData,
                 setShowPendingWithdrawalModal,
-                setSelectedData
+                setSelectedData,
+                'hx',
+                selectedUser,
+                setUserData_admin,
+                setFetchingUserData_admin_refesh,
             )
         }
     }

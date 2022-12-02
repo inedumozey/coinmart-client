@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Context } from '../../../context/Context';
 import { ScrollBar } from '../../../styles/globalStyles';
 import Spinner_ from '../../../components/spinner/Spinner';
@@ -45,7 +45,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                     <>
                                         <div className="img">
                                             <div>
-                                                <img src={profileData.profile && profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile" />
+                                                <img src={profileData.profile && profileData.profile.profilePicUrl} alt="profile" />
                                             </div>
                                         </div>
                                         <div className="metadata">
@@ -66,7 +66,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                                     }())
                                                 }>
                                                     {" "}
-                                                    {`(${profileData.isSupperAdmin && profileData.role.toLowerCase() == 'admin' ? "SUPPER ADMIN" : profileData.role})`}
+                                                    {`(${profileData.isSupperAdmin && profileData.role.toLowerCase() == 'admin' ? "SUPER ADMIN" : profileData.role})`}
                                                 </span>
                                             </div>
 
