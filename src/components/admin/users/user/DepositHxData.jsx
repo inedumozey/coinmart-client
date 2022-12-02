@@ -117,6 +117,18 @@ export default function DepositHxData({ data, selectedUser }) {
                     <div className="stat">
                         <div>Total: {data?.length}</div>
                     </div>
+
+                    <div className="stat">
+                        <div>Initiated: {(data?.filter(data => data.status?.toLowerCase() === 'charge-created')).length}</div>
+                    </div>
+
+                    <div className="stat">
+                        <div>Confirmed: {(data?.filter(data => data.status?.toLowerCase() === 'charge-confirmed')).length}</div>
+                    </div>
+
+                    <div className="stat">
+                        <div>Failed/Canceled: {(data?.filter(data => data.status?.toLowerCase() === 'charge-failed')).length}</div>
+                    </div>
                 </div>
                 <div className="search-wrapper">
                     <div className="search">

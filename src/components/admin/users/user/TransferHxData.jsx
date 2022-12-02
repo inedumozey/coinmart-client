@@ -45,6 +45,9 @@ export default function TransferHxData({ data }) {
                     <div className="stat">
                         <div>Total: {data?.length}</div>
                     </div>
+                    <div className="stat">
+                        <div>Successful: {(data?.filter(data => data.status?.toLowerCase() === 'successful')).length}</div>
+                    </div>
                 </div>
                 <div className="search-wrapper">
                     <div className="search">

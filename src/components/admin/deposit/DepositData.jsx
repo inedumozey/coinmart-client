@@ -112,6 +112,19 @@ export default function DepositData() {
                     <div className="stat">
                         <div>Total: {depositData?.length}</div>
                     </div>
+
+                    <div className="stat">
+                        <div>Initiated: {(depositData?.filter(depositData => depositData.status?.toLowerCase() === 'charge-created')).length}</div>
+                    </div>
+
+                    <div className="stat">
+                        <div>Confirmed: {(depositData?.filter(depositData => depositData.status?.toLowerCase() === 'charge-confirmed')).length}</div>
+                    </div>
+
+                    <div className="stat">
+                        <div>Failed/Canceled: {(depositData?.filter(depositData => depositData.status?.toLowerCase() === 'charge-failed')).length}</div>
+                    </div>
+
                 </div>
                 <div className="search-wrapper">
                     <div className="search">

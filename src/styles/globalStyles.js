@@ -42,7 +42,8 @@ const GlobalStyle = createGlobalStyle`
         --gray: #6c757d;
         --gray-dark: #343a40;
         --gray-light: #bdbdbd40;
-        --gray-pale: #f7f7f7;
+        --gray-pale: #eaefee;
+        // --gray-pale: #f7f7f7;
         --text: #000000bf;
         --primary: #007bff;
         --secondary: #6c757d;
@@ -72,7 +73,7 @@ const GlobalStyle = createGlobalStyle`
         min-height: auto;
         overflow-x: hidden;
         color: #000000bf;
-        font-size: .9rem;
+        font-size: .8rem;
         
 
         .bs-container {
@@ -109,6 +110,10 @@ const GlobalStyle = createGlobalStyle`
         //         opacity:.6
         //     }
         // };
+
+        .stat {
+          font-size: .7rem;
+        }
         
         .link {
             padding: 0;

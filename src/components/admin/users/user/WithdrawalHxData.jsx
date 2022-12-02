@@ -161,6 +161,17 @@ export default function WithdrawalHxData({ data, selectedUser }) {
                     <div className="stat">
                         <div>Total: {data?.length}</div>
                     </div>
+                    <div className="stat">
+                        <div>Pending:  {(data?.filter(data => data.status?.toLowerCase() === 'pending')).length}</div>
+                    </div>
+
+                    <div className="stat">
+                        <div>Confirmed: {(data?.filter(data => data.status?.toLowerCase() === 'confirmed')).length}</div>
+                    </div>
+
+                    <div className="stat">
+                        <div>Rejected: {(data?.filter(data => data.status?.toLowerCase() === 'rejected')).length}</div>
+                    </div>
                 </div>
                 <div className="search-wrapper">
                     <div className="search">
