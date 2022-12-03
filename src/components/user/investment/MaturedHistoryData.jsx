@@ -81,7 +81,7 @@ export default function MaturedHistoryData({ data }) {
             </Wrapper>
 
             {
-                count >= data.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

@@ -79,7 +79,7 @@ export default function ActiveHistoryData({ data }) {
             </Wrapper>
 
             {
-                count >= data.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

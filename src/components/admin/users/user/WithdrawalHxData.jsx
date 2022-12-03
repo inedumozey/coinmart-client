@@ -232,7 +232,7 @@ export default function WithdrawalHxData({ data, selectedUser }) {
                 </table>
             </Table>
             {
-                count >= data.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

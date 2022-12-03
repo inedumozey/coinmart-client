@@ -94,7 +94,7 @@ export default function ConfirmedData() {
                 </table>
             </Table>
             {
-                count >= confirmedWithdrawalData.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

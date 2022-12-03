@@ -178,7 +178,7 @@ export default function HistoryData({ data, selectedUser }) {
                 </table>
             </Table>
             {
-                count >= data.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

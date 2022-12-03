@@ -105,7 +105,7 @@ export default function Transactions({ selectedUser }) {
 
                     !userDataSuccess_user ?
                         <div className="tag-error">Faild to fetch data, please refresh the brouser</div> :
-                        filteredData.length < 1 ?
+                        userData_user.length < 1 ?
                             <div className="tag-error">No any transactions made at the moment</div> :
                             <>
                                 <div className="header">
@@ -210,7 +210,7 @@ export default function Transactions({ selectedUser }) {
                                 </SubWrapper>
 
                                 {
-                                    count >= userData_user.length ? '' :
+                                    count >= filteredData.length ? '' :
 
                                         <ViewMore>
 

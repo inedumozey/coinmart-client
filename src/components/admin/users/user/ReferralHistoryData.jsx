@@ -76,7 +76,7 @@ export default function ReferralHistoryData({ referralHxData }) {
                 }
             </div>
             {
-                count >= referralHxData.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

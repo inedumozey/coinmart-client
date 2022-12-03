@@ -212,7 +212,7 @@ export default function DepositHxData({ data, selectedUser }) {
                 </table>
             </Table>
             {
-                count >= data.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

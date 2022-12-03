@@ -266,7 +266,7 @@ export default function UserData() {
                 </table>
             </Table>
             {
-                count >= userData.data.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

@@ -207,7 +207,7 @@ export default function DepositData() {
                 </table>
             </Table>
             {
-                count >= depositData.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

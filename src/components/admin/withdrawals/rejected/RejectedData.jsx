@@ -96,7 +96,7 @@ export default function RejectedData() {
                 </table>
             </Table>
             {
-                count >= rejectedWithdrawalData.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

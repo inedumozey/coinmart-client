@@ -26,11 +26,6 @@ export default function PendingData() {
         fetchingPendingWithdrawalData_refresh,
         setFetchingPendingWithdrawalData_refresh,
 
-        setFetchingRejectedWithdrawalData_refresh,
-        setRejectedWithdrawalData,
-        setFetchingConfirmedWithdrawalData_refresh,
-        setConfirmedWithdrawalData,
-
         pendingWithdrawalData,
         setPendingWithdrawalData,
         showPendingWithdrawalModal,
@@ -219,7 +214,7 @@ export default function PendingData() {
                 </table>
             </Table>
             {
-                count >= pendingWithdrawalData.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

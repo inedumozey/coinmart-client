@@ -172,7 +172,7 @@ export default function HistoryData({ data }) {
                 </table>
             </Table>
             {
-                count >= data.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 

@@ -105,7 +105,7 @@ export default function TransferHxData({ data }) {
                 </table>
             </Table>
             {
-                count >= data.length ? '' :
+                count >= filteredData.length ? '' :
 
                     <ViewMore>
 
