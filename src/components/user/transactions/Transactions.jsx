@@ -53,6 +53,7 @@ export default function Transactions({ selectedUser }) {
                 "senderUsername",
                 "senderId",
                 "receiverId",
+                'transactionType',
                 "receiverUsername",
                 "_id"
             ],
@@ -71,7 +72,6 @@ export default function Transactions({ selectedUser }) {
             setCount(prevState => prevState + num)
         }, 1000)
     }
-
 
     useEffect(() => {
         setFetchingUserData_user(true)
@@ -182,7 +182,7 @@ export default function Transactions({ selectedUser }) {
                                     <div className="search-wrapper">
                                         <div className="search">
                                             <input
-                                                placeholder='Search by Username, Email, Amount, or Account Number'
+                                                placeholder='Amount, Transaction Type, Status etc'
                                                 value={inp || ''}
                                                 onChange={(e) => setInp(e.target.value)}
                                             />
@@ -242,18 +242,24 @@ const Wrapper = styled.div`
         color: red;
     }
 
-    .transfer {color: var(--blue2)};
-    .deposit {color: var(--cyan)};
-    .withdrawal {color: var(--pink)};
+    .transfer {
+        color: var(--blue-deep);
+        font-weight: bold
+    };
+    .deposit {
+        color: var(--green);
+        font-weight: bold
+    };
+    .withdrawal {
+        color: var(--pink);
+        font-weight: bold
+    };
 
     .confirmed {
         color: var(--blue);
     }
     .failed {
         color: red;
-    }
-    .sent {
-        color: var(--yellow)
     }
 
     .header {

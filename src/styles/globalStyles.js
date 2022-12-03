@@ -1,4 +1,3 @@
-import { style } from "@mui/system";
 import styled, { createGlobalStyle, css } from "styled-components";
 
 const ScrollBar = () => css`
@@ -27,15 +26,13 @@ const GlobalStyle = createGlobalStyle`
     :root{
         --blue: #007bff;
         --blue2: #3269a5;
-        // --blue-deep: #220a80;;
         --blue-deep: #6861ce;
-        // --blue-deep: #6861ce;
         --purple: #6f42c1;
-        --pink: #e83e8c;
+        --pink: #e62ecf;
         --red: #dc3545;
         --orange: #fd7e14;
         --yellow: #E6922E;
-        --green: #28a745;
+        --green: #19b306;
         --teal: #20c997;
         --cyan: #17a2b8;
         --white: #fff;
@@ -43,21 +40,8 @@ const GlobalStyle = createGlobalStyle`
         --gray-dark: #343a40;
         --gray-light: #bdbdbd40;
         --gray-pale: #eaefee;
-        // --gray-pale: #f7f7f7;
-        --text: #000000bf;
         --primary: #007bff;
         --secondary: #6c757d;
-        --success: #28a745;
-        --info: #17a2b8;
-        --warning: #ffc107;
-        --danger: #dc3545;
-        --light: #f8f9fa;
-        --dark: #343a40;
-        --breakpoint-xs: 0;
-        --breakpoint-sm: 576px;
-        --breakpoint-md: 768px;
-        --breakpoint-lg: 992px;
-        --breakpoint-xl: 1200px;
     }
 
     *{
