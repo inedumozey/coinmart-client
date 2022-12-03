@@ -1,5 +1,6 @@
 import Accordion from 'react-bootstrap/Accordion';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom'
 
 export default function DepositCard({ data }) {
     return (
@@ -21,6 +22,14 @@ export default function DepositCard({ data }) {
                                 }
 
                                 else if (data.status?.toLowerCase() === 'charge-created') {
+                                    return (
+                                        <div className="summary pending">
+                                            You initiated a deposit of {data.amountExpected} {data.currency}
+                                        </div>
+                                    )
+                                }
+
+                                else if (data.status?.toLowerCase() === 'charge-pending') {
                                     return (
                                         <div className="summary pending">
                                             Your deposit of the sum of {data.amountExpected} {data.currency} is pending
@@ -53,7 +62,7 @@ export default function DepositCard({ data }) {
                                 Code: <span>{data.code}</span>
                             </div>
                             <div className="content">
-                                {/* Track: <span onClick={window.open(data.link, '_blank')}><Link>Link</Link></span> */}
+                                Track: <span onClick={() => window.open(data.link, '_blank')}><Link>Link</Link></span>
                             </div>
                             <div className="content">
                                 Transaction id: <span>{data._id}</span>

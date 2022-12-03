@@ -110,6 +110,7 @@ export default function Transactions({ selectedUser }) {
                             <>
                                 <div className="header">
                                     <div className="stat-wrapper">
+                                        {/* deposit */}
                                         <div className="stat margin">
                                             <div>
                                                 <span className='deposit'>Deposit</span><sup style={{ color: 'red' }}>
@@ -120,6 +121,10 @@ export default function Transactions({ selectedUser }) {
                                                         <div className="sub-stat">
                                                             <div className="stat">
                                                                 <div className='pending'>Initiated: {(userData_user?.filter(data => data.status?.toLowerCase() === 'charge-created')).length}</div>
+                                                            </div>
+
+                                                            <div className="stat">
+                                                                <div className='pending'>Pending: {(userData_user?.filter(data => data.status?.toLowerCase() === 'charge-pending')).length}</div>
                                                             </div>
 
                                                             <div className="stat">
@@ -134,6 +139,7 @@ export default function Transactions({ selectedUser }) {
                                             </div>
                                         </div>
 
+                                        {/* withdrawal */}
                                         <div className="stat margin">
                                             <div>
                                                 <span className='withdrawal'>Withdrawal</span><sup style={{ color: 'red' }}>
@@ -158,6 +164,7 @@ export default function Transactions({ selectedUser }) {
                                             </div>
                                         </div>
 
+                                        {/* transfer */}
                                         <div className="stat margin">
                                             <div>
                                                 <span className='transfer'>Transfer</span><sup style={{ color: 'red' }}>
@@ -182,7 +189,7 @@ export default function Transactions({ selectedUser }) {
                                     <div className="search-wrapper">
                                         <div className="search">
                                             <input
-                                                placeholder='Amount, Transaction Type, Status etc'
+                                                placeholder='Search by Amount, Transaction Type, Status etc'
                                                 value={inp || ''}
                                                 onChange={(e) => setInp(e.target.value)}
                                             />
