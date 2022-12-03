@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { useSnap } from '@mozeyinedu/hooks-lab';
 
@@ -14,21 +14,25 @@ export default function Btn({
 
 }) {
     const { snap } = useSnap(.5);
-
+    const navigate = useNavigate()
     return (
-        <Wrapper disabled={disabled} className="btn" onClick={onClick} {...snap()} padding={padding} color={color}>
-            {
-                link ? <Link to={url} >{children}</Link> : children
-            }
+        <Wrapper
+            disabled={disabled}
+            className="btn"
+            onClick={link ? () => navigate(url) : onClick}
+            {...snap()}
+            padding={padding}
+            color={color}>
+            {children}
         </Wrapper>
     )
 }
 
 const Wrapper = styled.button`
     background: ${({ color }) => color};
-    padding: ${({ padding }) => padding};
     border: 2px solid ${({ color }) => color};
     color: #fff;
+    padding: ${({ padding }) => padding};
     transition: ${({ theme }) => theme.transition};
     font-size: 15px;
     font-weight: 700;

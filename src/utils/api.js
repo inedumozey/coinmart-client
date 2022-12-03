@@ -1380,14 +1380,13 @@ class apiClass {
     }
 
     fetchUserHistory_user = async (
-        id,
         setUserData_user,
         setFetchingUserData_user,
         setUserDataSuccess_user,
     ) => {
         setFetchingUserData_user(true)
         try {
-            const { data } = await axios.get(`${BASE_URL}/user/user/${id}`, {
+            const { data } = await axios.get(`${BASE_URL}/history/user/`, {
                 headers: {
                     'authorization': `Bearer ${Cookies.get('accesstoken')}`
                 }
@@ -1417,7 +1416,7 @@ class apiClass {
     ) => {
         setFetchingUserData_admin(true)
         try {
-            const { data } = await axios.get(`${BASE_URL}/admin/user/${id}`, {
+            const { data } = await axios.get(`${BASE_URL}/history/user_admin/${id}`, {
                 headers: {
                     'authorization': `Bearer ${Cookies.get('accesstoken')}`,
                     'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
@@ -1447,7 +1446,7 @@ class apiClass {
         setFetchingUserData_admin_refesh(true)
 
         try {
-            const { data } = await axios.get(`${BASE_URL}/admin/user/${id}`, {
+            const { data } = await axios.get(`${BASE_URL}/history/user_admin/${id}`, {
                 headers: {
                     'authorization': `Bearer ${Cookies.get('accesstoken')}`,
                     'authorization-admin': `Bearer ${Cookies.get('extratoken')}`

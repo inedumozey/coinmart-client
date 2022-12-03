@@ -7,7 +7,7 @@ import { ScrollBar } from '../../../../styles/globalStyles';
 import { Context } from '../../../../context/Context';
 
 export default function ReferralHistoryData({ referralHxData }) {
-    const { config, user, num } = useContext(Context);
+    const { config, num } = useContext(Context);
     const { snap } = useSnap(.5)
     const [inp, setInp] = useState('')
 
@@ -19,7 +19,7 @@ export default function ReferralHistoryData({ referralHxData }) {
     useEffect(() => {
         const newData = filter({
             data: referralHxData,
-            keys: ["username", "rewards"],
+            keys: ["username", "rewards", "_id"],
             input: inp
         })
 

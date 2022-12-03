@@ -50,7 +50,7 @@ export default function PendingData() {
     useEffect(() => {
         const newData = filter({
             data: pendingWithdrawalData,
-            keys: ["username", "email", 'walletAddress', "amount", "coin"],
+            keys: ["username", "email", 'walletAddress', "amount", "coin", "_id"],
             input: inp
         })
 

@@ -1,11 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Context } from '../../../context/Context';
-import apiClass from '../../../utils/api';
 import Skeleton from '../../Skeleton';
 import FullData from '../../notifications/FullData';
 
-const api = new apiClass()
 
 export default function Notification({ id }) {
     const { notifications, user } = useContext(Context);

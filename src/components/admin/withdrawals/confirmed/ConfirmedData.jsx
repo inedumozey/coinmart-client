@@ -21,7 +21,7 @@ export default function ConfirmedData() {
     useEffect(() => {
         const newData = filter({
             data: confirmedWithdrawalData,
-            keys: ["username", "email", 'walletAddress', "amount", "coin", "status"],
+            keys: ["username", "email", 'walletAddress', "amount", "coin", "status", "_id"],
             input: inp
         })
 

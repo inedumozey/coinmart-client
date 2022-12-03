@@ -28,15 +28,6 @@ export default function User({ selectedUser }) {
         setUserDataSuccess_admin,
         userData_admin,
         setUserData_admin,
-
-
-        // fetchingUserData_user,
-        // setFetchingUserData_user,
-        // userDataSuccess_user,
-        // setUserDataSuccess_user,
-        // userData_user,
-        // setUserData_user,
-
     } = admin.userHistory;
 
     useEffect(() => {

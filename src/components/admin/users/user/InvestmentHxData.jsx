@@ -38,7 +38,7 @@ export default function HistoryData({ data, selectedUser }) {
     useEffect(() => {
         const newData = filter({
             data: data,
-            keys: ["status", "username", "email", "lifespan", "returnPercentage", "amount", "rewards"],
+            keys: ["status", "username", "email", "lifespan", "returnPercentage", "amount", "rewards", "_id"],
             input: inp
         })
 

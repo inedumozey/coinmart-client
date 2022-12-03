@@ -9,6 +9,7 @@ import { Context } from '../../../context/Context';
 import apiClass from '../../../utils/api';
 import Spinner_ from '../../spinner/Spinner';
 import Modal from '../../Modal';
+import { Link } from 'react-router-dom';
 
 const api = new apiClass()
 
@@ -38,7 +39,7 @@ export default function DepositData() {
     useEffect(() => {
         const newData = filter({
             data: depositData,
-            keys: ["username", "status", 'code', "amountExpected", "amountReceived", "link", "comment"],
+            keys: ["username", "status", , "_id", 'code', "amountExpected", "amountReceived", "link", "comment"],
             input: inp
         })
 
@@ -168,7 +169,7 @@ export default function DepositData() {
                                     <td>{data.amountExpected}</td>
                                     <td>{data.code}</td>
 
-                                    <td style={{ cursor: 'pointer', userSelect: 'none' }} onDoubleClick={() => window.open(data.link)}>Link</td>
+                                    <td style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => window.open(data.link)}><Link>Link</Link></td>
                                     <td
                                         style={{
                                             cursor: data.status === 'charge-confirmed' ? 'default' : 'pointer',

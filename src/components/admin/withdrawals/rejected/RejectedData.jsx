@@ -23,7 +23,7 @@ export default function RejectedData() {
     useEffect(() => {
         const newData = filter({
             data: rejectedWithdrawalData,
-            keys: ["username", "email", 'walletAddress', "amount", "coin", "status"],
+            keys: ["username", "email", 'walletAddress', "amount", "coin", "status", "_id"],
             input: inp
         })
 

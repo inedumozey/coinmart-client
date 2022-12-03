@@ -1,13 +1,8 @@
-import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { useLocation } from 'react-router-dom';
-import { Context } from '../../../context/Context';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 export default function Header({ isExpanded, setExpanded, headerHeight }) {
-    const state = useContext(Context)
-    const { contact } = state;
 
     return (
         <HeaderStyle isExpanded={isExpanded} headerHeight={headerHeight} >

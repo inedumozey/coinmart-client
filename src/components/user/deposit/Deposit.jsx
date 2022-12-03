@@ -16,8 +16,6 @@ export default function Deposit() {
     const { configData } = config;
 
     const {
-        setProfileLoadingAgain,
-        setProfileData,
     } = user.profile;
 
     const {

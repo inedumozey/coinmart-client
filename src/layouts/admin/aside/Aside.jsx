@@ -44,6 +44,15 @@ const AsideStyle = styled.div`
         left: ${({ isExpanded, expandedAside, shrinkedAside }) => isExpanded ? `-100%` : 0};
     }
 
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            opacity:.6
+        }
+    };
+    
     .handle{
         width: 5px;
         height: 100%;

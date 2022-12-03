@@ -32,7 +32,7 @@ export default function HistoryData({ data }) {
     useEffect(() => {
         const newData = filter({
             data: data,
-            keys: ["status", "username", "email", "lifespan", "returnPercentage", "amount", "rewards"],
+            keys: ["status", , "_id", "username", "email", "lifespan", "returnPercentage", "amount", "rewards"],
             input: inp
         })
 

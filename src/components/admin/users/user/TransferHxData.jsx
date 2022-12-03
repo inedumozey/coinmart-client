@@ -21,7 +21,7 @@ export default function TransferHxData({ data }) {
     useEffect(() => {
         const newData = filter({
             data: data,
-            keys: ["senderUsername", "senderId", "amount", "receiverId", "receiverUsername", "status"],
+            keys: ["senderUsername", "senderId", "amount", "receiverId", "receiverUsername", "status", "_id"],
             input: inp
         })
 
@@ -47,6 +47,14 @@ export default function TransferHxData({ data }) {
                     </div>
                     <div className="stat">
                         <div>Successful: {(data?.filter(data => data.status?.toLowerCase() === 'successful')).length}</div>
+                    </div>
+
+                    <div className="stat">
+                        <div>Sent: {(data?.filter(data => data.senderUsername === userData_admin.profile?.username)).length}</div>
+                    </div>
+
+                    <div className="stat">
+                        <div>Received: {(data?.filter(data => data.receiverUsername === userData_admin.profile?.username)).length}</div>
                     </div>
                 </div>
                 <div className="search-wrapper">

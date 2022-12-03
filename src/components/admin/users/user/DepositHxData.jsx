@@ -9,6 +9,8 @@ import apiClass from '../../../../utils/api';
 import { Context } from '../../../../context/Context';
 import Spinner_ from '../../../spinner/Spinner';
 import Modal from '../../../Modal';
+import { Link } from 'react-router-dom';
+
 
 const api = new apiClass()
 
@@ -43,7 +45,7 @@ export default function DepositHxData({ data, selectedUser }) {
     useEffect(() => {
         const newData = filter({
             data: data,
-            keys: ["username", "status", 'code', "amountExpected", "amountReceived", "link", "comment"],
+            keys: ["username", "status", 'code', "amountExpected", "amountReceived", "link", "comment", "_id"],
             input: inp
         })
 
@@ -172,7 +174,7 @@ export default function DepositHxData({ data, selectedUser }) {
                                     <td>{data.amountExpected}</td>
                                     <td>{data.code}</td>
 
-                                    <td style={{ cursor: 'pointer', userSelect: 'none' }} onDoubleClick={() => window.open(data.link)}>Link</td>
+                                    <td style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => window.open(data.link)}><Link>Link</Link></td>
                                     <td
                                         style={{
                                             cursor: data.status === 'charge-confirmed' ? 'default' : 'pointer',

@@ -167,6 +167,15 @@ const FooterStyle = styled.div`
     height: ${({ headerHeight }) => headerHeight};
     background: var(--gray-light);
 
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            opacity:.6
+        }
+    };
+
     padding: 15px ${({ theme }) => theme.lg_padding};
     @media (max-width: ${({ theme }) => theme.md_screen}){
         padding: 15px ${({ theme }) => theme.md_padding};

@@ -49,7 +49,7 @@ export default function WithdrawalHxData({ data, selectedUser }) {
     useEffect(() => {
         const newData = filter({
             data: data,
-            keys: ["username", "email", 'walletAddress', "amount", "coin", "status"],
+            keys: ["username", "email", 'walletAddress', "amount", "coin", "status", "_id"],
             input: inp
         })
 

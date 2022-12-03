@@ -1,15 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Cookies from 'js-cookie'
-import Spinner_ from '../../spinner/Spinner';
 import { Context } from '../../../context/Context';
-
 import apiClass from '../../../utils/api';
-import Card from './Card';
 import Skeletons from './Skeletons';
+import MaturedHistoryData from './MaturedHistoryData';
+import ActiveHistoryData from './ActiveHistoryData';
 const api = new apiClass();
-
-const count = 3;
 
 export default function History() {
 
@@ -19,7 +16,6 @@ export default function History() {
         setInvestmentData_users,
         fetchingInvestments_users,
         setFetchingInvestments_users,
-        fetchInvestmentsMsg_users,
         setFetchInvestmentsMsg_users,
     } = investment.invest;
 
@@ -47,92 +43,64 @@ export default function History() {
     }, [])
 
     return (
-        <>{
-            load || fetchingInvestments_users ?
-                [1, 2, 3].map((data, i) => {
-                    return <Skeletons key={i} />
-                }) :
+        <Wrapper>{
+            load || fetchingInvestments_users ? <Skeletons /> :
                 !investmentData_users ?
                     <div className="tag red">
                         Failed to load data. Please refresh
                     </div> :
-
                     <>
-                        <Container>
+                        <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
                             <div className="tag title">Active Investment</div>
-                            <Wrapper className="active">
-                                {
-                                    investmentData_users.data.activeInvestment.length < 1 ?
-                                        <div className="tag red">
-                                            No any Active Investment at the moment
-                                        </div> :
-                                        (
-                                            investmentData_users.data?.activeInvestment?.slice(0, count).map((data, i) => {
-                                                return <Card key={i} data={data} type="active" />
-                                            })
-                                        )
+                            <ActiveHistoryData data={investmentData_users.data?.activeInvestment} />
+                        </div>
 
-                                }
-                            </Wrapper>
-                        </Container>
-
-                        <Container>
+                        <div style={{ paddingTop: '10px' }}>
                             <div className="tag title">Matured Investment</div>
-                            <Wrapper className="matured">
-                                {
-                                    investmentData_users.data.maturedInvestment.length < 1 ?
-                                        <div className="tag red">
-                                            No any matured Investment at the moment
-                                        </div> :
-                                        (
-                                            investmentData_users?.data.maturedInvestment?.slice(0, count).map((data, i) => {
-                                                return <Card key={i} data={data} type="matured" />
-                                            })
-                                        )
-                                }
-                            </Wrapper>
-                        </Container>
+                            <MaturedHistoryData data={investmentData_users.data?.maturedInvestment} />
+                        </div>
                     </>
-
         }
-
-
-        </>
+        </Wrapper>
     )
 }
 
 
-const Container = styled.div`
-    padding: 0 10px;
-    max-width: 1200px;
-
-    .tag {
-        font-size: .65rem;
-        color: red;
-    }
-
-    .title {
-        color: var(--blue);
-        font-weight: 600;
-        color: var(--blue);
-        font-size: .9rem;
-    }
-
-    .active {
-        border-bottom 1px solid #ccc;
-    }   
-`
 
 const Wrapper = styled.div`
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    
     padding: 20px ${({ theme }) => theme.lg_padding};
         @media (max-width: ${({ theme }) => theme.md_screen}){
             padding: 20px ${({ theme }) => theme.md_padding};
         }
         @media (max-width: ${({ theme }) => theme.sm_screen}){
             padding: 20px ${({ theme }) => theme.sm_padding};
+        }
+    }
+
+    .header {
+        .search-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .search {
+            display: inline-block;
+            margin-bottom: 10px;
+            width: 40%;
+            max-width: 300px;
+            min-width: 200px;
+    
+            input {
+                padding: 6px;
+                border-radius: 5px;
+                width: 100%;
+                border: 1px solid #ccc;
+        
+                &: focus {
+                    outline: none;
+                }
+            }
         }
     }
 `
