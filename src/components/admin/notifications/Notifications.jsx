@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { Context } from '../../../context/Context';
 import Preview from '../../notifications/Preview';
 import Cookies from 'js-cookie';
-import Spinner_ from '../../spinner/Spinner';
 import apiClass from '../../../utils/api';
 import { useNavigate } from 'react-router-dom'
 import Skeleton from '../../Skeleton';
@@ -11,9 +10,8 @@ import Skeleton from '../../Skeleton';
 const api = new apiClass()
 
 export default function Notifications() {
-    const { notifications } = useContext(Context);
+    const { notifications, fetchDataErrorMsg, noDataMsg } = useContext(Context);
     const navigate = useNavigate();
-    const [sortedData, setSortedData] = useState([])
 
     const [load, setLoading] = useState(true)
 
@@ -71,18 +69,16 @@ export default function Notifications() {
                     })
                     :
                     !fetchNotificationSuccess_admin ?
-                        <div style={{ color: 'red', fontSize: '.7rem' }} className="center">
-                            Failed to fetch data! Please refresh
-                        </div> :
+                        <div style={{ color: 'red', fontSize: '.7rem' }} className="center">{fetchDataErrorMsg}</div> :
 
                         notificationData_admin?.length ?
-                        notificationData_admin.map((item, i) => {
+                            notificationData_admin.map((item, i) => {
                                 return <SubWrapper
                                     key={i}
                                     onClick={() => openNotification(item._id)}>
                                     <Preview data={item} type="read" />
                                 </SubWrapper>
-                            }) : <div className="tag">No notifications at the moment</div>
+                            }) : <div className="tag">{noDataMsg}</div>
             }
 
         </Wrapper>

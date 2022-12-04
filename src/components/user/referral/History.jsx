@@ -3,9 +3,6 @@ import styled from 'styled-components'
 import Cookies from 'js-cookie'
 import { Context } from '../../../context/Context'
 import apiClass from '../../../utils/api'
-import Spinner_ from '../../spinner/Spinner'
-import Skeleton from '../../Skeleton'
-import { Table } from '../../../styles/globalStyles'
 import HistoryData from './HistoryData'
 import Btn from '../../Btn/Btn'
 import Modal from '../../Modal'
@@ -15,7 +12,7 @@ import AddRefcode from './AddReferrer'
 const api = new apiClass()
 
 export default function History() {
-    const { config, user } = useContext(Context);
+    const { user, fetchDataErrorMsg } = useContext(Context);
 
     const {
         fetchReferralHxLoading,
@@ -29,13 +26,9 @@ export default function History() {
     } = user.referral
 
     const {
-        setProfileData,
         profileLoading,
         profileData,
-        setProfileLoading,
-        setProfileLoadingAgain,
         setFetchProfileSuccess,
-        setFetchProfileMsg
     } = user.profile
 
 
@@ -71,7 +64,7 @@ export default function History() {
                         <Skeletons>
                             loading...
                         </Skeletons> :
-                        !setFetchProfileSuccess ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
+                        !setFetchProfileSuccess ? <div className="tag">{fetchDataErrorMsg}</div> :
                             <>
                                 <div>
                                     <div>
@@ -105,7 +98,7 @@ export default function History() {
                         <Skeletons>
                             loading...
                         </Skeletons> :
-                        !fetchReferralHxSuccess ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
+                        !fetchReferralHxSuccess ? <div className="tag">{fetchDataErrorMsg}</div> :
                             referralHxData.length < 1 ? <div className="tag">Refere users to enjoy the referral bonus packages</div> :
                                 <>
                                     <div className="tag">You have <span style={{ color: 'red' }}>{`(${referralHxData.length})`}</span> downlines</div>

@@ -177,11 +177,11 @@ class apiClass {
                 }
             });
 
-            setProfileImageLoading(false);
-            toast(data.msg, { type: 'success' })
-
             // fecth profile if profile image changed successfull
             this.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
+
+            setProfileImageLoading(false);
+            toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
@@ -280,7 +280,6 @@ class apiClass {
             });
 
             setChangePasswordLoading(false);
-            // setChangePasswordSuccess(true)
             toast(data.msg, { type: 'success' })
             setInp({
                 oldPassword: "",
@@ -291,12 +290,10 @@ class apiClass {
         catch (err) {
             if (err.response) {
                 setChangePasswordLoading(false);
-                // setChangePasswordSuccess(false);
                 toast(err.response.data.msg, { type: 'error' });
             }
             else {
                 setChangePasswordLoading(false);
-                // setChangePasswordSuccess(false);
                 toast(err.response.data.msg, { type: 'error' })
             }
         }
@@ -369,16 +366,13 @@ class apiClass {
             const { data } = await axios.get(`${BASE_URL}/investment/plans`);
             setPlans(data.data);
             setRefreshingPlans(false);
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setRefreshingPlans(false);
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setRefreshingPlans(false);
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -397,10 +391,11 @@ class apiClass {
                     'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
                 }
             });
-            setPostingPlan(false);
-            toast(data.msg, { type: 'success' })
+
             // refresh plan
             this.refreshPlans(setPlans, setRefreshingPlans)
+            setPostingPlan(false);
+            toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
@@ -429,10 +424,11 @@ class apiClass {
                     'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
                 }
             });
-            setUpdatingPlan(false);
-            toast(data.msg, { type: 'success' })
+
             // refresh plan
             this.refreshPlans(setPlans, setRefreshingPlans)
+            setUpdatingPlan(false);
+            toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
@@ -460,10 +456,11 @@ class apiClass {
                     'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
                 }
             });
-            setDeletingPlan(false);
-            toast(data.msg, { type: 'success' })
+
             // refresh plan
             this.refreshPlans(setPlans, setRefreshingPlans)
+            setDeletingPlan(false);
+            toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
@@ -492,13 +489,13 @@ class apiClass {
                     'authorization': `Bearer ${Cookies.get('accesstoken')}`,
                 }
             });
+
+            // refresh profile data
+            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
             setInvestLoading(false);
             setAmount("")
             setOpenInvestModal(false)
             toast(data.msg, { type: 'success' })
-
-            // refresh profile data
-            this.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
         }
         catch (err) {
             if (err.response) {
@@ -754,7 +751,7 @@ class apiClass {
             // redirext user to pay via libk returned from backend
             setTimeout(() => {
                 window.location.href = data.data.hostedUrl
-            }, 1000)
+            }, 1500)
 
         }
         catch (err) {
@@ -785,18 +782,15 @@ class apiClass {
             setUserData(data)
             setFetchingUsersSuccess_initial(true)
             setFetchingUsers_initial(false)
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setFetchingUsers_initial(false)
                 setFetchingUsersSuccess_initial(false)
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setFetchingUsers_initial(false)
                 setFetchingUsersSuccess_initial(false)
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -815,16 +809,13 @@ class apiClass {
             });
             setUserData(data)
             setFetchingUsers_refresh(false)
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setFetchingUsers_refresh(false)
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setFetchingUsers_refresh(false)
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -1013,18 +1004,15 @@ class apiClass {
             setFetchingDepositData_initial(false)
             setDepositDataSuccess(true)
             setDepositData(data.data)
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setFetchingDepositData_initial(false)
                 setDepositDataSuccess(false)
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setFetchingDepositData_initial(false)
                 setDepositDataSuccess(false)
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -1044,16 +1032,13 @@ class apiClass {
             });
             setFetchingDepositData_refresh(false)
             setDepositData(data.data)
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setFetchingDepositData_refresh(false)
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setFetchingDepositData_refresh(false)
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -1119,18 +1104,15 @@ class apiClass {
             setPendingWithdrawalData(data.data)
             setFetchingPendingWithdrawalData_initial(false)
             setPendingWithdrawalDataSuccess(true)
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setFetchingPendingWithdrawalData_initial(false)
                 setPendingWithdrawalDataSuccess(false)
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setFetchingPendingWithdrawalData_initial(false)
                 setPendingWithdrawalDataSuccess(false)
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -1149,16 +1131,13 @@ class apiClass {
             });
             setPendingWithdrawalData(data.data)
             setFetchingPendingWithdrawalData_refresh(false)
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setFetchingPendingWithdrawalData_refresh(false)
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setFetchingPendingWithdrawalData_refresh(false)
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -1179,18 +1158,15 @@ class apiClass {
             setRejectedWithdrawalData(data.data)
             setFetchingRejectedWithdrawalData_initial(false)
             setRejectedWithdrawalDataSuccess(true)
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setFetchingRejectedWithdrawalData_initial(false)
                 setRejectedWithdrawalDataSuccess(false)
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setFetchingRejectedWithdrawalData_initial(false)
                 setRejectedWithdrawalDataSuccess(false)
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -1209,16 +1185,13 @@ class apiClass {
             });
             setRejectedWithdrawalData(data.data)
             setFetchingRejectedWithdrawalData_refresh(false)
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setFetchingRejectedWithdrawalData_refresh(false)
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setFetchingRejectedWithdrawalData_refresh(false)
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -1239,18 +1212,15 @@ class apiClass {
             setConfirmedWithdrawalData(data.data)
             setFetchingConfirmedWithdrawalData_initial(false)
             setConfirmedWithdrawalDataSuccess(true)
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setFetchingConfirmedWithdrawalData_initial(false)
                 setConfirmedWithdrawalDataSuccess(false)
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setFetchingConfirmedWithdrawalData_initial(false)
                 setConfirmedWithdrawalDataSuccess(false)
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -1269,16 +1239,13 @@ class apiClass {
             });
             setConfirmedWithdrawalData(data.data)
             setFetchingConfirmedWithdrawalData_refresh(false)
-            // toast(data.msg, { type: 'success' })
         }
         catch (err) {
             if (err.response) {
                 setFetchingConfirmedWithdrawalData_refresh(false)
-                // toast(err.response.data.msg, { type: 'error' })
             }
             else {
                 setFetchingConfirmedWithdrawalData_refresh(false)
-                // toast(err.message, { type: 'error' })
             }
         }
     }
@@ -1708,6 +1675,126 @@ class apiClass {
             }
             else {
                 setSendingMsg(false);
+                toast(err.message, { type: 'error' });
+            }
+        }
+    }
+
+    fetchContestants_initial = async (
+        setFetchingContestants_initial,
+        setFetchingContestantSuccess,
+        setContestantData
+    ) => {
+        setFetchingContestants_initial(true)
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/referral/contest/contestants/`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                }
+            });
+
+            setFetchingContestants_initial(false)
+            setFetchingContestantSuccess(true)
+            setContestantData(data.data)
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingContestants_initial(false);
+                setFetchingContestantSuccess(false)
+            }
+            else {
+                setFetchingContestants_initial(false);
+                setFetchingContestantSuccess(false)
+            }
+        }
+    }
+
+    fetchContestants_refresh = async (
+        setFetchingContestants_refresh,
+        setContestantData
+    ) => {
+        setFetchingContestants_refresh(true)
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/referral/contest/contestants/`, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                }
+            });
+
+            setFetchingContestants_refresh(false)
+            setContestantData(data.data)
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchingContestants_refresh(false);
+            }
+            else {
+                setFetchingContestants_refresh(false);
+            }
+        }
+    }
+
+    resetContest = async (
+        setReseting,
+        setFetchingContestants_refresh,
+        setContestantData
+    ) => {
+        setReseting(true)
+
+        try {
+            const { data } = await axios.put(`${BASE_URL}/referral/contest/reset/`, {}, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            // refresh contestants data
+            this.fetchContestants_refresh(setFetchingContestants_refresh, setContestantData)
+            setReseting(false)
+            toast(data.msg, { type: 'success' });
+        }
+        catch (err) {
+            if (err.response) {
+                setReseting(false);
+                toast(err.response.data.msg, { type: 'error' });
+            }
+            else {
+                setReseting(false);
+                toast(err.message, { type: 'error' });
+            }
+        }
+    }
+
+    resolveContest = async (
+        setResolving,
+        setFetchingContestants_refresh,
+        setContestantData
+    ) => {
+        setResolving(true)
+
+        try {
+            const { data } = await axios.put(`${BASE_URL}/referral/contest/resolve/`, {}, {
+                headers: {
+                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('extratoken')}`
+                }
+            });
+
+            // refresh contestants data
+            this.fetchContestants_refresh(setFetchingContestants_refresh, setContestantData)
+            setResolving(false)
+            toast(data.msg, { type: 'success' });
+        }
+        catch (err) {
+            if (err.response) {
+                setResolving(false);
+                toast(err.response.data.msg, { type: 'error' });
+            }
+            else {
+                setResolving(false);
                 toast(err.message, { type: 'error' });
             }
         }

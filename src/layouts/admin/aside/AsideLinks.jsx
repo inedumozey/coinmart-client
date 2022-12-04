@@ -7,7 +7,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { Context } from '../../../context/Context';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
-export default function AsideLinks({ isExpanded }) {
+export default function AsideLinks({ isExpanded, setExpanded }) {
     const location = useLocation()
     const [expandInvestment, setExpandInvestment] = useState(false)
     const [expandDeposit, setExpandDeposit] = useState(false)
@@ -83,7 +83,13 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="investment-dropdwon-menu">
                     {
                         links.investmentLinks?.map((link, i) => {
-                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link
+                                title={link.name}
+                                key={i}
+                                onClick={() => setExpanded(true)}
+                                to={link.url}
+                                className={location.pathname === link.url ? 'link active-link' : 'link'}
+                            >
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -112,7 +118,13 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="deposit-dropdwon-menu">
                     {
                         links.depositLinks?.map((link, i) => {
-                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link
+                                onClick={() => setExpanded(true)}
+                                title={link.name}
+                                key={i}
+                                to={link.url}
+                                className={location.pathname === link.url ? 'link active-link' : 'link'}
+                            >
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -141,7 +153,13 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="withdrawal-dropdwon-menu">
                     {
                         links.withdrawalLinks?.map((link, i) => {
-                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link
+                                onClick={() => setExpanded(true)}
+                                title={link.name}
+                                key={i}
+                                to={link.url}
+                                className={location.pathname === link.url ? 'link active-link' : 'link'}
+                            >
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -171,7 +189,13 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="referral-dropdwon-menu">
                     {
                         links.referralLinks?.map((link, i) => {
-                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link
+                                onClick={() => setExpanded(true)}
+                                title={link.name}
+                                key={i}
+                                to={link.url}
+                                className={location.pathname === link.url ? 'link active-link' : 'link'}
+                            >
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>
@@ -201,7 +225,13 @@ export default function AsideLinks({ isExpanded }) {
                 <div className="notification-dropdwon-menu">
                     {
                         links.notificationLinks?.map((link, i) => {
-                            return <Link title={link.name} key={i} to={link.url} className={location.pathname === link.url ? 'link active-link' : 'link'}>
+                            return <Link
+                                onClick={() => setExpanded(true)}
+                                title={link.name}
+                                key={i}
+                                to={link.url}
+                                className={location.pathname === link.url ? 'link active-link' : 'link'}
+                            >
                                 <div className="icon1">
                                     <link.icon className='icon' />
                                 </div>

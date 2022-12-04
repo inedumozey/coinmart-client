@@ -17,6 +17,7 @@ export default function Aside({ headerHeight, expandedAside, shrinkedAside, isEx
                 shrinkedAside={shrinkedAside}
                 isExpanded={isExpanded}
                 headerHeight={headerHeight}
+                setExpanded={setExpanded}
             />
         </AsideStyle>
     )

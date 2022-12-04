@@ -11,17 +11,23 @@ const api = new apiClass()
 export default function Contest() {
     const { config, user, referralContest, fetchDataErrorMsg, noDataMsg } = useContext(Context);
 
-    const [load, setLoading] = useState(true)
-
     const { profileData } = user.profile
+
+    const [load, setLoading] = useState(true)
 
     const {
         fetchingContestants_initial,
         setFetchingContestants_initial,
         fetchingContestantSuccess,
         setFetchingContestantSuccess,
+        fetchingContestants_refresh,
+        setFetchingContestants_refresh,
         contestantData,
         setContestantData,
+        reseting,
+        setReseting,
+        resolving,
+        setResolving,
     } = referralContest;
 
     useEffect(() => {
@@ -51,7 +57,7 @@ export default function Contest() {
                 load || fetchingContestants_initial || !config.configData ? <Skeletons /> :
                     !fetchingContestantSuccess ? <div className="tag">{fetchDataErrorMsg}</div> :
                         contestantData.length < 1 ? <div className="tag">{noDataMsg}</div> :
-                            <ContestantData data={contestantData} profileData={profileData} />
+                            <ContestantData data={contestantData} />
             }
         </Wrapper>
     )

@@ -9,7 +9,7 @@ import UserData from './UserData'
 const api = new apiClass()
 
 export default function Users() {
-    const { config, admin } = useContext(Context);
+    const { config, admin, fetchDataErrorMsg, noDataMsg } = useContext(Context);
 
     const {
         fetchingUsers_initial,
@@ -73,8 +73,8 @@ export default function Users() {
                             <div className="more"><Skeleton /></div>
                         </div>
                     </Skeletons> :
-                    !fetchingUsersSuccess_initial ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
-                        userData.data.length < 1 ? <div className="tag">No users at the moment</div> :
+                    !fetchingUsersSuccess_initial ? <div className="tag">{fetchDataErrorMsg}</div> :
+                        userData.data.length < 1 ? <div className="tag">{noDataMsg}</div> :
                             <UserData />
             }
         </Wrapper>

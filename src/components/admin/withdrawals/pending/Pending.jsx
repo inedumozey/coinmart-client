@@ -6,11 +6,10 @@ import apiClass from '../../../../utils/api'
 import Skeleton from '../../../Skeleton';
 import PendingData from './PendingData';
 
-
 const api = new apiClass()
 
 export default function Pending() {
-    const { config, admin } = useContext(Context);
+    const { config, admin, fetchDataErrorMsg, noDataMsg } = useContext(Context);
 
     const {
         fetchingPendingWithdrawalData_initial,
@@ -64,8 +63,8 @@ export default function Pending() {
                             }
                         </div>
                     </Skeletons> :
-                    !pendingWithdrawalDataSuccess ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
-                        pendingWithdrawalData.length < 1 ? <div className="tag">No pending withdrawals at the moment</div> : <PendingData />
+                    !pendingWithdrawalDataSuccess ? <div className="tag">{fetchDataErrorMsg}</div> :
+                        pendingWithdrawalData.length < 1 ? <div className="tag">{noDataMsg}</div> : <PendingData />
 
             }
         </Wrapper>

@@ -224,6 +224,14 @@ function ContextApi() {
     // contact us
     const [sendingMsg, setSendingMsg] = useState(false)
 
+    // referral contest
+    const [fetchingContestants_initial, setFetchingContestants_initial] = useState(false)
+    const [fetchingContestantSuccess, setFetchingContestantSuccess] = useState(false)
+    const [fetchingContestants_refresh, setFetchingContestants_refresh] = useState(false)
+    const [contestantData, setContestantData] = useState(false)
+    const [reseting, setReseting] = useState(false)
+    const [resolving, setResolving] = useState(false)
+
     const links = [
         { url: '/dashboard/my-packages', name: 'My Packages', icon: DashboardIcon },
         { url: '/dashboard/withdrawal', name: 'Withdrawal', icon: PaidIcon },
@@ -448,8 +456,6 @@ function ContextApi() {
 
         modal: { show, setShow },
 
-        // skeleton: { preparing, setPreparing },
-
         config: {
             configData,
             setConfigData,
@@ -505,6 +511,7 @@ function ContextApi() {
                 setFetchInvestmentsMsg_users,
             }
         },
+
         notifications: {
             sendingNotificatio_admin,
             setSendingNotificatio_admin,
@@ -522,6 +529,21 @@ function ContextApi() {
             fetchingOneNotification,
             setDeletetingNotification,
             deletetingNotification,
+        },
+
+        referralContest: {
+            fetchingContestants_initial,
+            setFetchingContestants_initial,
+            fetchingContestantSuccess,
+            setFetchingContestantSuccess,
+            fetchingContestants_refresh,
+            setFetchingContestants_refresh,
+            contestantData,
+            setContestantData,
+            reseting,
+            setReseting,
+            resolving,
+            setResolving,
         }
     }
 

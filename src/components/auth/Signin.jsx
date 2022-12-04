@@ -51,7 +51,6 @@ export default function Signin_C() {
 
         try {
             const { data } = await axios.post(`${BASE_URL}/auth/signin`, { ...data_ });
-            toast(data.msg, { type: 'success' })
 
             setSending(false);
             setVerifyMsg('')

@@ -11,8 +11,8 @@ import apiClass from '../../../utils/api';
 const api = new apiClass()
 const asideHeaderheight = '85px';
 
-export default function AsideContent({ expandedAside, shrinkedAside, isExpanded, headerHeight }) {
-    const { user } = useContext(Context);
+export default function AsideContent({ expandedAside, shrinkedAside, isExpanded, setExpanded, headerHeight }) {
+    const { user, fetchDataErrorMsg } = useContext(Context);
     const navigate = useNavigate();
 
     const {
@@ -22,7 +22,6 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
     } = user.profile
 
     const {
-        profileImageLoading,
     } = user.profileImage;
 
     return (
@@ -75,7 +74,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                                         </div>
                                     </> :
                                     <>
-                                        <div style={{ color: 'red' }}>Failed to fetch data. Refresh</div>
+                                        <div style={{ color: 'red', fontSize: '.6rem' }}>{fetchDataErrorMsg}</div>
                                     </>
                         }
                     </div>
@@ -92,7 +91,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, isExpanded,
                 headerHeight={headerHeight}
                 asideHeaderheight={asideHeaderheight}
             >
-                <AsideLinks isExpanded={isExpanded} />
+                <AsideLinks isExpanded={isExpanded} setExpanded={setExpanded} />
             </Content>
             <Footer headerHeight={headerHeight}></Footer>
         </Wrapper >

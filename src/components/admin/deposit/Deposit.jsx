@@ -9,7 +9,7 @@ import DepositData from './DepositData';
 const api = new apiClass()
 
 export default function Deposit() {
-    const { config, admin } = useContext(Context);
+    const { config, admin, fetchDataErrorMsg, noDataMsg } = useContext(Context);
 
     const {
         setFetchingDepositData_initial,
@@ -63,8 +63,8 @@ export default function Deposit() {
                             }
                         </div>
                     </Skeletons> :
-                    !depositDataSuccess ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
-                        depositData.length < 1 ? <div className="tag">No pending withdrawals at the moment</div> : <DepositData />
+                    !depositDataSuccess ? <div className="tag">{fetchDataErrorMsg}</div> :
+                        depositData.length < 1 ? <div className="tag">{noDataMsg}</div> : <DepositData />
 
             }
         </Wrapper>

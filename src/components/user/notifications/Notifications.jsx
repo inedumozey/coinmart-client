@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 const api = new apiClass()
 
 export default function Notifications() {
-    const { user, notifications } = useContext(Context);
+    const { user, notifications, fetchDataErrorMsg, noDataMsg } = useContext(Context);
     const [selectedId, setSelectedId] = useState('');
     const navigate = useNavigate();
     const [sortedData_new, setSortedData_new] = useState([])
@@ -101,12 +101,10 @@ export default function Notifications() {
                     })
                     :
                     !fetchProfileSuccess ?
-                        <div style={{ color: 'red', fontSize: '.7rem' }} className="center">
-                            Failed to fetch data! Please refresh
-                        </div> :
+                        <div style={{ color: 'red', fontSize: '.7rem' }} className="center">{fetchDataErrorMsg}</div> :
 
                         !profileData.newNotifications?.length && !profileData.readNotifications?.length ?
-                            <div className="tag">No notifications at the moment</div> :
+                            <div className="tag">{noDataMsg}</div> :
                             <>
                                 {
                                     profileData.newNotifications?.length ?

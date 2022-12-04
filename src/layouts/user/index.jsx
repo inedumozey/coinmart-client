@@ -9,7 +9,6 @@ import Copyright from '../../components/Copyright';
 import TickerTap from '../../components/tradeView/TickerTape';
 import { useLocation } from 'react-router-dom'
 import Typewriter from 'typewriter-effect';
-import Profile from '../../components/admin/users/user/Profile';
 
 
 const api = new apiClass();
@@ -20,16 +19,13 @@ const shrinkedAside = '75px'
 export default function User({ children }) {
     const [isExpanded, setExpanded] = useState(true);
     const location = useLocation()
-    const { user, contact, movingText } = useContext(Context);
+    const { user, movingText } = useContext(Context);
     const {
         setProfileData,
         profileData,
         setProfileLoading,
         setFetchProfileSuccess,
         setFetchProfileMsg,
-        newNotifications,
-        setNewNotifications,
-        newNotificationCounts,
         setNewNotificationCounts,
     } = user.profile;
 

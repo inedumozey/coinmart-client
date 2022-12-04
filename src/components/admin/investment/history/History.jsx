@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Context } from '../../../../context/Context';
-import Spinner_ from '../../../spinner/Spinner';
 import apiClass from '../../../../utils/api';
 import Cookies from 'js-cookie'
 import Skeleton from '../../../Skeleton';
@@ -10,14 +9,13 @@ import HistoryData from './HistoryData';
 const api = new apiClass()
 
 export default function History() {
-    const { investment, config } = useContext(Context);
+    const { investment, config, noDataMsg } = useContext(Context);
 
     const {
         investmentData_admin,
         setInvestmentData_admin,
         fetchingInvestments_admin,
         setFetchingInvestments_admin,
-        fetchInvestmentsMsg_admin,
         setFetchInvestmentsMsg_admin,
     } = investment.invest;
 
@@ -70,12 +68,11 @@ export default function History() {
                     :
                     investmentData_admin?.length ?
                         <HistoryData data={investmentData_admin} /> :
-                        <div className="tag">No any investment made at the moment</div>
+                        <div className="tag">{noDataMsg}</div>
             }
         </Wrapper>
     )
 }
-
 
 
 const Wrapper = styled.div`

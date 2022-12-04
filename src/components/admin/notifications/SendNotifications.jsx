@@ -22,12 +22,6 @@ export default function SendNotifications() {
     const {
         sendingNotificatio_admin,
         setSendingNotificatio_admin,
-        fetchingNotification_admin,
-        setFetchingNotification_admin,
-        fetchNotificationSuccess_admin,
-        setFetchNotificationSuccess_admin,
-        notifications_admin,
-        setNotifications_admin,
     } = notifications;
 
 

@@ -26,7 +26,9 @@ const staticData = {
     movingText: [`How are you my Friend?`, `Welcome to Drmo.`, `Have a nice day!`],
     // movingText: [`Thanks for investing with Extratcoinmart.`, `Have a nice day!`]
 
-    num: 2
+    num: 2,
+    fetchDataErrorMsg: "Failed to load data, please refresh the browser",
+    noDataMsg: "No data at the moment"
 }
 
 export default staticData

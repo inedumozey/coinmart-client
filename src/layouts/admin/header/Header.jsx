@@ -33,7 +33,7 @@ export default function Header({ isExpanded, setExpanded, headerHeight }) {
 
     return (
         <HeaderStyle isExpanded={isExpanded} headerHeight={headerHeight} >
-            <h4>Admin | {currentRouteName}</h4>
+            <div style={{ fontSize: '.9rem', fontWeight: 'bold' }}>Admin | {currentRouteName}</div>
             {/* <h4>{contact.name} {contact.investment}</h4> */}
             <div className="toggle lg-screen">
                 <span onClick={() => setExpanded(!isExpanded)} className='shrink'>

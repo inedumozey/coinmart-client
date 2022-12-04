@@ -6,11 +6,10 @@ import apiClass from '../../../../utils/api'
 import Skeleton from '../../../Skeleton';
 import ConfirmedData from './ConfirmedData';
 
-
 const api = new apiClass()
 
 export default function Confirmed() {
-    const { config, admin } = useContext(Context);
+    const { config, admin, fetchDataErrorMsg, noDataMsg } = useContext(Context);
 
     const {
         fetchingConfirmedWithdrawalData_initial,
@@ -63,8 +62,8 @@ export default function Confirmed() {
                             }
                         </div>
                     </Skeletons> :
-                    !confirmedWithdrawalDataSuccess ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
-                        confirmedWithdrawalData.length < 1 ? <div className="tag">No comfirmed withdrawals at the moment</div> : <ConfirmedData />
+                    !confirmedWithdrawalDataSuccess ? <div className="tag">{fetchDataErrorMsg}</div> :
+                        confirmedWithdrawalData.length < 1 ? <div className="tag">{noDataMsg}</div> : <ConfirmedData />
             }
         </Wrapper>
     )

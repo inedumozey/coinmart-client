@@ -7,7 +7,7 @@ import ResetPassword from './ResetPassword';
 import Skeletons from './Skeletons';
 
 export default function UpdateAccount() {
-    const { user } = useContext(Context);
+    const { user, fetchDataErrorMsg } = useContext(Context);
 
     const [load, setLoading] = useState(true)
 
@@ -35,9 +35,7 @@ export default function UpdateAccount() {
             {
                 load || profileLoading ? <Skeletons /> :
                     !fetchProfileSuccess ?
-                        <div style={{ color: 'red', fontSize: '.7rem' }} className="center">
-                            Failed to fetch data! Please refresh
-                        </div> :
+                        <div style={{ color: 'red', fontSize: '.7rem' }} className="center">{fetchDataErrorMsg}</div> :
                         <>
                             <SubWrapper>
                                 <ProfileInfo />

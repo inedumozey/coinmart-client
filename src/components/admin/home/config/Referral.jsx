@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { Context } from '../../../../context/Context';
 import Spinner_ from '../../../spinner/Spinner';
@@ -13,10 +13,8 @@ const api = new apiClass()
 
 
 export default function Referral({ initialState }) {
-    const [value, onChange] = useState(new Date());
     const { config } = useContext(Context);
     const {
-        configData,
         setConfigData,
         updatingConfig,
         setUpdatingConfig,

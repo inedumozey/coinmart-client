@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { Context } from '../../../../context/Context';
 import Spinner_ from '../../../spinner/Spinner';
@@ -6,7 +6,6 @@ import apiClass from '../../../../utils/api';
 import Cookies from 'js-cookie'
 import Btn from '../../../Btn/Btn';
 import Select from 'react-select'
-import resolve from '../../../../utils/resolve';
 
 const api = new apiClass()
 

@@ -13,7 +13,7 @@ const api = new apiClass()
 
 export default function Transactions({ selectedUser }) {
     const { snap } = useSnap(.5)
-    const { user, num } = useContext(Context);
+    const { user, num, fetchDataErrorMsg, noDataMsg } = useContext(Context);
 
     const [inp, setInp] = useState('')
     const [load, setLoading] = useState(true);
@@ -104,9 +104,9 @@ export default function Transactions({ selectedUser }) {
                     <Skeletons /> :
 
                     !userDataSuccess_user ?
-                        <div className="tag-error">Faild to fetch data, please refresh the brouser</div> :
+                        <div className="tag-error">{fetchDataErrorMsg}</div> :
                         userData_user.length < 1 ?
-                            <div className="tag-error">No any transactions made at the moment</div> :
+                            <div className="tag-error">{noDataMsg}</div> :
                             <>
                                 <div className="header">
                                     <div className="stat-wrapper">

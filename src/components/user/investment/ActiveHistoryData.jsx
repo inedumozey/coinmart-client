@@ -65,10 +65,7 @@ export default function ActiveHistoryData({ data }) {
                 </div>
                 <Container>
                     {
-                        filteredData.length < 1 ?
-                            <div className="tag red">
-                                No any matured Investment at the moment
-                            </div> :
+                        filteredData.length < 1 ? "" :
                             (
                                 filteredData.slice(0, count).map((data, i) => {
                                     return <Card key={i} data={data} type="matured" />

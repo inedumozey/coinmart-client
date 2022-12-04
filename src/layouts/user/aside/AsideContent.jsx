@@ -17,7 +17,7 @@ const api = new apiClass()
 const asideHeaderheight = '85px';
 
 export default function AsideContent({ expandedAside, shrinkedAside, setExpanded, isExpanded, headerHeight, }) {
-    const { user, modal } = useContext(Context);
+    const { user, modal, fetchDataErrorMsg } = useContext(Context);
     const navigate = useNavigate();
 
     const {
@@ -92,7 +92,7 @@ export default function AsideContent({ expandedAside, shrinkedAside, setExpanded
                                         </Link>
                                     </> :
                                     <>
-                                        <div style={{ color: 'red', fontSize: '.6rem' }}>Failed to fetch data. please refresh</div>
+                                        <div style={{ color: 'red', fontSize: '.6rem' }}>{fetchDataErrorMsg}</div>
                                     </>
                         }
                     </div>

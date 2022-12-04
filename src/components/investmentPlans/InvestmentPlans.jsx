@@ -15,7 +15,7 @@ import BuyPlan from './BuyPlan';
 const api = new apiClass()
 
 export default function InvestmentPlans() {
-    const { investment } = useContext(Context)
+    const { investment, fetchDataErrorMsg, noDataMsg } = useContext(Context)
     const [load, setLoading] = useState(true);
 
     const {
@@ -113,7 +113,7 @@ export default function InvestmentPlans() {
                     }) :
 
                     !fetchingPlansSuccess ?
-                        <div className="tag">Faild to fetch data, please refresh the brouser</div> :
+                        <div className="tag">{fetchDataErrorMsg}</div> :
 
                         plans?.length ?
                             plans?.map((plan, i) => {
@@ -136,7 +136,7 @@ export default function InvestmentPlans() {
                                             {/* add ediy button if role admin and extratoken exist in cookies */}
                                             {
 
-                                                Cookies.get('role')?.toLowerCase() === "admin" && Cookies.get('extratoken') ?
+                                                Cookies.get('role')?.toLowerCase() === "admin" && Cookies.get('extratoken') && Cookies.get('refreshtoken') ?
                                                     <div
                                                         className='action-btn edit'
                                                         color="var(--blue)"
@@ -156,7 +156,7 @@ export default function InvestmentPlans() {
 
                                             {/* add delete button if role admin and extratoken exist in cookies */}
                                             {
-                                                Cookies.get('role')?.toLowerCase() === "admin" && Cookies.get('extratoken') ?
+                                                Cookies.get('role')?.toLowerCase() === "admin" && Cookies.get('extratoken') && Cookies.get('refreshtoken') ?
                                                     <div
                                                         className='action-btn delete'
                                                         color="var(--blue)"
@@ -170,7 +170,7 @@ export default function InvestmentPlans() {
                                     </Card>
                                 )
                             }) :
-                            <div className="tag">No plans at the moment</div>
+                            <div className="tag">{noDataMsg}</div>
             }
 
             {/* open investing modal */}

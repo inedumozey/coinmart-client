@@ -16,7 +16,7 @@ const api = new apiClass()
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 export default function AdminLogin() {
-    const { user, modal } = useContext(Context);
+    const { modal } = useContext(Context);
     const navigate = useNavigate()
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false);
@@ -31,9 +31,6 @@ export default function AdminLogin() {
                     'authorization': `Bearer ${Cookies.get('accesstoken')}`
                 }
             });
-
-            toast(data.msg, { type: 'success' })
-
             // set admin token in cookie session
             api.setAdminCookies(data.admintoken);
 
@@ -105,6 +102,7 @@ const Wrapper = styled.form`
     // display: flex;
     // justify-content: center;
 `
+
 const InputWrapper = styled.div`
     width: 100%;
     height: 45px;

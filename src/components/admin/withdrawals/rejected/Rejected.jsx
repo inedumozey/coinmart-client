@@ -9,7 +9,7 @@ import RejectedData from './RejectedData';
 const api = new apiClass()
 
 export default function Rejected() {
-    const { config, admin } = useContext(Context);
+    const { config, admin, fetchDataErrorMsg, noDataMsg } = useContext(Context);
 
     const {
         fetchingRejectedWithdrawalData_initial,
@@ -62,8 +62,8 @@ export default function Rejected() {
                             }
                         </div>
                     </Skeletons> :
-                    !rejectedWithdrawalDataSuccess ? <div className="tag">Faild to fetch data, please refresh the brouser</div> :
-                        rejectedWithdrawalData.length < 1 ? <div className="tag">No rejected withdrawals at the moment</div> : <RejectedData />
+                    !rejectedWithdrawalDataSuccess ? <div className="tag">{fetchDataErrorMsg}</div> :
+                        rejectedWithdrawalData.length < 1 ? <div className="tag">{noDataMsg}</div> : <RejectedData />
             }
         </Wrapper>
     )

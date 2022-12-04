@@ -22,7 +22,7 @@ export default function ProfileInfo() {
                         </label>
                 }
                 <ChangeProfileImage />
-                <img src={profileData.profile && profileData.profile.profilePicUrl ? profileData.profile.profilePicUrl : "https://api.multiavatar.com/popo.svg"} alt="profile image" />
+                <img src={profileData.profile && profileData.profile.profilePicUrl} alt="profile image" />
             </div>
 
             <div className="user">
@@ -52,19 +52,24 @@ export default function ProfileInfo() {
 
             <div className="user">
                 <span className="name">Acct Bal: </span>
-                <span className="value">{profileData.amount} {profileData.currency}</span>
+                <span style={{ color: 'red' }} className="value">{profileData.amount} {profileData.currency}</span>
+            </div>
+
+            <div className="user">
+                <span className="name">Referral Contest Rewards: </span>
+                <span style={{ color: 'red' }} className="value">{profileData.referralContestRewards} {profileData.currency}</span>
             </div>
 
             <div className="user">
                 <span className="name">Acct No: </span>
-                <span className="value">
+                <span style={{ color: 'red' }} className="value">
                     <Copy copyText={profileData.accountNumber}>{profileData.accountNumber}</Copy>
                 </span>
             </div>
 
             <div className="user">
                 <span className="name">Referral Code: </span>
-                <span className="value">
+                <span style={{ color: 'red' }} className="value">
                     <Copy copyText={profileData.referralCode}>{profileData.referralCode}</Copy>
                 </span>
             </div>

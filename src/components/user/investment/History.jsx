@@ -10,7 +10,7 @@ const api = new apiClass();
 
 export default function History() {
 
-    const { investment } = useContext(Context);
+    const { investment, fetchDataErrorMsg } = useContext(Context);
     const {
         investmentData_users,
         setInvestmentData_users,
@@ -46,9 +46,7 @@ export default function History() {
         <Wrapper>{
             load || fetchingInvestments_users ? <Skeletons /> :
                 !investmentData_users ?
-                    <div className="tag red">
-                        Failed to load data. Please refresh
-                    </div> :
+                    <div style={{ color: 'red' }} className="tag">{fetchDataErrorMsg}</div> :
                     <>
                         <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
                             <div className="tag title">Active Investment</div>
@@ -78,6 +76,9 @@ const Wrapper = styled.div`
         }
     }
 
+    .tag {
+        font-size: .65rem;
+    }
     .header {
         .search-wrapper {
             display: flex;

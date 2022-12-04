@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: .9rem;
+    font-size: .6rem;
     padding: 0 ${({ theme }) => theme.lg_padding};
     @media (max-width: ${({ theme }) => theme.md_screen}){
         padding: 0 ${({ theme }) => theme.md_padding};
