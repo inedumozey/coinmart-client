@@ -4,12 +4,13 @@ import Cookies from 'js-cookie'
 import { Context } from '../../../context/Context'
 import apiClass from '../../../utils/api'
 import Skeletons from '../../contest/Skeletons'
-import ContestantData from '../../contest/ContestantData'
+import ContestantData from '../../contest/ContestantData';
+import ContestHeader from '../../contest/ContestHeader'
 
 const api = new apiClass()
 
 export default function Contest() {
-    const { config, user, referralContest, fetchDataErrorMsg, noDataMsg } = useContext(Context);
+    const { config, user, referralContest, fetchDataErrorMsg } = useContext(Context);
 
     const [load, setLoading] = useState(true)
 
@@ -50,7 +51,10 @@ export default function Contest() {
             {
                 load || fetchingContestants_initial || !config.configData ? <Skeletons /> :
                     !fetchingContestantSuccess ? <div className="tag">{fetchDataErrorMsg}</div> :
-                        contestantData.length < 1 ? <div className="tag">{noDataMsg}</div> :
+                        contestantData.length < 1 ?
+                            <>
+                                <ContestHeader data={contestantData} config={config} />
+                            </> :
                             <ContestantData data={contestantData} profileData={profileData} />
             }
         </Wrapper>

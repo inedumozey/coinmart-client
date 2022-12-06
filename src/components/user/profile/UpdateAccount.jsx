@@ -5,6 +5,10 @@ import ProfileInfo from './ProfileInfo';
 import EditableProfileInfo from './EditableProfileInfo';
 import ResetPassword from './ResetPassword';
 import Skeletons from './Skeletons';
+import apiClass from '../../../utils/api';
+import Cookies from 'js-cookie'
+
+const api = new apiClass()
 
 export default function UpdateAccount() {
     const { user, fetchDataErrorMsg } = useContext(Context);
@@ -15,6 +19,9 @@ export default function UpdateAccount() {
         profileData,
         profileLoading,
         fetchProfileSuccess,
+        setProfileData,
+        setProfileLoadingAgain,
+        profileLoadingAgain
     } = user.profile;
 
     useEffect(() => {
@@ -30,10 +37,27 @@ export default function UpdateAccount() {
         profileImage: profileData.profile?.profilePicUrl
     }
 
+    useEffect(() => {
+        setProfileLoadingAgain(true)
+
+        // if accesstoken not there, refresh it before proceeding, otherwise, proceed straight up
+        if (!Cookies.get('accesstoken')) {
+            api.refreshToken()
+            setTimeout(() => {
+                api.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
+            }, 2000);
+        }
+        else {
+            api.fetchProfileAgain(setProfileData, setProfileLoadingAgain)
+        }
+    }, [])
+
+
+
     return (
         <Wrapper>
             {
-                load || profileLoading ? <Skeletons /> :
+                load || profileLoading || profileLoadingAgain ? <Skeletons /> :
                     !fetchProfileSuccess ?
                         <div style={{ color: 'red', fontSize: '.7rem' }} className="center">{fetchDataErrorMsg}</div> :
                         <>

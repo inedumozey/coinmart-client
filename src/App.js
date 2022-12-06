@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
-import { ContextApi, Context } from './context/Context';
+import { useState, useEffect } from 'react';
+import { ContextApi } from './context/Context';
 import Cookies from "js-cookie";
 import { useLocation } from 'react-router-dom'
 
@@ -20,6 +20,16 @@ function App() {
       setPreloading(false)
     }, 500);
 
+    // fetch website configurations
+    api.fetchConfig()
+
+  }, [])
+
+  // run this every time a page is navigated to
+  useEffect(() => {
+    // resolve investment
+    api.resolveInvestment()
+
     // remove username or email's for resending verify email link from cookies
     Cookies.remove("access")
 
@@ -27,10 +37,7 @@ function App() {
     if (!location.pathname.includes('admin')) {
       Cookies.remove('extratoken')
     }
-
-    // fetch website configurations
-    api.fetchConfig()
-  }, [])
+  })
 
   return preloading ? "" : <ContextApi />
 }

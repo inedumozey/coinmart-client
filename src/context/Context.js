@@ -130,10 +130,6 @@ function ContextApi() {
 
     useEffect(() => {
         api.fetchPlans(setPlans, setFetchingPlans, setFetchingPlansSuccess)
-
-        // resolve investment
-        api.resolveInvestment()
-
     }, [])
 
     const admin_links = [
