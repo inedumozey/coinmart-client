@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import Home_C from '../../components/landing/home/Home';
 
 export default function Home() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function Home() {
             navigate("/dashboard")
         }
     }, [])
-    return (
-        <div>Home Page</div>
-    )
+    return <Home_C />
 }
