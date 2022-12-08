@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
+import GroupIcon from '@mui/icons-material/Group';
+import SavingsIcon from '@mui/icons-material/Savings';
+import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import Skeleton from '../../../Skeleton';
+import FlagCircleIcon from '@mui/icons-material/FlagCircle';
 
 export default function Section_1({ data }) {
 
@@ -25,28 +27,28 @@ export default function Section_1({ data }) {
                     }) :
 
                     <>
-                        <Card Icon={PhoneAndroidIcon}>
+                        <Card Icon={SavingsIcon}>
                             <div>${data.totalDeposit}</div>
                             <h4>Total Deposited</h4>
                         </Card>
 
-                        <Card Icon={LocationOnIcon}>
+                        <Card Icon={PriceCheckIcon}>
                             <div>${data.totalWithdrawal}</div>
                             <h4>Total Payments</h4>
                         </Card>
 
-                        <Card Icon={LocationOnIcon}>
+                        <Card Icon={TroubleshootIcon}>
                             <div>{data.totalInvestors}</div>
                             <h4>Total Investors</h4>
                         </Card>
 
-                        <Card Icon={MailOutlineIcon}>
+                        <Card Icon={GroupIcon}>
                             <div>{data.totalMembers}</div>
                             <h4>Active Members</h4>
                         </Card>
 
 
-                        <Card Icon={LocationOnIcon}>
+                        <Card Icon={FlagCircleIcon}>
                             <div>{data.membersCountry}</div>
                             <h4>Members Country</h4>
                         </Card>
@@ -106,12 +108,13 @@ const CardStyle = styled.div`
     margin: 10px;
     text-align: center;
     box-shadow: 2px 2px 5px #ddd, -2px -2px 5px #ddd;
+    border-bottom: 1px solid var(--yellow);
 
     .icon {
         padding: 10px 0 20px 0;
     }
     .children {
-        padding: 20px;
+        padding: 10px;
         font-weight: bold;
 
         div {
