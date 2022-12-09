@@ -5,6 +5,7 @@ import Spinner_ from '../../spinner/Spinner';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import ChangeProfileImage from '../../../components/user/ChangeProfileImage';
 import Copy from '../../CopyToClipboard';
+import ShareLink from '../../ShareLink';
 
 export default function ProfileInfo() {
     const { user } = useContext(Context);
@@ -71,6 +72,9 @@ export default function ProfileInfo() {
                 <span className="name">Referral Code: </span>
                 <span style={{ color: 'red' }} className="value">
                     <Copy copyText={profileData.referralCode}>{profileData.referralCode}</Copy>
+                </span>
+                <span style={{ marginLeft: '20px' }}>
+                    <ShareLink refcode={profileData.referralCode} />
                 </span>
             </div>
         </Wrapper>

@@ -7,12 +7,13 @@ import HistoryData from './HistoryData'
 import Btn from '../../Btn/Btn'
 import Modal from '../../Modal'
 import Copy from '../../CopyToClipboard'
-import AddRefcode from './AddReferrer'
+import AddRefcode from './AddReferrer';
+import ShareLink from '../../ShareLink'
 
 const api = new apiClass()
 
 export default function History() {
-    const { user, fetchDataErrorMsg } = useContext(Context);
+    const { user, config, fetchDataErrorMsg } = useContext(Context);
 
     const {
         fetchReferralHxLoading,
@@ -70,8 +71,19 @@ export default function History() {
                                     <div>
                                         <span style={{ fontWeight: 'bold' }}>Your Referral Code:</span> {" "}
                                         <span><Copy copyText={profileData.referralCode}>{profileData.referralCode}</Copy></span>
+                                        <span style={{ marginLeft: '20px' }}>
+                                            <ShareLink refcode={profileData.referralCode} />
+                                        </span>
+                                        <span>
+
+                                        </span>
                                     </div>
 
+                                </div>
+                                <br />
+                                <div>
+                                    <div style={{ fontWeight: "bold" }}>Invite your Friends now to claim Commision from their first Investment</div>
+                                    <div>Earn {config.configData.referralBonusPercentage}% Referral Commission from each of your downlines for their first {config.configData.referralBonusLimit} investment{"(s)"}</div>
                                 </div>
                                 <br />
                                 {

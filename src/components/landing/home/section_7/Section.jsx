@@ -26,14 +26,17 @@ export default function Section() {
 
 const Wrapper = styled.div`
     padding: 10px;
-    height: 100%;
+    height: 50vh;;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-itmes: center;
+    text-align: center;
 
     h4 {
         color: #fff;
+        font-size: 1rem;
         font-weight: 600;
         text-align: center;
     }

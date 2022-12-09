@@ -237,6 +237,9 @@ function ContextApi() {
     const [fetchLatestWithdrawal, setFetchLatestWithdrawal] = useState(false)
     const [fetchLatestWithdrawalSuccess, setFetchLatestWithdrawalSuccess] = useState(false)
 
+    // share link
+    const [shareLinkModal, setShareLinkModal] = useState(false)
+
     const links = [
         { url: '/dashboard/my-packages', name: 'My Packages', icon: DashboardIcon },
         { url: '/dashboard/withdrawal', name: 'Withdrawal', icon: PaidIcon },
@@ -565,6 +568,11 @@ function ContextApi() {
             fetchLatestDeposit,
             fetchLatestDepositSuccess,
             latestDepositData,
+        },
+
+        sharelink: {
+            shareLinkModal,
+            setShareLinkModal,
         }
     }
 
