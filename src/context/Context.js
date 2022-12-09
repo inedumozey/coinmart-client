@@ -228,6 +228,15 @@ function ContextApi() {
     const [reseting, setReseting] = useState(false)
     const [resolving, setResolving] = useState(false)
 
+    // latest data
+    const [latestDepositData, setLatestDepositData] = useState([])
+    const [fetchLatestDeposit, setFetchLatestDeposit] = useState(false)
+    const [fetchLatestDepositSuccess, setFetchLatestDepositSuccess] = useState(false)
+
+    const [latestWithdrawalData, setLatestWithdrawalData] = useState([])
+    const [fetchLatestWithdrawal, setFetchLatestWithdrawal] = useState(false)
+    const [fetchLatestWithdrawalSuccess, setFetchLatestWithdrawalSuccess] = useState(false)
+
     const links = [
         { url: '/dashboard/my-packages', name: 'My Packages', icon: DashboardIcon },
         { url: '/dashboard/withdrawal', name: 'Withdrawal', icon: PaidIcon },
@@ -540,6 +549,22 @@ function ContextApi() {
             setReseting,
             resolving,
             setResolving,
+        },
+
+        latestData: {
+            setFetchLatestWithdrawal,
+            setFetchLatestWithdrawalSuccess,
+            setLatestWithdrawalData,
+            fetchLatestWithdrawal,
+            fetchLatestWithdrawalSuccess,
+            latestWithdrawalData,
+
+            setFetchLatestDeposit,
+            setFetchLatestDepositSuccess,
+            setLatestDepositData,
+            fetchLatestDeposit,
+            fetchLatestDepositSuccess,
+            latestDepositData,
         }
     }
 

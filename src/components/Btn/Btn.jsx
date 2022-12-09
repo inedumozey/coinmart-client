@@ -50,7 +50,7 @@ const Wrapper = styled.button`
 
     &:hover{
         color: ${({ color }) => color};
-        background: #fff;
+        background: transparent;
         border: 2px solid ${({ color }) => color};
     }
 

@@ -7,7 +7,7 @@ import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import Skeleton from '../../../Skeleton';
 import FlagCircleIcon from '@mui/icons-material/FlagCircle';
 
-export default function Section_1({ data }) {
+export default function Section({ data }) {
 
     const [load, setLoading] = useState(true)
 

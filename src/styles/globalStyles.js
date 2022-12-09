@@ -28,11 +28,13 @@ const GlobalStyle = createGlobalStyle`
         --blue2: #3269a5;
         --blue-deep: #6861ce;
         --purple: #6f42c1;
+        --purple2: #b91ca8;;
         --pink: #e62ecf;
         --red: #dc3545;
         --orange: #fd7e14;
         --yellow: #E6922E;
         --green: #19b306;
+        --green2: #1AA15F;;
         --teal: #20c997;
         --cyan: #17a2b8;
         --white: #fff;
@@ -115,7 +117,8 @@ const GlobalStyle = createGlobalStyle`
 const Table = styled.div`
     width: 100%;
     max-height: 63vh;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     margin: 0px auto 10px auto;
 
     ${ScrollBar()}
@@ -135,7 +138,7 @@ const Table = styled.div`
         border: 1px solid #999;
         padding: 0.5rem;
         text-align: left;
-        padding: 0.25rem;
+        padding: 10px;
     }
 
     th{

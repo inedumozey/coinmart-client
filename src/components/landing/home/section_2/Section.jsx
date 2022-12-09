@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../../../../context/Context';
 import InvestmentPlans from '../../../investmentPlans/InvestmentPlans';
 
-export default function Section_1({ data }) {
+export default function Section() {
     const { home_page_section2_title, home_page_section2_body } = useContext(Context)
 
     const [load, setLoading] = useState(true)

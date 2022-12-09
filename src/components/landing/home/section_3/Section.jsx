@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../../../../context/Context';
 
-export default function Section_1({ data }) {
+export default function Section() {
     const {
         home_page_section3_title,
         home_page_section3_body,
-        home_page_section3_card
+        home_page_section3_data
     } = useContext(Context)
 
     const [load, setLoading] = useState(true)
@@ -24,7 +24,7 @@ export default function Section_1({ data }) {
             <div style={{ textAlign: 'center', padding: '10px 0' }}>{home_page_section3_body}</div>
             <Flexbox>
                 {
-                    home_page_section3_card?.map((item, i) => {
+                    home_page_section3_data?.map((item, i) => {
                         return (
                             <CardStlye key={i}>
                                 <div className="icon">
@@ -63,7 +63,7 @@ const Flexbox = styled.div`
 const CardStlye = styled.div`
     min-hight: 50px;
     transition: ${({ theme }) => theme.transition};
-    width: 500px;
+    width: 350px;
     background: #fff;
     margin: 10px;
     cursor: default;
@@ -91,7 +91,7 @@ const CardStlye = styled.div`
         }
     }
     .right {
-        padding-right: 20px;
+        padding: 0 10px;
     }
     .title {
         font-weight: bold;
@@ -107,7 +107,9 @@ const CardStlye = styled.div`
             color: #fff;
         }
     }
-
+    @media (max-width: ${({ theme }) => theme.md_screen}){
+        width: 60vw;
+    }
     @media (max-width: ${({ theme }) => theme.sm_screen}){
         width: 90vw;
     }

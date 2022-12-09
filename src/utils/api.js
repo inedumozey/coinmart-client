@@ -1799,6 +1799,56 @@ class apiClass {
             }
         }
     }
+
+    fetchLatestDeposit = async (
+        setFetchLatestDeposit,
+        setFetchLatestDepositSuccess,
+        setLatestDepositData,
+    ) => {
+        setFetchLatestDeposit(true)
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/deposit/latest/`);
+            setFetchLatestDeposit(false);
+            setLatestDepositData(data.data);
+            setFetchLatestDepositSuccess(true);
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchLatestDeposit(false);
+                setFetchLatestDepositSuccess(false);
+            }
+            else {
+                setFetchLatestDeposit(false);
+                setFetchLatestDepositSuccess(false);
+            }
+        }
+    }
+
+    fetchLatestWithdrawal = async (
+        setFetchLatestWithdrawal,
+        setFetchLatestWithdrawalSuccess,
+        setLatestWithdrawalData,
+    ) => {
+        setFetchLatestWithdrawal(true)
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/withdrawal/latest/`);
+            setFetchLatestWithdrawal(false);
+            setFetchLatestWithdrawalSuccess(true);
+            setLatestWithdrawalData(data.data)
+        }
+        catch (err) {
+            if (err.response) {
+                setFetchLatestWithdrawal(false);
+                setFetchLatestWithdrawalSuccess(false);
+            }
+            else {
+                setFetchLatestWithdrawal(false);
+                setFetchLatestWithdrawalSuccess(false);
+            }
+        }
+    }
 }
 
 
