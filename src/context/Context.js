@@ -217,8 +217,9 @@ function ContextApi() {
     const [fetchingOneNotification, setFetchingOneNotification] = useState(false)
     const [deletetingNotification, setDeletetingNotification] = useState(false)
 
-    // contact us
+    // contact admin
     const [sendingMsg, setSendingMsg] = useState(false)
+    const [sendingQusMsg, setSendingQusMsg] = useState(false)
 
     // referral contest
     const [fetchingContestants_initial, setFetchingContestants_initial] = useState(false)
@@ -347,6 +348,8 @@ function ContextApi() {
             contactUs: {
                 sendingMsg,
                 setSendingMsg,
+                sendingQusMsg,
+                setSendingQusMsg
             }
         },
 

@@ -1680,6 +1680,32 @@ class apiClass {
         }
     }
 
+    sendAdminQuestion = async (
+        inp,
+        setSendingQusMsg,
+        setInp
+    ) => {
+        setSendingQusMsg(true)
+
+        try {
+            const { data } = await axios.post(`${BASE_URL}/message/send-admin/`, inp);
+
+            setSendingQusMsg(false)
+            toast(data.msg, { type: 'success' });
+            setInp({ subject: '', message: '', email: '' })
+        }
+        catch (err) {
+            if (err.response) {
+                setSendingQusMsg(false);
+                toast(err.response.data.msg, { type: 'error' });
+            }
+            else {
+                setSendingQusMsg(false);
+                toast(err.message, { type: 'error' });
+            }
+        }
+    }
+
     fetchContestants_initial = async (
         setFetchingContestants_initial,
         setFetchingContestantSuccess,

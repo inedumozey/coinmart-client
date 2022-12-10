@@ -4,9 +4,17 @@ import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
+import AlarmIcon from '@mui/icons-material/Alarm';
+import EmergencyShareIcon from '@mui/icons-material/EmergencyShare';
+import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
+
 
 const name = "DrMo",
-    investment = 'App'
+    investment = 'App',
+    regData = 2015,
+    founded = 2013,
+    memData = 2010
 
 
 const staticData = {
@@ -291,6 +299,61 @@ const staticData = {
             ratings: 4
         }
     ],
+
+    realEstate_title: "IMPORTANT REAL ESTATE DETAILS!.",
+    realEstate_body: "Within minutes, you can create an account, choose your portfolio strategy, and watch as your dollars are diversified across a series of real estate properties tailored to your selected strategy. To access our real estate services, sign up and email admin.",
+    realEstate_data: [
+        {
+            icon: AccessibilityIcon,
+            title: 'Who Can Invest In Real Estate?',
+            body: "Any U.S citizen (or permanent resident) currently residing in the U.S. who is over the age of 18. No accreditation required."
+        },
+        {
+            icon: AlarmIcon,
+            title: 'Is Real Estate A Long-Term Investment?',
+            body: `Absolutely. Investments in ${name} real estate should be viewed as long-term (5+ years). This is because nearly all of the most effective real estate investing strategies require a combination of both expertise and time to pay off.`
+        },
+        {
+            icon: HolidayVillageIcon,
+            title: 'Real Estate Assets',
+            body: `${name} ${investment} offers unprecedented transparency into what you actually own. Each of our portfolios offers exposure to a mix of some of all of the projects listed below, plus ongoing updates about the progress of individual investments.`
+        },
+        {
+            icon: RequestQuoteIcon,
+            title: 'How Much Profit Can I Expect?',
+            body: "The amount of profit you can make on real estate depends on your investment choice and the amount you invested, our average investor gets above 30% ROI"
+        },
+        {
+            icon: EmergencyShareIcon,
+            title: 'Should I Be Worried About Losses?',
+            body: `No. ${name} ${investment}is risk-free and We have a team of professionals with years of experience in real estate.`
+        }
+    ],
+
+    faq_title: 'Some important FAQ',
+    faq_body: 'Our frequently asked questions.',
+    faq_data: [
+        {
+            question: `What is ${name} ${investment}?`,
+            answer: `${name} ${investment} is officially registered in the United states ${regData}. ${name} ${investment} is an investment company, which was founded in ${founded} by commercial traders with many years of experience of successful activity in the financial market. Since ${memData}, our team has been developing its own strategies of trading and currency exchange applying all professional knowledge, techniques and skills that allow us to generate stable cash flows with minimal risk of financial loss.`
+        },
+        {
+            question: `Why is the Long Term Plan Different from the Basic Plans?`,
+            answer: `Long term plans are being traded on a unique automated platform different from the regular plans.`
+        },
+        {
+            question: `What are the riskd of loss of Funds for Investors?`,
+            answer: `${name} ${investment} is a platform which is risk-free. However, to avoid unforseen loss, the company continuously fills in its contingency fund. In the case of force majeure situations, Exploit stocks investors can expect to receive money back except the profits they received earlier.`
+        },
+        {
+            question: `How can I start investing with Exploit Stocks?`,
+            answer: `In order to begin, you should register on our website by filling the registration form. Just click on "Register". After that, you can start investing with us. Please make sure that you must have an e-currency account and must be of legal age of at least 18 years old.`
+        },
+        {
+            question: `Can I make multiple Deposits?`,
+            answer: `Yes you can make multiple deposits at any given time. There is no limit to the amount and the number of transactions you make within our program. You can make a deposit from different and multiple payment processors as well.`
+        }
+    ]
 
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
+import RealEstate_C from '../../components/landing/realEstate/RealEstate';
 
 export default function RealEstate() {
     const navigate = useNavigate();
@@ -10,7 +11,5 @@ export default function RealEstate() {
             navigate("/dashboard")
         }
     }, [])
-    return (
-        <div>Real Estate Page</div>
-    )
+    return <RealEstate_C />
 }

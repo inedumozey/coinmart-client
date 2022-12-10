@@ -3,11 +3,8 @@ import styled from 'styled-components'
 import Cookies from 'js-cookie'
 import apiClass from '../../../utils/api'
 import Spinner_ from '../../spinner/Spinner';
-import Modal from '../../Modal';
 import Btn from '../../Btn/Btn';
 import { Context } from '../../../context/Context';
-import MarkdownContent from '../../MarkdownContent';
-import InfoIcon from '@mui/icons-material/Info';
 
 const api = new apiClass()
 

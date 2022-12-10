@@ -1,30 +1,21 @@
 import styled from 'styled-components';
 import React, { useEffect, useState, useContext } from 'react';
-import { Context } from '../../../../context/Context';
+import { Context } from '../../../context/Context';
 
-export default function Section() {
+export default function RealEstate() {
     const {
-        home_page_section3_title,
-        home_page_section3_body,
-        home_page_section3_data
+        realEstate_title,
+        realEstate_body,
+        realEstate_data
     } = useContext(Context)
-
-    const [load, setLoading] = useState(true)
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
-    }, [])
-
 
     return (
         <Wrapper>
-            <h3 style={{ textAlign: 'center' }}>{home_page_section3_title}</h3>
-            <div style={{ textAlign: 'center', padding: '10px 0' }}>{home_page_section3_body}</div>
+            <h3 style={{ textAlign: 'center' }}>{realEstate_title}</h3>
+            <div style={{ textAlign: 'center', padding: '10px 0' }}>{realEstate_body}</div>
             <Flexbox>
                 {
-                    home_page_section3_data?.map((item, i) => {
+                    realEstate_data?.map((item, i) => {
                         return (
                             <CardStlye key={i}>
                                 <div className="icon">
@@ -47,7 +38,13 @@ export default function Section() {
 
 
 const Wrapper = styled.div`
-    padding: 20px 0;
+    padding: 20px ${({ theme }) => theme.lg_padding};
+    @media (max-width: ${({ theme }) => theme.md_screen}){
+        padding: 20px ${({ theme }) => theme.md_padding};
+    }
+    @media (max-width: ${({ theme }) => theme.sm_screen}){
+        padding: 20px ${({ theme }) => theme.sm_padding};
+    }
 `
 
 const Flexbox = styled.div`

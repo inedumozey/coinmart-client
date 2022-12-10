@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom'
+import AboutUs_C from '../../components/landing/aboutUs/AboutUs';
 
 export default function AboutUs() {
     const navigate = useNavigate();
@@ -12,9 +13,5 @@ export default function AboutUs() {
         }
     }, [])
 
-    return (
-        <div>
-            About Us Page
-        </div>
-    )
+    return <AboutUs_C />
 }
