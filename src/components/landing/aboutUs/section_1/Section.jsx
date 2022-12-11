@@ -45,25 +45,33 @@ const Flexbox = styled.div`
     flex-wrap: wrap;
 
     .left {
-        width: 400px;
+        width: 500px;
         padding: 10px;
         display: flex;
         justify-content: center;
         
         .video {
             width: 100%;
-            height: 300px;
 
             img {
                 width: 100%;
-                height: 100%;
                 object-fit: contain;
             }
         }
     }
+    
     .right {
-        width: calc(100% - 400px - 10px);
+        width: calc(100% - 500px - 10px);
         text-align: justify;
+    }
+
+    @media (max-width: ${({ theme }) => theme.lg_screen}){
+        .left {
+            width: 400px
+        }
+        .right {
+            width: calc(100% - 400px - 10px);
+        }
     }
 
     @media (max-width: ${({ theme }) => theme.md_screen}){
@@ -76,6 +84,8 @@ const Flexbox = styled.div`
             margin: auto;
         }
     }
+
+ 
 `
 
 const CardStlye = styled.div`
