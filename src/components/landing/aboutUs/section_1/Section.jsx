@@ -2,15 +2,23 @@ import styled from 'styled-components';
 import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../../../../context/Context';
 import Btn from '../../../Btn/Btn';
+import { Link, useNavigate } from 'react-router-dom';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
+
 
 export default function Section() {
-    const { about_page_section1_data } = useContext(Context)
+    const { about_page_section1_data } = useContext(Context);
+    const navigate = useNavigate()
 
     return (
         <Wrapper>
             <Flexbox>
                 <CardStlye className='left'>
                     <div className="video">
+                        <div onClick={() => navigate('/video/about/55474857575')} className="play">
+                            <PlayArrowIcon style={{ color: 'var(--blue)', fontSize: '3rem' }} />
+                        </div>
                         <img src="/ab.jpg" alt="" />
                     </div>
                 </CardStlye>
@@ -52,6 +60,35 @@ const Flexbox = styled.div`
         
         .video {
             width: 100%;
+            position: relative;
+
+            .play {
+                position: absolute;
+                top:50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 2;
+                width: 50px;
+                height: 50px;
+                display: flex;
+                justify-content: center;
+                cursor: pointer;
+                align-items: center;
+
+                &:hover {
+                    opacity: .4;
+                }
+            }
+
+            &::after {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 50%;
+                height: 100%;
+                content: "";
+                background: rgba(6,34,65,0.60) none repeat scroll 0 0;
+            }
 
             img {
                 width: 100%;

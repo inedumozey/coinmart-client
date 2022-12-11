@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React from 'react';
 import Section_1 from './section_1/Section';
 import Section_2 from './section_2/Section';
 import Section_3 from './section_3/Section';

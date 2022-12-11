@@ -60,6 +60,9 @@ import AdminTransferHistory from "./admin/TransferHistory";
 //certificate model page
 import Certificate from "./certificate/Certificate";
 
+//video model page
+import Video from "./video/Video";
+
 //404 page
 import PageNotFound from "./404/PageNotFound";
 import Custome404 from "./404/Custome404";
@@ -127,6 +130,7 @@ export default function Pages() {
             </Route>
 
             <Route path="certificate/1668012585323" element={<Certificate />} />
+            <Route path="video/about/55474857575" element={<Video />} />
 
             <Route path="*" element={<PageNotFound />} />
             <Route path="/404" element={<Custome404 />} />
