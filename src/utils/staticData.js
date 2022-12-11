@@ -393,7 +393,36 @@ const staticData = {
 
     ],
 
-    about_page_section3_text: `Our worldwide integration partner work with long time relationship`
+    about_page_section3_text: `Our worldwide integration partner work with long time relationship`,
+
+    about_page_section4_part1_title: `We also offer real estate services`,
+    about_page_section4_part1_body: 'Within minutes, you can create an account, choose your portfolio strategy, and watch as your dollars are diversified across a series of real estate properties tailored to your selected strategy. To access our real estate services, sign up and email admin. We also offer real estate services',
+    about_page_section4_part1_body2: 'IMPORTANT REAL ESTATE DETAILS!.',
+    about_page_section4_part1_data: [
+        {
+            item: `Who can invest in Real estate? Any U.S. citizen (or permanent resident) currently residing in the U.S. who is over the age of 18. No accreditation required.`
+        },
+        {
+            item: `Is Real estate a long-term investment? Absolutely. Like all private real estate investments, investments in ${name} real estate should be viewed as long-term (5+ years). This is because nearly all of the most effective real estate investing strategies require a combination of both expertise and time to pay off. We select strategies based on their long-term return potential for our investors, not short-term optics. If you anticipate needing your investment back in the near-term, we don't recommend investing with us.`
+        },
+        {
+            item: `Real Estate Assets ${name} ${investment} offers unprecedented transparency into what you actually own. Each of our portfolios offers exposure to a mix of some of all of the projects listed below, plus ongoing updates about the progress of individual investments.`
+        }
+
+    ],
+    about_page_section4_part2_title: 'Risk free investment system of our policy',
+    about_page_section4_part2_body: 'Easy & Convenient All our systems are built and updated with the client in mind. Starting from our account opening procedure, to managing your account, depositing or withdrawing funds. With our extensive investment network, you can invest any currency or crypto you are interested in as you will have all the necessary tools and information and earn more money.',
+    about_page_section4_part2_data: [
+        {
+            item: `Innovation idea latest business tecnology`
+        },
+        {
+            item: `Digital content marketing online clients plateform`
+        },
+        {
+            item: `Safe secure services for you online email account`
+        }
+    ],
 
 }
 

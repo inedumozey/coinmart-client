@@ -4,7 +4,16 @@ import { Context } from '../../../../context/Context';
 import Btn from '../../../Btn/Btn';
 
 export default function Section() {
-    const { about_page_section1_data } = useContext(Context)
+    const {
+        about_page_section4_part1_title,
+        about_page_section4_part1_body,
+        about_page_section4_part1_body2,
+        about_page_section4_part1_data,
+
+        about_page_section4_part2_title,
+        about_page_section4_part2_body,
+        about_page_section4_part2_data
+    } = useContext(Context)
 
     return (
         <Wrapper>
@@ -16,12 +25,17 @@ export default function Section() {
                 </CardStlye>
 
                 <CardStlye className='text'>
-                    {about_page_section1_data?.map((item, i) => {
+                    <h3 style={{ textAlign: 'center' }}>{about_page_section4_part1_title}</h3>
+                    <div style={{ textAlign: 'justify', margin: '15px' }}>{about_page_section4_part1_body}</div>
+
+                    <div style={{ textAlign: 'center', margin: '15px', fontSize: '1rem' }}>{about_page_section4_part1_body2}</div>
+
+                    {about_page_section4_part1_data?.map((item, i) => {
                         return (
-                            <div key={i}>
-                                <h2 style={{ textAlign: 'center' }}>{item.title}</h2>
-                                <p>{item.discription}</p>
-                            </div>
+                            <ul key={i}>
+                                <div className="mark">&#10004;</div>
+                                <li>{item.item} </li>
+                            </ul>
                         )
                     })}
 
@@ -29,12 +43,15 @@ export default function Section() {
                 </CardStlye>
 
                 <CardStlye className='text'>
-                    {about_page_section1_data?.map((item, i) => {
+                    <h3 style={{ textAlign: 'center' }}>{about_page_section4_part2_title}</h3>
+                    <div style={{ textAlign: 'justify', margin: '15px' }}>{about_page_section4_part2_body}</div>
+
+                    {about_page_section4_part2_data?.map((item, i) => {
                         return (
-                            <div key={i}>
-                                <h2 style={{ textAlign: 'center' }}>{item.title}</h2>
-                                <p>{item.discription}</p>
-                            </div>
+                            <ul key={i}>
+                                <div className="mark">&#10004;</div>
+                                <li> {item.item}</li>
+                            </ul>
                         )
                     })}
 
@@ -90,15 +107,20 @@ const Flexbox = styled.div`
             margin: 10px auto;
         }
 
-        li {
-            display: block;
+        ul {
             position: relative;
+            cursor: default;
+            margin-left: 10px;
 
-            &::after {
+            li {
+                display: block;
+            }
+
+            .mark{
                 position: absolute;
                 left: 0px;
-                top: 6px;
-                content: "\e64c";
+                top: 0%;
+                transform: translateY(-50%);
                 font-family: themify;
                 width: 24px;
                 height: 24px;
