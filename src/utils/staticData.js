@@ -8,6 +8,9 @@ import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import AlarmIcon from '@mui/icons-material/Alarm';
 import EmergencyShareIcon from '@mui/icons-material/EmergencyShare';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import WorkspacesIcon from '@mui/icons-material/Workspaces';
 
 
 const name = "DrMo",
@@ -353,7 +356,44 @@ const staticData = {
             question: `Can I make multiple Deposits?`,
             answer: `Yes you can make multiple deposits at any given time. There is no limit to the amount and the number of transactions you make within our program. You can make a deposit from different and multiple payment processors as well.`
         }
-    ]
+    ],
+
+    about_page_section1_data: [
+        {
+            title: "HOW WE WORK",
+            discription: `Quality assets, Low fees, Smart technology. We blend our investment expertise with smart technology to provide our 170,000 investors with the buying power and investment opportunities traditionally reserved for billion dollar institutions. Your portfolio is powered by high-quality, resilient assets. Our assets drive your returns. We pair our extensive network and expertise with the collective buying power of our investor community to acquire high-quality assets ranging from debt to equity, commercial to residential, and more. We follow a "value investing" strategy of acquiring assets for less than what we believe is their intrinsic value, and typically less than their replacement cost. Our team then works to increase the value of each asset over time through hands-on management and in partnership with local operators. We've specifically built the ${name} portfolio with the intention of being able to withstand prolonged periods of economic distress. Nothing can be guaranteed, but because of our conservative approach and extensive underwriting processes, we believe the ${name} portfolio is, from a risk-adjusted-return standpoint, well positioned to be able to sustain a severe economic downturn.`
+        },
+        {
+            title: "OUR MODEL",
+            discription: `Your returns are maximized through our low-fee approach. While historically profitable, the real estate investing industry is notorious for its high advisory fees, hidden management fees, and return-limiting performance fees.${name} investors are arguably able to own real property in a more low-cost way than was previously ever possible. We've reduced our costs and your fees to ensure you keep more of what you earn. We did this by designing new software that makes dozens of expensive-but-required processes much cheaper at scale. We also handle virtually every piece of the real estate business in-house. We work directly with real estate developers and operators, handle our own financials, and manage our own deals. Because we've eliminated most intermediaries, we're able to keep our expenses low.`
+        },
+        {
+            title: "OUR PLATFORM",
+            discription: `Your first investment is just the beginning. Within minutes, you can create an account, choose your portfolio strategy, and watch as your dollars are diversified across a series of investment funds tailored to your selected strategy. After you place your initial investment, we'll keep working to find and add new assets to your portfolio over time — with no additional investment required on your end. This means your already-diversified portfolio can become stronger year after year. Through your login to your portfolio, you can watch each asset in your portfolio evolve over time. We regularly publish new asset updates, including milestones like new construction progress, occupancy reports, market data trends, and project completion alerts. Where traditional investment firms typically build black boxes around their individual investments, we see an opportunity to deliver an extraordinarily rich and transparent investing experience. Click on learn more to contact the Admin for more information.`
+        },
+    ],
+
+    about_page_section2_data: [
+        {
+            icon: TrackChangesIcon,
+            title: 'Our Mission',
+            body: "We are on a mission to change the world and we are changing the world"
+        },
+        {
+            icon: RemoveRedEyeIcon,
+            title: 'Our Vision',
+            body: "Over 8years experience in the industry so you have nothing to worry about"
+        },
+        {
+            icon: WorkspacesIcon,
+            title: 'Our Experience',
+            body: "Our vision is to ensure every investors get all their vision"
+        }
+
+
+    ],
+
+    about_page_section3_text: `Our worldwide integration partner work with long time relationship`
 
 }
 
