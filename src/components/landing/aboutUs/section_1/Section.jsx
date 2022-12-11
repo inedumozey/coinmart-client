@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Context } from '../../../../context/Context';
 import Btn from '../../../Btn/Btn';
-import { Link, useNavigate } from 'react-router-dom';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { useNavigate } from 'react-router-dom';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 
 
@@ -17,7 +16,7 @@ export default function Section() {
                 <CardStlye className='left'>
                     <div className="video">
                         <div onClick={() => navigate('/video/about/55474857575')} className="play">
-                            <PlayArrowIcon style={{ color: 'var(--blue)', fontSize: '3rem' }} />
+                            <PlayCircleFilledWhiteIcon style={{ color: 'var(--blue)', fontSize: '3rem' }} />
                         </div>
                         <img src="/ab.jpg" alt="" />
                     </div>
