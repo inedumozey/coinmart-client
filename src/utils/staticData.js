@@ -99,55 +99,56 @@ const staticData = {
     home_page_section6_deposit: [
         {
             userId: { username: 'angela' },
-            amount: 789,
+            amountReceived: 789,
             createdAt: "2022-12-08T08:23:49.309Z",
         },
         {
             userId: { username: 'haley' },
-            amount: 7800,
+            amountReceived: 7800,
             createdAt: "2022-12-08T06:23:49.309Z",
         },
         {
             userId: { username: 'hernandez' },
-            amount: 5000,
+            amountReceived: 5000,
             createdAt: "2022-12-07T06:23:49.309Z",
         },
         {
             userId: { username: 'nathaly' },
-            amount: 400,
+            amountReceived: 400,
             createdAt: "2022-12-06T08:23:49.309Z",
         },
         {
             userId: { username: 'joyce' },
-            amount: 1100,
+            amountReceived: 1100,
             createdAt: "2022-12-06T06:23:49.309Z",
         },
         {
             userId: { username: 'holloway' },
-            amount: 1000,
+            amountReceived: 1000,
             createdAt: "2022-12-05T06:23:49.309Z",
         },
         {
             userId: { username: 'george' },
-            amount: 2000,
+            amountReceived: 2000,
             createdAt: "2022-12-04T06:23:49.309Z",
         },
         {
             userId: { username: 'archer' },
-            amount: 2050,
+            amountReceived: 2050,
             createdAt: "2022-12-04T04:23:49.309Z",
         },
         {
             userId: { username: 'burch' },
-            amount: 1830,
+            amountReceived: 1830,
             createdAt: "2022-12-04T02:23:49.309Z",
         },
         {
             userId: { username: 'damaris' },
-            amount: 789,
+            amountReceived: 789,
             createdAt: "2022-12-04T01:23:49.309Z",
         },
     ],
+
     home_page_section6_withdrawal: [
         {
             userId: { username: 'olive' },

@@ -7,6 +7,7 @@ import Skeletons from './Skeletons';
 import MaturedHistoryData from './MaturedHistoryData';
 import ActiveHistoryData from './ActiveHistoryData';
 import { Link } from 'react-router-dom';
+import Btn from '../../Btn/Btn';
 const api = new apiClass();
 
 export default function History() {
@@ -75,11 +76,9 @@ export default function History() {
                         <div style={{ color: 'red' }} className="tag">{fetchDataErrorMsg}</div> :
                         <>
                             <div className='profile-info'>
-                                <div>
-                                    Account Balance: <span>{profileData.amount} {profileData.currency}</span>
-                                </div>
-                                <div>
-                                    Total Investment Earnings: {function () {
+                                {/* <div style={{ color: '#aaa' }}>
+                                    Toal Investmenet Earnsings: {" "}
+                                    {function () {
                                         let sum = 0;
                                         const filtereddata = investmentData_users.data?.maturedInvestment.filter(item => {
                                             const amount = item.amount;
@@ -89,43 +88,49 @@ export default function History() {
                                             sum += returns
                                         })
 
-                                        return <span>{sum} {profileData.currency}</span>
+                                        return `$${sum} ${profileData.currency}`
                                     }()}
+                                </div> */}
+                                <h1 style={{ color: '#fff', textAlign: 'center', margin: '50px auto' }}>${profileData.amount}</h1>
+
+                                <div style={{ textAlign: 'center', margin: '50px auto' }}>
+                                    <Btn url="/dashboard/withdrawal">WITHDRAW</Btn>
                                 </div>
-                                <div className="click">Click <Link to="/dashboard/plans">here</Link> to invest</div>
+
+                                <div className="btn-row">
+                                    <div>
+                                        <Btn color="var(--blue)" url="/dashboard/plans">INVEST</Btn>
+                                    </div>
+                                    <div>
+                                        <Btn color="var(--blue)" url="/dashboard/deposit">DEPOSIT</Btn>
+                                    </div>
+                                </div>
                             </div>
+
+                            <br />
                             <br />
 
 
+                            <div className="investment-hx">
+                                <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
+                                    <div className="tag title">Active Investment</div>
+                                    <ActiveHistoryData data={investmentData_users.data?.activeInvestment} />
+                                </div>
 
-                            <div style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
-                                <div className="tag title">Active Investment</div>
-                                <ActiveHistoryData data={investmentData_users.data?.activeInvestment} />
-                            </div>
-
-                            <div style={{ paddingTop: '10px' }}>
-                                <div className="tag title">Matured Investment</div>
-                                <MaturedHistoryData data={investmentData_users.data?.maturedInvestment} />
+                                <div style={{ paddingTop: '10px' }}>
+                                    <div className="tag title">Matured Investment</div>
+                                    <MaturedHistoryData data={investmentData_users.data?.maturedInvestment} />
+                                </div>
                             </div>
                         </>
             }
-        </Wrapper>
+        </Wrapper >
     )
 }
 
 
 
-const Wrapper = styled.div`
-    
-    padding: 20px ${({ theme }) => theme.lg_padding};
-        @media (max-width: ${({ theme }) => theme.md_screen}){
-            padding: 20px ${({ theme }) => theme.md_padding};
-        }
-        @media (max-width: ${({ theme }) => theme.sm_screen}){
-            padding: 20px ${({ theme }) => theme.sm_padding};
-        }
-    }
-
+const Wrapper = styled.div`  
     .tag {
         font-size: .65rem;
     }
@@ -155,39 +160,41 @@ const Wrapper = styled.div`
         }
     }
 
-    .profile-info {
-        background: #fff;
-        box-shadow: 2px 2px 5px #ccc;
-        min-height: 30vh;
-        padding: 30px 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-        font-size: 2rem;
-
+    .investment-hx {
+        padding: 20px ${({ theme }) => theme.lg_padding};
         @media (max-width: ${({ theme }) => theme.md_screen}){
-            font-size: 1.5rem;
+            padding: 20px ${({ theme }) => theme.md_padding};
         }
         @media (max-width: ${({ theme }) => theme.sm_screen}){
-            font-size: 1rem;
+            padding: 20px ${({ theme }) => theme.sm_padding};
+        }
+    }
+
+    .profile-info {
+        background: var(--blue2);
+        min-height: 60vh;
+        position: relative;
+        width: 100%;
+        font-weight: bold;
+
+        padding: 20px ${({ theme }) => theme.lg_padding};
+        @media (max-width: ${({ theme }) => theme.md_screen}){
+            padding: 20px ${({ theme }) => theme.md_padding};
+        }
+        @media (max-width: ${({ theme }) => theme.sm_screen}){
+            padding: 20px ${({ theme }) => theme.sm_padding};
         }
 
-        span {
-            color: red;
-        }
-
-        .click {
-            font-size: 1.3rem;
-            margin-top: 60px;
-
-            @media (max-width: ${({ theme }) => theme.md_screen}){
-                font-size: 1rem;
-            }
-            @media (max-width: ${({ theme }) => theme.sm_screen}){
-                font-size: .8rem;
-            }
+        .btn-row {
+            position: absolute;
+            height: 50px;
+            left: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            right: 0;
+            width: 100%;
+            bottom: -25px;
         }
     }
 `

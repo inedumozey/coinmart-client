@@ -176,7 +176,7 @@ export default function Signin_C() {
                             <div className='text-center text-md-start mt- pt-2'>
 
                                 <Btn disabled={sending || !allInputFilled} color="var(--blue)" link={false}>
-                                    {sending ? <Spinner_ size="sm" /> : "Sign Up"}
+                                    {sending ? <Spinner_ size="sm" /> : "Sign In"}
                                 </Btn>
 
                                 <div>
@@ -184,7 +184,7 @@ export default function Signin_C() {
                                 </div>
 
                                 <p className="small fw-bold mt-2 pt-1 mb-2">
-                                    Don't have an account? <Link to="/auth/signup" className="link-danger">Sign In</Link>
+                                    Don't have an account? <Link to="/auth/signup" className="link-danger">Sign Up</Link>
                                 </p>
                             </div>
 

@@ -69,7 +69,7 @@ export default function Section() {
                     >
                         {home_page_section9_data?.map((item, i) => {
                             return (
-                                <SwiperSlide>
+                                <SwiperSlide key={i}>
                                     <div className='text'>{item.text}</div>
                                     <div style={{ margin: ' 5px 20px' }}>
                                         {function () {

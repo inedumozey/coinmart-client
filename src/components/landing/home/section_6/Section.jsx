@@ -27,14 +27,19 @@ export default function Section() {
         latestDepositData,
     } = latestData
 
+
+
     const [load, setLoading] = useState(true)
     const [deposit, setDeposit] = useState([])
     const [withdrawal, setWithdrawal] = useState([])
 
     useEffect(() => {
         latestDepositData.length < 10 ? setDeposit(home_page_section6_deposit) : setDeposit(latestDepositData)
-        latestWithdrawalData.length < 10 ? setWithdrawal(home_page_section6_withdrawal) : setDeposit(latestWithdrawalData)
-    }, [latestWithdrawalData, latestDepositData])
+
+        latestWithdrawalData.length < 10 ? setWithdrawal(home_page_section6_withdrawal) : setWithdrawal(latestWithdrawalData)
+    }, [latestWithdrawalData, latestDepositData]);
+
+    console.log(latestDepositData)
 
     useEffect(() => {
         setTimeout(() => {
@@ -75,7 +80,7 @@ export default function Section() {
                                                                 {data.createdAt && new Date(data.createdAt).toLocaleString()}
                                                             </td>
                                                             <td>{data.userId?.username}</td>
-                                                            <td>{data.amount}</td>
+                                                            <td>{data.amountReceived}</td>
                                                         </tr>
                                                     )
                                                 })}

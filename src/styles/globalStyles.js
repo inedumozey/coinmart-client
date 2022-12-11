@@ -89,15 +89,6 @@ const GlobalStyle = createGlobalStyle`
             color: var(--major-cclicked={clicked} index={index} isActive={isActive}olor-purest);
         };
 
-        // a {
-        //     color: inherit;
-        //     text-decoration: none;
-
-        //     &:hover {
-        //         opacity:.6
-        //     }
-        // };
-
         .stat {
           font-size: .7rem;
         }
@@ -116,9 +107,8 @@ const GlobalStyle = createGlobalStyle`
 
 const Table = styled.div`
     width: 100%;
-    max-height: 63vh;
-    overflow-x: auto;
-    overflow-y: hidden;
+    // max-height: 63vh;
+    overflow: auto;
     margin: 0px auto 10px auto;
 
     ${ScrollBar()}

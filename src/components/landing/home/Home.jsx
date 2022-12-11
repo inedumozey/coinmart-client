@@ -25,7 +25,7 @@ export default function Home() {
 
         setFetchLatestDeposit,
         setFetchLatestDepositSuccess,
-        setLatestDepositData,
+        setLatestDepositData
     } = latestData
 
     useEffect(() => {
@@ -35,6 +35,7 @@ export default function Home() {
         api.fetchLatestDeposit(setFetchLatestDeposit, setFetchLatestDepositSuccess, setLatestDepositData)
         api.fetchLatestWithdrawal(setFetchLatestWithdrawal, setFetchLatestWithdrawalSuccess, setLatestWithdrawalData,)
     }, []);
+
 
     return (
         <Wrapper>
@@ -88,7 +89,7 @@ const Wrapper = styled.div`
 
     .bg1 {background: url('/office.jpg')}
     .bg2 {
-        background: rgba(22, 22, 122, .5) url('/hero3.jpg');
+        background: rgba(6,34,65,0.60) url('/hero3.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         display: flex;

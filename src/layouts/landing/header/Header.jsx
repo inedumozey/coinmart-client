@@ -63,7 +63,7 @@ export default function Header({ openMenu, setOpenMenu }) {
                 </Link>
                 <div className="right">
                     <div className='link' style={{ margin: '0 10px' }}><Links link={link} /></div>
-                    <div className="login"><Btn>LOGIN</Btn></div>
+                    <div className="login"><Btn url="/auth">LOGIN</Btn></div>
                     <div onClick={() => setOpenMenu(!openMenu)} className="toggle">
                         {openMenu ? <CloseIcon /> : <MenuIcon />}
                     </div>
