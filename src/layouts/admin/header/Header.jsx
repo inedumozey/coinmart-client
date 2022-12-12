@@ -1,10 +1,14 @@
 import styled from 'styled-components'
+import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Context } from '../../../context/Context';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import CountdownTimer from '../../../components/contest/CountdownTimer';
 
 export default function Header({ isExpanded, setExpanded, headerHeight }) {
     const location = useLocation()
+    const { user, config } = useContext(Context);
 
     let currentRouteName;
     if (location.pathname.includes('/admin/home')) currentRouteName = "Home"
@@ -33,8 +37,14 @@ export default function Header({ isExpanded, setExpanded, headerHeight }) {
 
     return (
         <HeaderStyle isExpanded={isExpanded} headerHeight={headerHeight} >
+            {
+                config.configData.allowReferralContest ? <div className="contest">
+                    <CountdownTimer stopDate={config.configData.referralContestStops} startDate={config.configData.referralContestStarts} />
+                </div> : ''
+            }
+
             <div style={{ fontSize: '.9rem', fontWeight: 'bold' }}>Admin | {currentRouteName}</div>
-            {/* <h4>{contact.name} {contact.investment}</h4> */}
+
             <div className="toggle lg-screen">
                 <span onClick={() => setExpanded(!isExpanded)} className='shrink'>
                     <ArrowLeftIcon className='icon' />
@@ -77,6 +87,17 @@ const HeaderStyle = styled.div`
     }
     @media (max-width: ${({ theme }) => theme.sm_screen}){
         padding: 15px ${({ theme }) => theme.sm_padding};
+    }
+
+    .contest {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: .7rem;
+        border: 1px solid red;
+        padding: 0 10px;
+        border-radius: 10px;
+        text-align: center;
     }
 
     a {

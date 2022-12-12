@@ -175,7 +175,7 @@ function ContextApi() {
     const [profileImageLoading, setProfileImageLoading] = useState(false);
     const [profileImageSuccess, setProfileImageSuccess] = useState(false);
     const [newNotifications, setNewNotifications] = useState(true)
-    const [newNotificationCounts, setNewNotificationCounts] = useState(5)
+    const [newNotificationCounts, setNewNotificationCounts] = useState(0)
     const [editProfileLoading, setEditProfileLoading] = useState(false)
 
     // Reset Password
@@ -248,7 +248,7 @@ function ContextApi() {
         { url: '/dashboard/transfer', name: 'Transfer', icon: SavingsIcon },
         { url: '/dashboard/transactions', name: 'Transactions', icon: CurrencyExchangeIcon },
         { url: '/dashboard/plans', name: 'Plans', icon: CreditScoreIcon },
-        { url: '/dashboard/notifications', name: 'Notifications', icon: newNotifications ? NotificationsActiveIcon : NotificationsIcon },
+        { url: '/dashboard/notifications', name: 'Notifications', icon: newNotificationCounts > 0 ? NotificationsActiveIcon : NotificationsIcon },
         { url: '/dashboard/tickets', name: 'Ticket', icon: SendIcon },
     ]
 

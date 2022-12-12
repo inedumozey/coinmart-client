@@ -1,13 +1,40 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { Context } from '../../../context/Context';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import CountdownTimer from '../../../components/contest/CountdownTimer';
+import { Link } from 'react-router-dom';
+
 
 export default function Header({ isExpanded, setExpanded, headerHeight }) {
+    const { user, config } = useContext(Context);
+    const { profile } = user;
+    const { newNotificationCounts } = profile
 
     return (
         <HeaderStyle isExpanded={isExpanded} headerHeight={headerHeight} >
+            {
+                config.configData.allowReferralContest ? <div className="contest">
+                    <CountdownTimer stopDate={config.configData.referralContestStops} startDate={config.configData.referralContestStarts} />
+                </div> : ''
+            }
+
+            {
+                newNotificationCounts > 0 ?
+                    <Link className="notification-icon" to="/dashboard/notifications">
+                        <div className="notification-counts">{newNotificationCounts}</div>
+                        <NotificationsActiveIcon style={{ color: 'red' }} />
+                    </Link> :
+                    <Link className="notification-icon" to="/dashboard/notifications">
+                        <NotificationsIcon />
+                    </Link>
+            }
+
             <div style={{ fontSize: '.9rem', fontWeight: 'bold' }}>User Dashboard</div>
-            {/* <h4>{contact.name} {contact.investment}</h4> */}
+
             <div className="toggle lg-screen">
                 <span onClick={() => setExpanded(!isExpanded)} className='shrink'>
                     <ArrowLeftIcon className='icon' />
@@ -44,6 +71,17 @@ const HeaderStyle = styled.div`
     text-align: center;
     box-shadow: 0 0 5px rgb(18 23 39 / 50%);
     z-index: 3;
+
+    .contest {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: .7rem;
+        border: 1px solid red;
+        padding: 0 10px;
+        border-radius: 10px;
+        text-align: center;
+    }
     
     a {
         color: inherit;
@@ -118,6 +156,27 @@ const HeaderStyle = styled.div`
 
         .sm-screen {
             display: flex;
+        }
+    }
+
+    .notification-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .notification-counts {
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            font-size: .7rem;
         }
     }
 `
