@@ -67,7 +67,6 @@ export default function History() {
     }, []);
 
 
-
     return (
         <Wrapper>
             {
@@ -76,8 +75,10 @@ export default function History() {
                         <div style={{ color: 'red' }} className="tag">{fetchDataErrorMsg}</div> :
                         <>
                             <div className='profile-info'>
-                                {/* <div style={{ color: '#aaa' }}>
-                                    Toal Investmenet Earnsings: {" "}
+
+                                <h1 style={{ color: '#fff', textAlign: 'center', margin: '10px auto 0 auto' }}>${profileData.amount}</h1>
+                                <div style={{ color: '#aaa', fontSize: '0.7rem', textAlign: 'center' }}>
+                                    Toal Investmenet Earnings: {" "}
                                     {function () {
                                         let sum = 0;
                                         const filtereddata = investmentData_users.data?.maturedInvestment.filter(item => {
@@ -88,12 +89,14 @@ export default function History() {
                                             sum += returns
                                         })
 
-                                        return `$${sum} ${profileData.currency}`
+                                        return `$${sum}`
                                     }()}
-                                </div> */}
-                                <h1 style={{ color: '#fff', textAlign: 'center', margin: '50px auto' }}>${profileData.amount}</h1>
+                                </div>
+                                <div style={{ color: '#aaa', fontSize: '0.7rem', textAlign: 'center' }}>
+                                    Number of times Invested: {profileData.investmentCount}
+                                </div>
 
-                                <div style={{ textAlign: 'center', margin: '50px auto' }}>
+                                <div style={{ textAlign: 'center', margin: '30px auto 10px auto' }}>
                                     <Btn url="/dashboard/withdrawal">WITHDRAW</Btn>
                                 </div>
 
@@ -172,7 +175,6 @@ const Wrapper = styled.div`
 
     .profile-info {
         background: var(--blue2);
-        min-height: 60vh;
         position: relative;
         width: 100%;
         font-weight: bold;
